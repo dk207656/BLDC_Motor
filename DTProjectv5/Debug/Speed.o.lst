@@ -1,0 +1,1372 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "Speed.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.XMC_GPIO_GetInput,"ax",%progbits
+  20              	 .align 2
+  21              	 .thumb
+  22              	 .thumb_func
+  24              	XMC_GPIO_GetInput:
+  25              	.LFB140:
+  26              	 .file 1 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc/xmc_gpio.h"
+   1:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+   2:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @file xmc_gpio.h
+   3:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @date 2015-06-20
+   4:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+   5:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @cond
+   6:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+   7:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   8:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+   9:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  10:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * All rights reserved.                        
+  11:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                             
+  12:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * following conditions are met:   
+  14:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  15:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * disclaimer.                        
+  17:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  18:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  21:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * products derived from this software without specific prior written permission.                  
+  23:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  24:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  32:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  35:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  36:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Change History
+  37:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * --------------
+  38:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  39:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * 2015-02-20:
+  40:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Initial draft<br>
+  41:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Documentation improved <br>
+  42:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *      
+  43:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * 2015-06-20:
+  44:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Removed version macros and declaration of GetDriverVersion API
+  45:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  46:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @endcond
+  47:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  48:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  49:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  50:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #ifndef XMC_GPIO_H
+  51:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_H
+  52:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  53:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+  54:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * HEADER FILES
+  55:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  56:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  57:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc_common.h"
+  58:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  59:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+  60:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @addtogroup XMClib XMC Peripheral Library
+  61:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @{
+  62:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  63:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  64:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+  65:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @addtogroup GPIO
+  66:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @brief General Purpose Input Output (GPIO) driver for the XMC microcontroller family.
+  67:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  68:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * GPIO driver provide a generic and very flexible software interface for all standard digital I/O 
+  69:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Each port slice has individual interfaces for the operation as General Purpose I/O and it furthe
+  70:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * connectivity to the on-chip periphery and the control for the pad characteristics. 
+  71:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  72:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * The driver is divided into Input and Output mode.
+  73:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  74:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Input mode features:
+  75:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Configuration structure XMC_GPIO_CONFIG_t and initialization function XMC_GPIO_Init()
+  76:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of weak pull-up or pull-down device. Configuration structure XMC_GPIO_MO
+  77:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC1
+  78:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of input hysteresis. XMC_GPIO_SetInputHysteresis()
+  79:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+  80:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  81:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  82:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Output mode features:
+  83:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of push pull/open drain and Alternate output. Configuration structure XM
+  84:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC4
+  85:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of pad driver strength. Configuration structure XMC_GPIO_OUTPUT_STRENGTH
+  86:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+  87:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  88:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of initial output level. Configuration structure XMC_GPIO_OUTPUT_LEVEL_t
+  89:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  90:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *@{
+  91:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  92:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  
+  93:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+  94:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * MACROS
+  95:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  96:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  97:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Pos PORT0_IOCR0_PC0_Pos
+  98:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Msk PORT0_IOCR0_PC0_Msk
+  99:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 100:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Size 				(8U)
+ 101:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 											
+ 102:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 103:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_CHECK_OUTPUT_LEVEL(level) ((level == XMC_GPIO_OUTPUT_LEVEL_LOW) || \
+ 104:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****                                             (level == XMC_GPIO_OUTPUT_LEVEL_HIGH))
+ 105:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****                                             
+ 106:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_CHECK_HWCTRL(hwctrl) ((hwctrl == XMC_GPIO_HWCTRL_DISABLED) || \
+ 107:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****                                        (hwctrl == XMC_GPIO_HWCTRL_PERIPHERAL1) || \
+ 108:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****                                        (hwctrl == XMC_GPIO_HWCTRL_PERIPHERAL2))                    
+ 109:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****                                             
+ 110:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 111:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * ENUMS
+ 112:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 113:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 114:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 115:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 116:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Defines output level of a pin. Use type \a XMC_GPIO_OUTPUT_LEVEL_t for this enum.
+ 117:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 118:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** typedef enum XMC_GPIO_OUTPUT_LEVEL
+ 119:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 120:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_OUTPUT_LEVEL_LOW  = 0x10000U, /**<  Reset bit */
+ 121:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_OUTPUT_LEVEL_HIGH = 0x1U, 	/**< Set bit  */
+ 122:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** } XMC_GPIO_OUTPUT_LEVEL_t;
+ 123:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 124:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 125:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Defines direct hardware control characteristics of the pin . Use type \a XMC_GPIO_HWCTRL_t for t
+ 126:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 127:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** typedef enum XMC_GPIO_HWCTRL
+ 128:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 129:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_DISABLED     = 0x0U, /**<  Software control only */
+ 130:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_PERIPHERAL1  = 0x1U, /**<  HWI0/HWO0 control path can override the software confi
+ 131:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_PERIPHERAL2  = 0x2U  /**<  HWI1/HWO1 control path can override the software confi
+ 132:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** } XMC_GPIO_HWCTRL_t;
+ 133:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 134:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 135:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * DEVICE FAMILY EXTENSIONS
+ 136:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 137:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 138:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  #if UC_FAMILY == XMC1
+ 139:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc1_gpio.h"
+ 140:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #elif UC_FAMILY == XMC4
+ 141:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc4_gpio.h"
+ 142:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #else
+ 143:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #error "xmc_gpio.h: family device not supported"
+ 144:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #endif
+ 145:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 146:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 147:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * API PROTOTYPES
+ 148:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 149:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 150:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #ifdef __cplusplus
+ 151:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** extern "C" {
+ 152:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** #endif
+ 153:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 154:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 155:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 156:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	  Constant pointer pointing to GPIO port, to access port registers like Pn_OUT,Pn_O
+ 157:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	  Port pin number.
+ 158:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  config GPIO configuration data structure. Refer data structure @ref XMC_GPIO_CONFIG_t fo
+ 159:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 160:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 161:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 162:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 163:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC1
+ 164:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Initializes input / output mode settings like, pull up / pull down devices,hysteresis, push pull
+ 165:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Also configures alternate function outputs and clears hardware port control for a selected \a po
+ 166:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \a config provides selected I/O settings. It configures hardware registers Pn_IOCR,Pn_OUT, Pn_OM
+ 167:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+ 168:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC4
+ 169:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Initializes input / output mode settings like, pull up / pull down devices,push pull /open drain
+ 170:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Also configures alternate function outputs and clears hardware port control for selected \a port
+ 171:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * It configures hardware registers Pn_IOCR,Pn_OUT,Pn_OMR,Pn_PDISC and Pn_PDR.\n
+ 172:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+ 173:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 174:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 175:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *  None
+ 176:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 177:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 178:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * This API is called in definition of DAVE_init by code generation and therefore should not be exp
+ 179:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * for the normal operation. Use other APIs only after DAVE_init is called successfully (returns DA
+ 180:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 181:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 182:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 183:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 184:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  
+ 185:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** void XMC_GPIO_Init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_CONFIG_t *const c
+ 186:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  
+ 187:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 188:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 189:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	Constant pointer pointing to GPIO port, to access hardware register Pn_IOCR.
+ 190:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	Port pin number.
+ 191:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  mode input / output functionality selection. Refer @ref XMC_GPIO_MODE_t for valid values
+ 192:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 193:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 194:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 195:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 196:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Sets digital input and output driver functionality and characteristics of a GPIO port pin. It co
+ 197:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * registers Pn_IOCR. \a mode is initially configured during initialization in XMC_GPIO_Init(). Cal
+ 198:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * the port direction functionality as needed later in the program.
+ 199:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 200:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 201:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *  None
+ 202:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 203:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 204:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 205:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** void XMC_GPIO_SetMode(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_MODE_t mode);
+ 206:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 207:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 208:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 209:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 210:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	 Constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 211:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	 Port pin number.
+ 212:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  level output level selection. Refer @ref XMC_GPIO_OUTPUT_LEVEL_t for valid values.
+ 213:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 214:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 215:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 216:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 217:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Set port pin output level to high or low.It configures hardware registers Pn_OMR.\a level is ini
+ 218:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * configured during initialization in XMC_GPIO_Init(). Call this API to alter output level as need
+ 219:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 220:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 221:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *  XMC_GPIO_SetOutputHigh(), XMC_GPIO_SetOutputLow().
+ 222:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 223:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 224:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().
+ 225:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 226:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 227:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 228:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 229:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputLevel(XMC_GPIO_PORT_t *const port, const uint8_t pin, const 
+ 230:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 231:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLevel: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 232:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLevel: Invalid output level", XMC_GPIO_CHECK_OUTPUT_LEVEL(level));
+ 233:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   
+ 234:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = (uint32_t)level << pin;
+ 235:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 236:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 237:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 238:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 239:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 240:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	Port pin number.
+ 241:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 242:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 243:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 244:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 245:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *  Sets port pin output to high. It configures hardware registers Pn_OMR.
+ 246:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 247:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *  \par<b>Related APIs:</b><BR>
+ 248:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *  XMC_GPIO_SetOutputLow()
+ 249:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 250:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 251:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().\n
+ 252:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Register Pn_OMR is virtual and does not contain any flip-flop. A read action delivers the value 
+ 253:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 254:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 255:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 256:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputHigh(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 257:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 258:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputHigh: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 259:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 260:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = (uint32_t)0x1U << pin;
+ 261:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 262:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 263:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 264:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 265:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 266:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	port pin number.
+ 267:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 268:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return  None
+ 269:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 270:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Description:</b><br>
+ 271:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Sets port pin output to low. It configures hardware registers Pn_OMR.\n
+ 272:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 273:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>>
+ 274:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMC_GPIO_SetOutputHigh()
+ 275:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 276:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Note:</b><br>
+ 277:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().
+ 278:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Register Pn_OMR is virtual and does not contain any flip-flop. A read action delivers the value 
+ 279:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 280:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 281:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 282:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputLow(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 283:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 284:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLow: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 285:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 286:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = 0x10000U << pin;
+ 287:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 288:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 289:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 290:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 291:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param port constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 292:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param pin  port pin number.
+ 293:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 294:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 295:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 296:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 297:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Configures port pin output to Toggle. It configures hardware registers Pn_OMR.
+ 298:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 299:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 300:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMC_GPIO_SetOutputHigh(), XMC_GPIO_SetOutputLow().
+ 301:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 302:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 303:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode(). Regis
+ 304:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * and does not contain any flip-flop. A read action delivers the value of 0.
+ 305:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 306:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 307:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 308:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_ToggleOutput(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 309:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 310:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_ToggleOutput: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 311:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 312:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = 0x10001U << pin;
+ 313:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 314:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 315:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 316:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 317:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param port constant pointer pointing to GPIO port, to access hardware register Pn_IN.
+ 318:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param pin  Port pin number.
+ 319:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 320:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return uint32_t pin logic level status.
+ 321:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 322:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *\par<b>Description:</b><br>
+ 323:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Reads the Pn_IN register and returns the current logical value at the GPIO pin.
+ 324:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 325:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 326:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * None
+ 327:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 328:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 329:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to input mode using XMC_GPIO_SetMode().
+ 330:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 331:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 332:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 333:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE uint32_t XMC_GPIO_GetInput(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 334:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** {
+  27              	 .loc 1 334 0
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31              	 
+  32 0000 80B4     	 push {r7}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 4
+  35              	 .cfi_offset 7,-4
+  36 0002 83B0     	 sub sp,sp,#12
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 16
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+  42 0006 7860     	 str r0,[r7,#4]
+  43 0008 0B46     	 mov r3,r1
+  44 000a FB70     	 strb r3,[r7,#3]
+ 335:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_GetInput: Invalid port", XMC_GPIO_CHECK_PORT(port));
+ 336:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 337:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h ****   return (((port->IN) >> pin) & 0x1U);
+  45              	 .loc 1 337 0
+  46 000c 7B68     	 ldr r3,[r7,#4]
+  47 000e 5A6A     	 ldr r2,[r3,#36]
+  48 0010 FB78     	 ldrb r3,[r7,#3]
+  49 0012 22FA03F3 	 lsr r3,r2,r3
+  50 0016 03F00103 	 and r3,r3,#1
+ 338:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc\xmc_gpio.h **** }
+  51              	 .loc 1 338 0
+  52 001a 1846     	 mov r0,r3
+  53 001c 0C37     	 adds r7,r7,#12
+  54              	.LCFI3:
+  55              	 .cfi_def_cfa_offset 4
+  56 001e BD46     	 mov sp,r7
+  57              	.LCFI4:
+  58              	 .cfi_def_cfa_register 13
+  59              	 
+  60 0020 5DF8047B 	 ldr r7,[sp],#4
+  61              	.LCFI5:
+  62              	 .cfi_restore 7
+  63              	 .cfi_def_cfa_offset 0
+  64 0024 7047     	 bx lr
+  65              	 .cfi_endproc
+  66              	.LFE140:
+  68 0026 00BF     	 .section .text.DIGITAL_IO_GetInput,"ax",%progbits
+  69              	 .align 2
+  70              	 .thumb
+  71              	 .thumb_func
+  73              	DIGITAL_IO_GetInput:
+  74              	.LFB148:
+  75              	 .file 2 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO/digital_io.h"
+   1:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /*
+   2:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+   3:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @file digital_io.h
+   4:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @date 2016-07-08
+   5:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+   6:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * NOTE:
+   7:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * This file is generated by DAVE. Any manual modification done to this file will be lost when the 
+   8:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+   9:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @cond
+  10:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  11:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * DIGITAL_IO v4.0.16 - The DIGITAL_IO APP is used to configure a port pin as digital Input/Output.
+  12:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  13:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  14:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * All rights reserved.
+  15:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  16:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  17:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * following conditions are met:
+  18:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  19:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   Redistributions of source code must retain the above copyright notice, this list of conditions
+  20:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   disclaimer.
+  21:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  22:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   Redistributions in binary form must reproduce the above copyright notice, this list of conditi
+  23:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   following disclaimer in the documentation and/or other materials provided with the distributio
+  24:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  25:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   Neither the name of the copyright holders nor the names of its contributors may be used to end
+  26:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *   products derived from this software without specific prior written permission.
+  27:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  28:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  29:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  30:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  31:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  32:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  33:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  34:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  35:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  36:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  37:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * with Infineon Technologies AG (dave@infineon.com).
+  38:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  39:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  40:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * Change History
+  41:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * --------------
+  42:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  43:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-02-16
+  44:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Initial version
+  45:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  46:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-04-22
+  47:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - XMC_ASSERT is added in static inline functions.<br>
+  48:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  49:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-06-20
+  50:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Version check added for XMCLib dependency.<br>
+  51:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  52:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2015-12-22
+  53:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Added hardware controlled IO feature.
+  54:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * 2016-07-08:
+  55:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *     - Fixed incorrect case for an included header.<br>
+  56:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  57:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * @endcond
+  58:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  *
+  59:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  */
+  60:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  61:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+  62:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * HEADER FILES
+  63:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  64:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  65:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** #ifndef DIGITAL_IO_H
+  66:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** #define DIGITAL_IO_H
+  67:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  68:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** #include <xmc_gpio.h>
+  69:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** #include <DAVE_Common.h>
+  70:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** #include "digital_io_conf.h"
+  71:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  72:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+  73:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * MACROS
+  74:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  75:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** #if (!((XMC_LIB_MAJOR_VERSION == 2U) && \
+  76:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****        (XMC_LIB_MINOR_VERSION >= 0U) && \
+  77:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****        (XMC_LIB_PATCH_VERSION >= 0U)))
+  78:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** #error "DIGITAL_IO requires XMC Peripheral Library v2.0.0 or higher"
+  79:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** #endif
+  80:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  81:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  /*************************************************************************************************
+  82:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * ENUMS
+  83:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+  84:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  85:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+  86:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @ingroup DIGITAL_IO_enumerations
+  87:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @{
+  88:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+  89:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  90:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+  91:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Initialization status of DIGITAL_IO APP.
+  92:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+  93:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** typedef enum DIGITAL_IO_STATUS
+  94:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+  95:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   DIGITAL_IO_STATUS_OK = 0U,/**< 0=Status OK */
+  96:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   DIGITAL_IO_STATUS_FAILURE = 1U/**< 1=Status Failed */
+  97:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** } DIGITAL_IO_STATUS_t;
+  98:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+  99:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 100:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @}
+ 101:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 102:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 103:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+ 104:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * DATA STRUCTURES
+ 105:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+ 106:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 107:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @ingroup DIGITAL_IO_datastructures
+ 108:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @{
+ 109:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 110:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 111:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 112:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Initialization data structure of DIGITAL_IO APP
+ 113:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 114:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** typedef struct DIGITAL_IO
+ 115:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 116:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_PORT_t *const gpio_port;             /**< port number */
+ 117:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   const XMC_GPIO_CONFIG_t gpio_config;          /**< mode, initial output level and pad driver stre
+ 118:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   const uint8_t gpio_pin;                       /**< pin number */
+ 119:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   const XMC_GPIO_HWCTRL_t hwctrl;               /**< Hardware port control */
+ 120:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** } DIGITAL_IO_t;
+ 121:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 122:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 123:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 124:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @}
+ 125:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 126:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 127:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 128:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**************************************************************************************************
+ 129:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  * API Prototypes
+ 130:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****  **************************************************************************************************
+ 131:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 132:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 133:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** #ifdef __cplusplus
+ 134:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** extern "C" {
+ 135:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** #endif
+ 136:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 137:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 138:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @ingroup DIGITAL_IO_apidoc
+ 139:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @{
+ 140:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 141:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 142:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 143:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 144:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 145:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Get DIGITAL_IO APP version
+ 146:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return DAVE_APP_VERSION_t APP version information (major, minor and patch number)
+ 147:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 148:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description: </b><br>
+ 149:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * The function can be used to check application software compatibility with a
+ 150:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * specific version of the APP.
+ 151:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 152:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 153:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 154:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 155:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>
+ 156:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 157:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 158:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 159:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t init_status;
+ 160:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_APP_VERSION_t version;
+ 161:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 162:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   // Initialize DIGITAL_IO APP:
+ 163:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   // DIGITAL_IO_Init() is called from within DAVE_Init().
+ 164:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   init_status = DAVE_Init();
+ 165:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(init_status == DAVE_STATUS_SUCCESS)
+ 166:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 167:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     version = DIGITAL_IO_GetAppVersion();
+ 168:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     if (version.major != 4U) {
+ 169:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     // Probably, not the right version.
+ 170:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 171:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 172:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 173:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     // More code here
+ 174:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1) {
+ 175:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 176:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 177:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     return (1);
+ 178:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  }
+ 179:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @endcode<BR>
+ 180:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 181:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 182:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** DAVE_APP_VERSION_t DIGITAL_IO_GetAppVersion(void);
+ 183:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 184:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 185:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 186:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to initialize the port pin as per UI settings.
+ 187:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 188:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return DIGITAL_IO_STATUS_t DIGITAL_IO APP status. Refer @ref DIGITAL_IO_STATUS_t structure for d
+ 189:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 190:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 191:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function initializes GPIO port registers IOCR,PDISC,OMR,PDR/PHCR to configure pin direction,
+ 192:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * and pad driver strength/hysteresis.
+ 193:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 194:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 195:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * None
+ 196:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 197:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 198:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 199:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 200:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 201:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 202:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 203:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_In
+ 204:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 205:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 206:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 207:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 208:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 209:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 210:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 211:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1U)
+ 212:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 213:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 214:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 215:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 216:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 217:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 218:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 219:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return 1U;
+ 220:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  }
+ 221:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 222:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 223:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 224:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** DIGITAL_IO_STATUS_t DIGITAL_IO_Init(const DIGITAL_IO_t *const handler);
+ 225:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 226:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 227:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 228:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to set port pin high.
+ 229:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 230:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return None
+ 231:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 232:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 233:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function configures port output modification register Pn_OMR, to make port pin to high level
+ 234:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 235:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 236:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  DIGITAL_IO_SetOutputLow()
+ 237:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 238:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 239:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 240:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 241:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 242:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 243:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 244:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_In
+ 245:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 246:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 247:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 248:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 249:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 250:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 251:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 252:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1U)
+ 253:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 254:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 255:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 256:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 257:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DIGITAL_IO_SetOutputHigh(&DIGITAL_IO_0);
+ 258:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 259:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 260:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     // Add application code here
+ 261:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 262:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 263:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 264:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 265:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 266:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 267:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 268:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE void DIGITAL_IO_SetOutputHigh(const DIGITAL_IO_t *const handler)
+ 269:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 270:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_SetOutputHigh: handler null pointer", handler != NULL);
+ 271:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_SetOutputHigh(handler->gpio_port, handler->gpio_pin);
+ 272:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 273:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 274:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 275:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to reset port pin.
+ 276:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 277:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return None
+ 278:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 279:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 280:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function configures port output modification register Pn_OMR, to make port pin to low level.
+ 281:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 282:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 283:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * DIGITAL_IO_SetOutputHigh()
+ 284:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 285:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 286:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 287:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 288:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  int main(void)
+ 289:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  {
+ 290:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    DAVE_STATUS_t status;
+ 291:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_I
+ 292:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    if(status == DAVE_STATUS_SUCCESS)
+ 293:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    {
+ 294:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      XMC_DEBUG("DAVE Apps initialization success\n");
+ 295:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    }
+ 296:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    else
+ 297:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    {
+ 298:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 299:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      while(1U)
+ 300:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      {
+ 301:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      }
+ 302:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    }
+ 303:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    //Placeholder for user application code. The while loop below can be replaced with user applic
+ 304:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    DIGITAL_IO_SetOutputLow(&DIGITAL_IO_0);
+ 305:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    while(1U)
+ 306:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    {
+ 307:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      // Add application code here
+ 308:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *    }
+ 309:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 310:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 311:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 312:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 313:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 314:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 315:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE void DIGITAL_IO_SetOutputLow(const DIGITAL_IO_t *const handler)
+ 316:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 317:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_SetOutputLow: handler null pointer", handler != NULL);
+ 318:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_SetOutputLow(handler->gpio_port,handler->gpio_pin);
+ 319:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 320:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 321:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 322:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to Toggle port pin.
+ 323:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 324:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return None
+ 325:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 326:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 327:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function configures port output modification register Pn_OMR, to toggle port pin.
+ 328:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 329:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 330:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * DIGITAL_IO_SetOutputLow(), DIGITAL_IO_SetOutputHigh()
+ 331:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 332:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 333:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 334:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 335:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 336:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 337:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 338:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 339:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   uint32_t delay_count;;
+ 340:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();  //(DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_In
+ 341:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 342:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 343:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 344:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 345:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 346:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 347:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 348:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      while(1U)
+ 349:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      {
+ 350:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      }
+ 351:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 352:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 353:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 354:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 355:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      DIGITAL_IO_ToggleOutput(&DIGITAL_IO_0); //toggles : 1 -> 0 (if initial output level is logic
+ 356:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      //Add application code here
+ 357:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      for(delay_count = 0;delay_count<0xfffff;delay_count++);
+ 358:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      DIGITAL_IO_ToggleOutput(&DIGITAL_IO_0); //toggles : 0 -> 1
+ 359:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      //Add application code here
+ 360:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *      for(delay_count = 0;delay_count<0xfffff;delay_count++);
+ 361:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 362:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 363:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 364:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 365:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 366:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 367:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE void DIGITAL_IO_ToggleOutput(const DIGITAL_IO_t *const handler)
+ 368:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+ 369:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_ToggleOutput: handler null pointer", handler != NULL);
+ 370:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_GPIO_ToggleOutput(handler->gpio_port, handler->gpio_pin);
+ 371:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 372:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 373:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** /**
+ 374:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @brief Function to read input level of port pin.
+ 375:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @param handler Pointer pointing to APP data structure. Refer @ref DIGITAL_IO_t for details.
+ 376:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @return uint32_t input logic level. Range:0-1
+ 377:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 378:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Description:</b><br>
+ 379:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * This function reads the Pn_IN register and returns the current logical value at the GPIO pin.
+ 380:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 381:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * \par<b>Related APIs:</b><BR>
+ 382:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  None
+ 383:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *
+ 384:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * Example Usage:
+ 385:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * @code
+ 386:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * #include <DAVE.h>//Declarations from DAVE Code Generation (includes SFR declaration)
+ 387:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * int main(void)
+ 388:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * {
+ 389:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   DAVE_STATUS_t status;
+ 390:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   uint32_t pin_status;
+ 391:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   status = DAVE_Init();   // (DAVE_STATUS_t)DIGITAL_IO_Init(&DIGITAL_IO_0) is called within DAVE_
+ 392:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   if(status == DAVE_STATUS_SUCCESS)
+ 393:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 394:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG("DAVE Apps initialization success\n");
+ 395:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 396:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   else
+ 397:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 398:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+ 399:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     while(1U)
+ 400:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 401:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 402:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 403:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   //Placeholder for user application code. The while loop below can be replaced with user applica
+ 404:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   while(1U)
+ 405:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   {
+ 406:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     pin_status = DIGITAL_IO_GetInput(&DIGITAL_IO_0);
+ 407:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     if(pin_status == 1)
+ 408:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 409:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *       // Add application code here
+ 410:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 411:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     else
+ 412:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     {
+ 413:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *       // Add application code here
+ 414:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *     }
+ 415:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   }
+ 416:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *   return (1);
+ 417:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** * }
+ 418:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** *  @endcode
+ 419:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** */
+ 420:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** 
+ 421:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** __STATIC_INLINE uint32_t DIGITAL_IO_GetInput(const DIGITAL_IO_t *const handler)
+ 422:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** {
+  76              	 .loc 2 422 0
+  77              	 .cfi_startproc
+  78              	 
+  79              	 
+  80 0000 80B5     	 push {r7,lr}
+  81              	.LCFI6:
+  82              	 .cfi_def_cfa_offset 8
+  83              	 .cfi_offset 7,-8
+  84              	 .cfi_offset 14,-4
+  85 0002 82B0     	 sub sp,sp,#8
+  86              	.LCFI7:
+  87              	 .cfi_def_cfa_offset 16
+  88 0004 00AF     	 add r7,sp,#0
+  89              	.LCFI8:
+  90              	 .cfi_def_cfa_register 7
+  91 0006 7860     	 str r0,[r7,#4]
+ 423:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   XMC_ASSERT("DIGITAL_IO_GetInput: handler null pointer", handler != NULL);
+ 424:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h ****   return XMC_GPIO_GetInput(handler->gpio_port, handler->gpio_pin);
+  92              	 .loc 2 424 0
+  93 0008 7B68     	 ldr r3,[r7,#4]
+  94 000a 1A68     	 ldr r2,[r3]
+  95 000c 7B68     	 ldr r3,[r7,#4]
+  96 000e 1B7C     	 ldrb r3,[r3,#16]
+  97 0010 1046     	 mov r0,r2
+  98 0012 1946     	 mov r1,r3
+  99 0014 FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 100 0018 0346     	 mov r3,r0
+ 425:C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO\digital_io.h **** }
+ 101              	 .loc 2 425 0
+ 102 001a 1846     	 mov r0,r3
+ 103 001c 0837     	 adds r7,r7,#8
+ 104              	.LCFI9:
+ 105              	 .cfi_def_cfa_offset 8
+ 106 001e BD46     	 mov sp,r7
+ 107              	.LCFI10:
+ 108              	 .cfi_def_cfa_register 13
+ 109              	 
+ 110 0020 80BD     	 pop {r7,pc}
+ 111              	 .cfi_endproc
+ 112              	.LFE148:
+ 114              	 .comm Posifval,12,4
+ 115              	 .comm BTN,7,4
+ 116              	 .global speedindex
+ 117 0022 00BF     	 .section .bss.speedindex,"aw",%nobits
+ 118              	 .align 1
+ 121              	speedindex:
+ 122 0000 0000     	 .space 2
+ 123              	 .global Hall1_status
+ 124              	 .section .bss.Hall1_status,"aw",%nobits
+ 127              	Hall1_status:
+ 128 0000 00       	 .space 1
+ 129              	 .global hallint_count
+ 130              	 .section .bss.hallint_count,"aw",%nobits
+ 131              	 .align 1
+ 134              	hallint_count:
+ 135 0000 0000     	 .space 2
+ 136              	 .global lasthallint_count
+ 137              	 .section .bss.lasthallint_count,"aw",%nobits
+ 138              	 .align 1
+ 141              	lasthallint_count:
+ 142 0000 0000     	 .space 2
+ 143              	 .global revolves_counter
+ 144              	 .section .bss.revolves_counter,"aw",%nobits
+ 145              	 .align 2
+ 148              	revolves_counter:
+ 149 0000 00000000 	 .space 4
+ 150              	 .section .text.Speedhandler,"ax",%progbits
+ 151              	 .align 2
+ 152              	 .global Speedhandler
+ 153              	 .thumb
+ 154              	 .thumb_func
+ 156              	Speedhandler:
+ 157              	.LFB399:
+ 158              	 .file 3 "../Speed.c"
+   1:../Speed.c    **** /*
+   2:../Speed.c    ****  * Speed.c
+   3:../Speed.c    ****  *
+   4:../Speed.c    ****  *  Created on: 10 Jun 2019
+   5:../Speed.c    ****  *      Author: Administrator
+   6:../Speed.c    ****  */
+   7:../Speed.c    **** 
+   8:../Speed.c    **** #include <Speed.h>
+   9:../Speed.c    **** uint16_t speedindex=0;
+  10:../Speed.c    **** uint8_t Hall1_status=0;
+  11:../Speed.c    **** uint16_t hallint_count=0;
+  12:../Speed.c    **** uint16_t lasthallint_count=0;
+  13:../Speed.c    **** uint32_t revolves_counter=0;
+  14:../Speed.c    **** void Speedhandler(void){
+ 159              	 .loc 3 14 0
+ 160              	 .cfi_startproc
+ 161              	 
+ 162              	 
+ 163 0000 80B5     	 push {r7,lr}
+ 164              	.LCFI11:
+ 165              	 .cfi_def_cfa_offset 8
+ 166              	 .cfi_offset 7,-8
+ 167              	 .cfi_offset 14,-4
+ 168 0002 00AF     	 add r7,sp,#0
+ 169              	.LCFI12:
+ 170              	 .cfi_def_cfa_register 7
+  15:../Speed.c    **** 	ResetGateDriver();
+ 171              	 .loc 3 15 0
+ 172 0004 FFF7FEFF 	 bl ResetGateDriver
+  16:../Speed.c    **** 	if(Posifval.ten_milli_count==95){speedindex=1;}
+ 173              	 .loc 3 16 0
+ 174 0008 584B     	 ldr r3,.L30
+ 175 000a 1B88     	 ldrh r3,[r3]
+ 176 000c 5F2B     	 cmp r3,#95
+ 177 000e 03D1     	 bne .L6
+ 178              	 .loc 3 16 0 is_stmt 0 discriminator 1
+ 179 0010 574B     	 ldr r3,.L30+4
+ 180 0012 0122     	 movs r2,#1
+ 181 0014 1A80     	 strh r2,[r3]
+ 182 0016 5AE0     	 b .L7
+ 183              	.L6:
+  17:../Speed.c    **** 	else if(Posifval.ten_milli_count>95){speedindex=0;}
+ 184              	 .loc 3 17 0 is_stmt 1
+ 185 0018 544B     	 ldr r3,.L30
+ 186 001a 1B88     	 ldrh r3,[r3]
+ 187 001c 5F2B     	 cmp r3,#95
+ 188 001e 03D9     	 bls .L8
+ 189              	 .loc 3 17 0 is_stmt 0 discriminator 1
+ 190 0020 534B     	 ldr r3,.L30+4
+ 191 0022 0022     	 movs r2,#0
+ 192 0024 1A80     	 strh r2,[r3]
+ 193 0026 52E0     	 b .L7
+ 194              	.L8:
+  18:../Speed.c    **** 	else if(Posifval.ten_milli_count<95&&Posifval.ten_milli_count>80){speedindex=2;}
+ 195              	 .loc 3 18 0 is_stmt 1
+ 196 0028 504B     	 ldr r3,.L30
+ 197 002a 1B88     	 ldrh r3,[r3]
+ 198 002c 5E2B     	 cmp r3,#94
+ 199 002e 07D8     	 bhi .L9
+ 200              	 .loc 3 18 0 is_stmt 0 discriminator 1
+ 201 0030 4E4B     	 ldr r3,.L30
+ 202 0032 1B88     	 ldrh r3,[r3]
+ 203 0034 502B     	 cmp r3,#80
+ 204 0036 03D9     	 bls .L9
+ 205              	 .loc 3 18 0 discriminator 2
+ 206 0038 4D4B     	 ldr r3,.L30+4
+ 207 003a 0222     	 movs r2,#2
+ 208 003c 1A80     	 strh r2,[r3]
+ 209 003e 46E0     	 b .L7
+ 210              	.L9:
+  19:../Speed.c    **** 	else if(Posifval.ten_milli_count==80){speedindex=3;}
+ 211              	 .loc 3 19 0 is_stmt 1
+ 212 0040 4A4B     	 ldr r3,.L30
+ 213 0042 1B88     	 ldrh r3,[r3]
+ 214 0044 502B     	 cmp r3,#80
+ 215 0046 03D1     	 bne .L10
+ 216              	 .loc 3 19 0 is_stmt 0 discriminator 1
+ 217 0048 494B     	 ldr r3,.L30+4
+ 218 004a 0322     	 movs r2,#3
+ 219 004c 1A80     	 strh r2,[r3]
+ 220 004e 3EE0     	 b .L7
+ 221              	.L10:
+  20:../Speed.c    **** 	else if(Posifval.ten_milli_count<80&&Posifval.ten_milli_count>=70){speedindex=4;}
+ 222              	 .loc 3 20 0 is_stmt 1
+ 223 0050 464B     	 ldr r3,.L30
+ 224 0052 1B88     	 ldrh r3,[r3]
+ 225 0054 4F2B     	 cmp r3,#79
+ 226 0056 07D8     	 bhi .L11
+ 227              	 .loc 3 20 0 is_stmt 0 discriminator 1
+ 228 0058 444B     	 ldr r3,.L30
+ 229 005a 1B88     	 ldrh r3,[r3]
+ 230 005c 452B     	 cmp r3,#69
+ 231 005e 03D9     	 bls .L11
+ 232              	 .loc 3 20 0 discriminator 2
+ 233 0060 434B     	 ldr r3,.L30+4
+ 234 0062 0422     	 movs r2,#4
+ 235 0064 1A80     	 strh r2,[r3]
+ 236 0066 32E0     	 b .L7
+ 237              	.L11:
+  21:../Speed.c    **** 	else if(Posifval.ten_milli_count<70&&Posifval.ten_milli_count>=60){speedindex=5;}
+ 238              	 .loc 3 21 0 is_stmt 1
+ 239 0068 404B     	 ldr r3,.L30
+ 240 006a 1B88     	 ldrh r3,[r3]
+ 241 006c 452B     	 cmp r3,#69
+ 242 006e 07D8     	 bhi .L12
+ 243              	 .loc 3 21 0 is_stmt 0 discriminator 1
+ 244 0070 3E4B     	 ldr r3,.L30
+ 245 0072 1B88     	 ldrh r3,[r3]
+ 246 0074 3B2B     	 cmp r3,#59
+ 247 0076 03D9     	 bls .L12
+ 248              	 .loc 3 21 0 discriminator 2
+ 249 0078 3D4B     	 ldr r3,.L30+4
+ 250 007a 0522     	 movs r2,#5
+ 251 007c 1A80     	 strh r2,[r3]
+ 252 007e 26E0     	 b .L7
+ 253              	.L12:
+  22:../Speed.c    **** 	else if(Posifval.ten_milli_count<60&&Posifval.ten_milli_count>50){speedindex=6;}
+ 254              	 .loc 3 22 0 is_stmt 1
+ 255 0080 3A4B     	 ldr r3,.L30
+ 256 0082 1B88     	 ldrh r3,[r3]
+ 257 0084 3B2B     	 cmp r3,#59
+ 258 0086 07D8     	 bhi .L13
+ 259              	 .loc 3 22 0 is_stmt 0 discriminator 1
+ 260 0088 384B     	 ldr r3,.L30
+ 261 008a 1B88     	 ldrh r3,[r3]
+ 262 008c 322B     	 cmp r3,#50
+ 263 008e 03D9     	 bls .L13
+ 264              	 .loc 3 22 0 discriminator 2
+ 265 0090 374B     	 ldr r3,.L30+4
+ 266 0092 0622     	 movs r2,#6
+ 267 0094 1A80     	 strh r2,[r3]
+ 268 0096 1AE0     	 b .L7
+ 269              	.L13:
+  23:../Speed.c    **** 	else if(Posifval.ten_milli_count<50&&Posifval.ten_milli_count>44){speedindex=7;}
+ 270              	 .loc 3 23 0 is_stmt 1
+ 271 0098 344B     	 ldr r3,.L30
+ 272 009a 1B88     	 ldrh r3,[r3]
+ 273 009c 312B     	 cmp r3,#49
+ 274 009e 07D8     	 bhi .L14
+ 275              	 .loc 3 23 0 is_stmt 0 discriminator 1
+ 276 00a0 324B     	 ldr r3,.L30
+ 277 00a2 1B88     	 ldrh r3,[r3]
+ 278 00a4 2C2B     	 cmp r3,#44
+ 279 00a6 03D9     	 bls .L14
+ 280              	 .loc 3 23 0 discriminator 2
+ 281 00a8 314B     	 ldr r3,.L30+4
+ 282 00aa 0722     	 movs r2,#7
+ 283 00ac 1A80     	 strh r2,[r3]
+ 284 00ae 0EE0     	 b .L7
+ 285              	.L14:
+  24:../Speed.c    **** 	else if(Posifval.ten_milli_count<44&&Posifval.ten_milli_count>32){speedindex=8;}
+ 286              	 .loc 3 24 0 is_stmt 1
+ 287 00b0 2E4B     	 ldr r3,.L30
+ 288 00b2 1B88     	 ldrh r3,[r3]
+ 289 00b4 2B2B     	 cmp r3,#43
+ 290 00b6 07D8     	 bhi .L15
+ 291              	 .loc 3 24 0 is_stmt 0 discriminator 1
+ 292 00b8 2C4B     	 ldr r3,.L30
+ 293 00ba 1B88     	 ldrh r3,[r3]
+ 294 00bc 202B     	 cmp r3,#32
+ 295 00be 03D9     	 bls .L15
+ 296              	 .loc 3 24 0 discriminator 2
+ 297 00c0 2B4B     	 ldr r3,.L30+4
+ 298 00c2 0822     	 movs r2,#8
+ 299 00c4 1A80     	 strh r2,[r3]
+ 300 00c6 02E0     	 b .L7
+ 301              	.L15:
+  25:../Speed.c    **** 	else {speedindex=9;}
+ 302              	 .loc 3 25 0 is_stmt 1
+ 303 00c8 294B     	 ldr r3,.L30+4
+ 304 00ca 0922     	 movs r2,#9
+ 305 00cc 1A80     	 strh r2,[r3]
+ 306              	.L7:
+  26:../Speed.c    **** 		switch(speedindex) {
+ 307              	 .loc 3 26 0
+ 308 00ce 284B     	 ldr r3,.L30+4
+ 309 00d0 1B88     	 ldrh r3,[r3]
+ 310 00d2 092B     	 cmp r3,#9
+ 311 00d4 48D8     	 bhi .L29
+ 312 00d6 01A2     	 adr r2,.L18
+ 313 00d8 52F823F0 	 ldr pc,[r2,r3,lsl#2]
+ 314              	 .p2align 2
+ 315              	.L18:
+ 316 00dc 05010000 	 .word .L17+1
+ 317 00e0 0F010000 	 .word .L19+1
+ 318 00e4 19010000 	 .word .L20+1
+ 319 00e8 23010000 	 .word .L21+1
+ 320 00ec 2D010000 	 .word .L22+1
+ 321 00f0 37010000 	 .word .L23+1
+ 322 00f4 41010000 	 .word .L24+1
+ 323 00f8 4B010000 	 .word .L25+1
+ 324 00fc 55010000 	 .word .L26+1
+ 325 0100 5F010000 	 .word .L27+1
+ 326              	 .p2align 1
+ 327              	.L17:
+  27:../Speed.c    **** 		case 0: Posifval.duty_cycle=375; break;
+ 328              	 .loc 3 27 0
+ 329 0104 194B     	 ldr r3,.L30
+ 330 0106 40F27712 	 movw r2,#375
+ 331 010a 5A80     	 strh r2,[r3,#2]
+ 332 010c 2DE0     	 b .L5
+ 333              	.L19:
+  28:../Speed.c    **** 			case 1: Posifval.duty_cycle=400; break;
+ 334              	 .loc 3 28 0
+ 335 010e 174B     	 ldr r3,.L30
+ 336 0110 4FF4C872 	 mov r2,#400
+ 337 0114 5A80     	 strh r2,[r3,#2]
+ 338 0116 28E0     	 b .L5
+ 339              	.L20:
+  29:../Speed.c    **** 			case 2: Posifval.duty_cycle=420; break;
+ 340              	 .loc 3 29 0
+ 341 0118 144B     	 ldr r3,.L30
+ 342 011a 4FF4D272 	 mov r2,#420
+ 343 011e 5A80     	 strh r2,[r3,#2]
+ 344 0120 23E0     	 b .L5
+ 345              	.L21:
+  30:../Speed.c    **** 			case 3: Posifval.duty_cycle=430; break;
+ 346              	 .loc 3 30 0
+ 347 0122 124B     	 ldr r3,.L30
+ 348 0124 4FF4D772 	 mov r2,#430
+ 349 0128 5A80     	 strh r2,[r3,#2]
+ 350 012a 1EE0     	 b .L5
+ 351              	.L22:
+  31:../Speed.c    **** 			case 4: Posifval.duty_cycle=450; break;
+ 352              	 .loc 3 31 0
+ 353 012c 0F4B     	 ldr r3,.L30
+ 354 012e 4FF4E172 	 mov r2,#450
+ 355 0132 5A80     	 strh r2,[r3,#2]
+ 356 0134 19E0     	 b .L5
+ 357              	.L23:
+  32:../Speed.c    **** 			case 5: Posifval.duty_cycle=500; break;
+ 358              	 .loc 3 32 0
+ 359 0136 0D4B     	 ldr r3,.L30
+ 360 0138 4FF4FA72 	 mov r2,#500
+ 361 013c 5A80     	 strh r2,[r3,#2]
+ 362 013e 14E0     	 b .L5
+ 363              	.L24:
+  33:../Speed.c    **** 			case 6: Posifval.duty_cycle=580; break;
+ 364              	 .loc 3 33 0
+ 365 0140 0A4B     	 ldr r3,.L30
+ 366 0142 4FF41172 	 mov r2,#580
+ 367 0146 5A80     	 strh r2,[r3,#2]
+ 368 0148 0FE0     	 b .L5
+ 369              	.L25:
+  34:../Speed.c    **** 			case 7: Posifval.duty_cycle=670; break;
+ 370              	 .loc 3 34 0
+ 371 014a 084B     	 ldr r3,.L30
+ 372 014c 40F29E22 	 movw r2,#670
+ 373 0150 5A80     	 strh r2,[r3,#2]
+ 374 0152 0AE0     	 b .L5
+ 375              	.L26:
+  35:../Speed.c    **** 			case 8: Posifval.duty_cycle=730; break;
+ 376              	 .loc 3 35 0
+ 377 0154 054B     	 ldr r3,.L30
+ 378 0156 40F2DA22 	 movw r2,#730
+ 379 015a 5A80     	 strh r2,[r3,#2]
+ 380 015c 05E0     	 b .L5
+ 381              	.L27:
+  36:../Speed.c    **** 			case 9: Posifval.duty_cycle=780; break;
+ 382              	 .loc 3 36 0
+ 383 015e 034B     	 ldr r3,.L30
+ 384 0160 4FF44372 	 mov r2,#780
+ 385 0164 5A80     	 strh r2,[r3,#2]
+ 386 0166 00E0     	 b .L5
+ 387              	.L29:
+  37:../Speed.c    **** 
+  38:../Speed.c    **** 			default:  break;
+ 388              	 .loc 3 38 0
+ 389 0168 00BF     	 nop
+ 390              	.L5:
+  39:../Speed.c    **** 		}
+  40:../Speed.c    **** 
+  41:../Speed.c    **** }
+ 391              	 .loc 3 41 0
+ 392 016a 80BD     	 pop {r7,pc}
+ 393              	.L31:
+ 394              	 .align 2
+ 395              	.L30:
+ 396 016c 00000000 	 .word Posifval
+ 397 0170 00000000 	 .word speedindex
+ 398              	 .cfi_endproc
+ 399              	.LFE399:
+ 401              	 .section .text.Check_RPM,"ax",%progbits
+ 402              	 .align 2
+ 403              	 .global Check_RPM
+ 404              	 .thumb
+ 405              	 .thumb_func
+ 407              	Check_RPM:
+ 408              	.LFB400:
+  42:../Speed.c    **** 
+  43:../Speed.c    **** void Check_RPM(void){
+ 409              	 .loc 3 43 0
+ 410              	 .cfi_startproc
+ 411              	 
+ 412              	 
+ 413 0000 80B5     	 push {r7,lr}
+ 414              	.LCFI13:
+ 415              	 .cfi_def_cfa_offset 8
+ 416              	 .cfi_offset 7,-8
+ 417              	 .cfi_offset 14,-4
+ 418 0002 00AF     	 add r7,sp,#0
+ 419              	.LCFI14:
+ 420              	 .cfi_def_cfa_register 7
+  44:../Speed.c    **** 	hallint_count+=1;
+ 421              	 .loc 3 44 0
+ 422 0004 0A4B     	 ldr r3,.L34
+ 423 0006 1B88     	 ldrh r3,[r3]
+ 424 0008 0133     	 adds r3,r3,#1
+ 425 000a 9AB2     	 uxth r2,r3
+ 426 000c 084B     	 ldr r3,.L34
+ 427 000e 1A80     	 strh r2,[r3]
+  45:../Speed.c    **** 
+  46:../Speed.c    **** 	if(hallint_count>=14)
+ 428              	 .loc 3 46 0
+ 429 0010 074B     	 ldr r3,.L34
+ 430 0012 1B88     	 ldrh r3,[r3]
+ 431 0014 0D2B     	 cmp r3,#13
+ 432 0016 07D9     	 bls .L33
+  47:../Speed.c    **** 	{revolves_counter+=1;
+ 433              	 .loc 3 47 0
+ 434 0018 064B     	 ldr r3,.L34+4
+ 435 001a 1B68     	 ldr r3,[r3]
+ 436 001c 0133     	 adds r3,r3,#1
+ 437 001e 054A     	 ldr r2,.L34+4
+ 438 0020 1360     	 str r3,[r2]
+  48:../Speed.c    **** 	hallint_count=0;
+ 439              	 .loc 3 48 0
+ 440 0022 034B     	 ldr r3,.L34
+ 441 0024 0022     	 movs r2,#0
+ 442 0026 1A80     	 strh r2,[r3]
+ 443              	.L33:
+  49:../Speed.c    **** 	}
+  50:../Speed.c    **** 	ResetGateDriver();
+ 444              	 .loc 3 50 0
+ 445 0028 FFF7FEFF 	 bl ResetGateDriver
+  51:../Speed.c    **** 	//LCD.IstRpm=revolves_counter;
+  52:../Speed.c    **** 
+  53:../Speed.c    **** }
+ 446              	 .loc 3 53 0
+ 447 002c 80BD     	 pop {r7,pc}
+ 448              	.L35:
+ 449 002e 00BF     	 .align 2
+ 450              	.L34:
+ 451 0030 00000000 	 .word hallint_count
+ 452 0034 00000000 	 .word revolves_counter
+ 453              	 .cfi_endproc
+ 454              	.LFE400:
+ 456              	 .section .text.HallEvent,"ax",%progbits
+ 457              	 .align 2
+ 458              	 .global HallEvent
+ 459              	 .thumb
+ 460              	 .thumb_func
+ 462              	HallEvent:
+ 463              	.LFB401:
+  54:../Speed.c    **** void HallEvent(void){
+ 464              	 .loc 3 54 0
+ 465              	 .cfi_startproc
+ 466              	 
+ 467              	 
+ 468 0000 80B5     	 push {r7,lr}
+ 469              	.LCFI15:
+ 470              	 .cfi_def_cfa_offset 8
+ 471              	 .cfi_offset 7,-8
+ 472              	 .cfi_offset 14,-4
+ 473 0002 00AF     	 add r7,sp,#0
+ 474              	.LCFI16:
+ 475              	 .cfi_def_cfa_register 7
+  55:../Speed.c    **** 	ResetGateDriver();
+ 476              	 .loc 3 55 0
+ 477 0004 FFF7FEFF 	 bl ResetGateDriver
+  56:../Speed.c    **** 	Hall1_status = DIGITAL_IO_GetInput(&Hall1);
+ 478              	 .loc 3 56 0
+ 479 0008 0B48     	 ldr r0,.L38
+ 480 000a FFF7FEFF 	 bl DIGITAL_IO_GetInput
+ 481 000e 0346     	 mov r3,r0
+ 482 0010 DAB2     	 uxtb r2,r3
+ 483 0012 0A4B     	 ldr r3,.L38+4
+ 484 0014 1A70     	 strb r2,[r3]
+  57:../Speed.c    **** 		if(Hall1_status==1&&BTN.sem_flank==0){
+ 485              	 .loc 3 57 0
+ 486 0016 094B     	 ldr r3,.L38+4
+ 487 0018 1B78     	 ldrb r3,[r3]
+ 488 001a 012B     	 cmp r3,#1
+ 489 001c 0BD1     	 bne .L36
+ 490              	 .loc 3 57 0 is_stmt 0 discriminator 1
+ 491 001e 084B     	 ldr r3,.L38+8
+ 492 0020 1B79     	 ldrb r3,[r3,#4]
+ 493 0022 002B     	 cmp r3,#0
+ 494 0024 07D1     	 bne .L36
+  58:../Speed.c    **** 			BTN.sem_flank=1;
+ 495              	 .loc 3 58 0 is_stmt 1
+ 496 0026 064B     	 ldr r3,.L38+8
+ 497 0028 0122     	 movs r2,#1
+ 498 002a 1A71     	 strb r2,[r3,#4]
+  59:../Speed.c    **** 
+  60:../Speed.c    **** 
+  61:../Speed.c    **** 			Check_RPM();
+ 499              	 .loc 3 61 0
+ 500 002c FFF7FEFF 	 bl Check_RPM
+  62:../Speed.c    **** 
+  63:../Speed.c    **** 
+  64:../Speed.c    **** 			BTN.sem_flank=0;
+ 501              	 .loc 3 64 0
+ 502 0030 034B     	 ldr r3,.L38+8
+ 503 0032 0022     	 movs r2,#0
+ 504 0034 1A71     	 strb r2,[r3,#4]
+ 505              	.L36:
+  65:../Speed.c    **** 		}
+  66:../Speed.c    **** 
+  67:../Speed.c    **** 
+  68:../Speed.c    **** 
+  69:../Speed.c    **** }
+ 506              	 .loc 3 69 0
+ 507 0036 80BD     	 pop {r7,pc}
+ 508              	.L39:
+ 509              	 .align 2
+ 510              	.L38:
+ 511 0038 00000000 	 .word Hall1
+ 512 003c 00000000 	 .word Hall1_status
+ 513 0040 00000000 	 .word BTN
+ 514              	 .cfi_endproc
+ 515              	.LFE401:
+ 517              	 .text
+ 518              	.Letext0:
+ 519              	 .file 4 "c:\\users\\administrator\\documents\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 520              	 .file 5 "c:\\users\\administrator\\documents\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 521              	 .file 6 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 522              	 .file 7 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Posif_BLDC.h"
+ 523              	 .file 8 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Buttons.h"
+ 524              	 .file 9 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Include/core_cm4.h"
+ 525              	 .file 10 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Infineon/XMC4500_series/Include/system_XMC4500.h"
+ 526              	 .file 11 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DIGITAL_IO/digital_io_extern.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Speed.c
+    {standard input}:20     .text.XMC_GPIO_GetInput:00000000 $t
+    {standard input}:24     .text.XMC_GPIO_GetInput:00000000 XMC_GPIO_GetInput
+    {standard input}:69     .text.DIGITAL_IO_GetInput:00000000 $t
+    {standard input}:73     .text.DIGITAL_IO_GetInput:00000000 DIGITAL_IO_GetInput
+                            *COM*:0000000c Posifval
+                            *COM*:00000007 BTN
+    {standard input}:121    .bss.speedindex:00000000 speedindex
+    {standard input}:118    .bss.speedindex:00000000 $d
+    {standard input}:127    .bss.Hall1_status:00000000 Hall1_status
+    {standard input}:128    .bss.Hall1_status:00000000 $d
+    {standard input}:134    .bss.hallint_count:00000000 hallint_count
+    {standard input}:131    .bss.hallint_count:00000000 $d
+    {standard input}:141    .bss.lasthallint_count:00000000 lasthallint_count
+    {standard input}:138    .bss.lasthallint_count:00000000 $d
+    {standard input}:148    .bss.revolves_counter:00000000 revolves_counter
+    {standard input}:145    .bss.revolves_counter:00000000 $d
+    {standard input}:151    .text.Speedhandler:00000000 $t
+    {standard input}:156    .text.Speedhandler:00000000 Speedhandler
+    {standard input}:316    .text.Speedhandler:000000dc $d
+    {standard input}:326    .text.Speedhandler:00000104 $t
+    {standard input}:396    .text.Speedhandler:0000016c $d
+    {standard input}:402    .text.Check_RPM:00000000 $t
+    {standard input}:407    .text.Check_RPM:00000000 Check_RPM
+    {standard input}:451    .text.Check_RPM:00000030 $d
+    {standard input}:457    .text.HallEvent:00000000 $t
+    {standard input}:462    .text.HallEvent:00000000 HallEvent
+    {standard input}:511    .text.HallEvent:00000038 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+ResetGateDriver
+Hall1

@@ -1,0 +1,423 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "pwm_bc_conf.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .global PWM_BC_0_PhUHighpin
+  20              	 .section .rodata.PWM_BC_0_PhUHighpin,"a",%progbits
+  21              	 .align 2
+  24              	PWM_BC_0_PhUHighpin:
+  25 0000 00800248 	 .word 1208123392
+  26 0004 05       	 .byte 5
+  27 0005 000000   	 .space 3
+  28              	 .global PWM_BC_0_PhULowpin
+  29              	 .section .rodata.PWM_BC_0_PhULowpin,"a",%progbits
+  30              	 .align 2
+  33              	PWM_BC_0_PhULowpin:
+  34 0000 00800248 	 .word 1208123392
+  35 0004 02       	 .byte 2
+  36 0005 000000   	 .space 3
+  37              	 .global PWM_BC_0_PhVHighpin
+  38              	 .section .rodata.PWM_BC_0_PhVHighpin,"a",%progbits
+  39              	 .align 2
+  42              	PWM_BC_0_PhVHighpin:
+  43 0000 00800248 	 .word 1208123392
+  44 0004 04       	 .byte 4
+  45 0005 000000   	 .space 3
+  46              	 .global PWM_BC_0_PhVLowpin
+  47              	 .section .rodata.PWM_BC_0_PhVLowpin,"a",%progbits
+  48              	 .align 2
+  51              	PWM_BC_0_PhVLowpin:
+  52 0000 00800248 	 .word 1208123392
+  53 0004 01       	 .byte 1
+  54 0005 000000   	 .space 3
+  55              	 .global PWM_BC_0_PhWHighpin
+  56              	 .section .rodata.PWM_BC_0_PhWHighpin,"a",%progbits
+  57              	 .align 2
+  60              	PWM_BC_0_PhWHighpin:
+  61 0000 00800248 	 .word 1208123392
+  62 0004 03       	 .byte 3
+  63 0005 000000   	 .space 3
+  64              	 .global PWM_BC_0_PhWLowpin
+  65              	 .section .rodata.PWM_BC_0_PhWLowpin,"a",%progbits
+  66              	 .align 2
+  69              	PWM_BC_0_PhWLowpin:
+  70 0000 00800248 	 .word 1208123392
+  71 0004 00       	 .byte 0
+  72 0005 000000   	 .space 3
+  73              	 .global PWM_BC_0_PhUHighpin_Config
+  74              	 .section .rodata.PWM_BC_0_PhUHighpin_Config,"a",%progbits
+  75              	 .align 2
+  78              	PWM_BC_0_PhUHighpin_Config:
+  79 0000 98       	 .byte -104
+  80 0001 000000   	 .space 3
+  81 0004 00000100 	 .word 65536
+  82 0008 04       	 .byte 4
+  83 0009 000000   	 .space 3
+  84              	 .global PWM_BC_0_PhULowpin_Config
+  85              	 .section .rodata.PWM_BC_0_PhULowpin_Config,"a",%progbits
+  86              	 .align 2
+  89              	PWM_BC_0_PhULowpin_Config:
+  90 0000 98       	 .byte -104
+  91 0001 000000   	 .space 3
+  92 0004 00000100 	 .word 65536
+  93 0008 04       	 .byte 4
+  94 0009 000000   	 .space 3
+  95              	 .global PWM_BC_0_PhVHighpin_Config
+  96              	 .section .rodata.PWM_BC_0_PhVHighpin_Config,"a",%progbits
+  97              	 .align 2
+ 100              	PWM_BC_0_PhVHighpin_Config:
+ 101 0000 98       	 .byte -104
+ 102 0001 000000   	 .space 3
+ 103 0004 00000100 	 .word 65536
+ 104 0008 04       	 .byte 4
+ 105 0009 000000   	 .space 3
+ 106              	 .global PWM_BC_0_PhVLowpin_Config
+ 107              	 .section .rodata.PWM_BC_0_PhVLowpin_Config,"a",%progbits
+ 108              	 .align 2
+ 111              	PWM_BC_0_PhVLowpin_Config:
+ 112 0000 98       	 .byte -104
+ 113 0001 000000   	 .space 3
+ 114 0004 00000100 	 .word 65536
+ 115 0008 04       	 .byte 4
+ 116 0009 000000   	 .space 3
+ 117              	 .global PWM_BC_0_PhWHighpin_Config
+ 118              	 .section .rodata.PWM_BC_0_PhWHighpin_Config,"a",%progbits
+ 119              	 .align 2
+ 122              	PWM_BC_0_PhWHighpin_Config:
+ 123 0000 98       	 .byte -104
+ 124 0001 000000   	 .space 3
+ 125 0004 00000100 	 .word 65536
+ 126 0008 04       	 .byte 4
+ 127 0009 000000   	 .space 3
+ 128              	 .global PWM_BC_0_PhWLowpin_Config
+ 129              	 .section .rodata.PWM_BC_0_PhWLowpin_Config,"a",%progbits
+ 130              	 .align 2
+ 133              	PWM_BC_0_PhWLowpin_Config:
+ 134 0000 98       	 .byte -104
+ 135 0001 000000   	 .space 3
+ 136 0004 00000100 	 .word 65536
+ 137 0008 04       	 .byte 4
+ 138 0009 000000   	 .space 3
+ 139              	 .global PWM_BC_0_Inverterpin
+ 140              	 .section .rodata.PWM_BC_0_Inverterpin,"a",%progbits
+ 141              	 .align 2
+ 144              	PWM_BC_0_Inverterpin:
+ 145 0000 00850248 	 .word 1208124672
+ 146 0004 02       	 .byte 2
+ 147 0005 000000   	 .space 3
+ 148              	 .global PWM_BC_0_Inverterpin_Config
+ 149              	 .section .rodata.PWM_BC_0_Inverterpin_Config,"a",%progbits
+ 150              	 .align 2
+ 153              	PWM_BC_0_Inverterpin_Config:
+ 154 0000 80       	 .byte -128
+ 155 0001 000000   	 .space 3
+ 156 0004 00000100 	 .word 65536
+ 157 0008 04       	 .byte 4
+ 158 0009 000000   	 .space 3
+ 159              	 .global PWM_BC_0_POSIF_MCM_Config
+ 160              	 .section .data.PWM_BC_0_POSIF_MCM_Config,"aw",%progbits
+ 161              	 .align 2
+ 164              	PWM_BC_0_POSIF_MCM_Config:
+ 165 0000 20       	 .byte 32
+ 166 0001 00       	 .space 1
+ 167 0002 00       	 .byte 0
+ 168 0003 00       	 .space 1
+ 169              	 .global PWM_BC_0_SliceUConfig
+ 170              	 .section .rodata.PWM_BC_0_SliceUConfig,"a",%progbits
+ 171              	 .align 2
+ 174              	PWM_BC_0_SliceUConfig:
+ 175 0000 00010240 	 .word 1073873152
+ 176 0004 00       	 .byte 0
+ 177 0005 000000   	 .space 3
+ 178              	 .global PWM_BC_0_SliceVConfig
+ 179              	 .section .rodata.PWM_BC_0_SliceVConfig,"a",%progbits
+ 180              	 .align 2
+ 183              	PWM_BC_0_SliceVConfig:
+ 184 0000 00020240 	 .word 1073873408
+ 185 0004 01       	 .byte 1
+ 186 0005 000000   	 .space 3
+ 187              	 .global PWM_BC_0_SliceWConfig
+ 188              	 .section .rodata.PWM_BC_0_SliceWConfig,"a",%progbits
+ 189              	 .align 2
+ 192              	PWM_BC_0_SliceWConfig:
+ 193 0000 00030240 	 .word 1073873664
+ 194 0004 02       	 .byte 2
+ 195 0005 000000   	 .space 3
+ 196              	 .global PWM_BC_0_ExtStartConfig
+ 197              	 .section .rodata.PWM_BC_0_ExtStartConfig,"a",%progbits
+ 198              	 .align 2
+ 201              	PWM_BC_0_ExtStartConfig:
+ 202 0000 07       	 .byte 7
+ 203 0001 01       	 .byte 1
+ 204 0002 00       	 .space 1
+ 205 0003 00       	 .byte 0
+ 206              	 .global PWM_BC_0_Phase_DeadTimeConfig
+ 207              	 .section .data.PWM_BC_0_Phase_DeadTimeConfig,"aw",%progbits
+ 208              	 .align 2
+ 211              	PWM_BC_0_Phase_DeadTimeConfig:
+ 212 0000 03       	 .byte 3
+ 213 0001 000000   	 .space 3
+ 214 0004 3C       	 .byte 60
+ 215 0005 3C       	 .byte 60
+ 216 0006 0000     	 .space 2
+ 217 0008 3C       	 .byte 60
+ 218 0009 3C       	 .byte 60
+ 219 000a 0000     	 .space 2
+ 220              	 .global PWM_BC_0_Timer_InitHandle
+ 221              	 .section .rodata.PWM_BC_0_Timer_InitHandle,"a",%progbits
+ 222              	 .align 2
+ 225              	PWM_BC_0_Timer_InitHandle:
+ 226 0000 01       	 .byte 1
+ 227 0001 00       	 .byte 0
+ 228 0002 00       	 .byte 0
+ 229 0003 06       	 .byte 6
+ 230 0004 0F       	 .byte 15
+ 231 0005 000000   	 .space 3
+ 232 0008 14       	 .byte 20
+ 233 0009 000000   	 .space 3
+ 234 000c 00       	 .byte 0
+ 235 000d 00       	 .byte 0
+ 236 000e 0000     	 .space 2
+ 237              	 .global PWM_BC_0_Config
+ 238              	 .section .rodata.PWM_BC_0_Config,"a",%progbits
+ 239              	 .align 2
+ 242              	PWM_BC_0_Config:
+ 243 0000 01000000 	 .word 1
+ 244 0004 10000000 	 .word 16
+ 245 0008 00010000 	 .word 256
+ 246 000c 03000000 	 .word 3
+ 247 0010 30000000 	 .word 48
+ 248 0014 00030000 	 .word 768
+ 249 0018 000E2707 	 .word 120000000
+ 250 001c 00010000 	 .word 256
+ 251 0020 03000000 	 .word 3
+ 252 0024 00000000 	 .word 0
+ 253 0028 00000000 	 .word 0
+ 254 002c 02879303 	 .word 60000002
+ 255 0030 27070000 	 .word 1831
+ 256 0034 01       	 .byte 1
+ 257 0035 00       	 .byte 0
+ 258 0036 00       	 .byte 0
+ 259 0037 00       	 .byte 0
+ 260 0038 00       	 .byte 0
+ 261 0039 00       	 .space 1
+ 262 003a 0000     	 .short 0
+ 263 003c 2001     	 .short 288
+ 264 003e 2100     	 .short 33
+ 265 0040 0102     	 .short 513
+ 266 0042 1002     	 .short 528
+ 267 0044 1200     	 .short 18
+ 268 0046 0201     	 .short 258
+ 269 0048 0000     	 .short 0
+ 270 004a 0000     	 .short 0
+ 271 004c 0201     	 .short 258
+ 272 004e 1200     	 .short 18
+ 273 0050 1002     	 .short 528
+ 274 0052 0102     	 .short 513
+ 275 0054 2100     	 .short 33
+ 276 0056 2001     	 .short 288
+ 277 0058 0000     	 .short 0
+ 278 005a 1101     	 .short 273
+ 279 005c 00       	 .byte 0
+ 280 005d 0D       	 .byte 13
+ 281 005e 0D       	 .byte 13
+ 282 005f 0D       	 .byte 13
+ 283 0060 00       	 .byte 0
+ 284 0061 01       	 .byte 1
+ 285 0062 00       	 .byte 0
+ 286 0063 01       	 .byte 1
+ 287 0064 01       	 .byte 1
+ 288 0065 01       	 .byte 1
+ 289 0066 00       	 .byte 0
+ 290 0067 01       	 .byte 1
+ 291 0068 00       	 .byte 0
+ 292 0069 000000   	 .space 3
+ 293              	 .global PWM_BC_0
+ 294              	 .section .data.PWM_BC_0,"aw",%progbits
+ 295              	 .align 2
+ 298              	PWM_BC_0:
+ 299 0000 00000240 	 .word 1073872896
+ 300 0004 00000000 	 .word PWM_BC_0_SliceUConfig
+ 301 0008 00000000 	 .word PWM_BC_0_SliceVConfig
+ 302 000c 00000000 	 .word PWM_BC_0_SliceWConfig
+ 303 0010 00800240 	 .word 1073905664
+ 304 0014 00000000 	 .word PWM_BC_0_POSIF_MCM_Config
+ 305 0018 00000000 	 .word GLOBAL_POSIF_0
+ 306 001c 00000000 	 .word GLOBAL_CCU8_0
+ 307 0020 00000000 	 .word PWM_BC_0_Timer_InitHandle
+ 308 0024 00000000 	 .word PWM_BC_0_ExtStartConfig
+ 309 0028 00000000 	 .word 0
+ 310 002c 00000000 	 .word PWM_BC_0_PhUHighpin
+ 311 0030 00000000 	 .word PWM_BC_0_PhULowpin
+ 312 0034 00000000 	 .word PWM_BC_0_PhVHighpin
+ 313 0038 00000000 	 .word PWM_BC_0_PhVLowpin
+ 314 003c 00000000 	 .word PWM_BC_0_PhWHighpin
+ 315 0040 00000000 	 .word PWM_BC_0_PhWLowpin
+ 316 0044 00000000 	 .word PWM_BC_0_PhUHighpin_Config
+ 317 0048 00000000 	 .word PWM_BC_0_PhULowpin_Config
+ 318 004c 00000000 	 .word PWM_BC_0_PhVHighpin_Config
+ 319 0050 00000000 	 .word PWM_BC_0_PhVLowpin_Config
+ 320 0054 00000000 	 .word PWM_BC_0_PhWHighpin_Config
+ 321 0058 00000000 	 .word PWM_BC_0_PhWLowpin_Config
+ 322 005c 00000000 	 .word 0
+ 323 0060 00000000 	 .word 0
+ 324 0064 00000000 	 .word PWM_BC_0_Inverterpin
+ 325 0068 00000000 	 .word PWM_BC_0_Inverterpin_Config
+ 326 006c 00000000 	 .word PWM_BC_0_Config
+ 327 0070 00000000 	 .word PWM_BC_0_Phase_DeadTimeConfig
+ 328 0074 00       	 .byte 0
+ 329 0075 00       	 .byte 0
+ 330 0076 01       	 .byte 1
+ 331 0077 000000   	 .space 3
+ 332 007a B70B     	 .short 2999
+ 333 007c 00000000 	 .space 8
+ 333      00000000 
+ 334 0084 0000     	 .short 0
+ 335 0086 2001     	 .short 288
+ 336 0088 2100     	 .short 33
+ 337 008a 0102     	 .short 513
+ 338 008c 1002     	 .short 528
+ 339 008e 1200     	 .short 18
+ 340 0090 0201     	 .short 258
+ 341 0092 0000     	 .short 0
+ 342 0094 0000     	 .short 0
+ 343 0096 0201     	 .short 258
+ 344 0098 1200     	 .short 18
+ 345 009a 1002     	 .short 528
+ 346 009c 0102     	 .short 513
+ 347 009e 2100     	 .short 33
+ 348 00a0 2001     	 .short 288
+ 349 00a2 0000     	 .short 0
+ 350 00a4 0000     	 .short 0
+ 351 00a6 2001     	 .short 288
+ 352 00a8 2100     	 .short 33
+ 353 00aa 0102     	 .short 513
+ 354 00ac 1002     	 .short 528
+ 355 00ae 1200     	 .short 18
+ 356 00b0 0201     	 .short 258
+ 357 00b2 0000     	 .short 0
+ 358 00b4 0000     	 .short 0
+ 359 00b6 0201     	 .short 258
+ 360 00b8 1200     	 .short 18
+ 361 00ba 1002     	 .short 528
+ 362 00bc 0102     	 .short 513
+ 363 00be 2100     	 .short 33
+ 364 00c0 2001     	 .short 288
+ 365 00c2 0000     	 .short 0
+ 366 00c4 0000     	 .short 0
+ 367 00c6 2003     	 .short 800
+ 368 00c8 2300     	 .short 35
+ 369 00ca 0302     	 .short 515
+ 370 00cc 3002     	 .short 560
+ 371 00ce 3200     	 .short 50
+ 372 00d0 0203     	 .short 770
+ 373 00d2 0000     	 .short 0
+ 374 00d4 0000     	 .short 0
+ 375 00d6 0203     	 .short 770
+ 376 00d8 3200     	 .short 50
+ 377 00da 3002     	 .short 560
+ 378 00dc 0302     	 .short 515
+ 379 00de 2300     	 .short 35
+ 380 00e0 2003     	 .short 800
+ 381 00e2 0000     	 .short 0
+ 382 00e4 0000     	 .short 0
+ 383 00e6 3001     	 .short 304
+ 384 00e8 2300     	 .short 35
+ 385 00ea 0103     	 .short 769
+ 386 00ec 3002     	 .short 560
+ 387 00ee 1300     	 .short 19
+ 388 00f0 0203     	 .short 770
+ 389 00f2 0000     	 .short 0
+ 390 00f4 0302     	 .short 515
+ 391 00f6 0301     	 .short 259
+ 392 00f8 3200     	 .short 50
+ 393 00fa 1003     	 .short 784
+ 394 00fc 0302     	 .short 515
+ 395 00fe 3100     	 .short 49
+ 396 0100 2003     	 .short 800
+ 397 0102 0000     	 .short 0
+ 398 0104 00000000 	 .space 4
+ 399              	 .text
+ 400              	.Letext0:
+ 401              	 .file 1 "c:\\users\\administrator\\documents\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 402              	 .file 2 "c:\\users\\administrator\\documents\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 403              	 .file 3 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Infineon/XMC4500_series/Include/XMC4500.h"
+ 404              	 .file 4 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc/xmc_ccu8.h"
+ 405              	 .file 5 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc/xmc4_scu.h"
+ 406              	 .file 6 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc/xmc_posif.h"
+ 407              	 .file 7 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc/xmc_gpio.h"
+ 408              	 .file 8 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 409              	 .file 9 "../Dave/Generated/PWM_BC/../GLOBAL_CCU8/global_ccu8.h"
+ 410              	 .file 10 "../Dave/Generated/PWM_BC/../GLOBAL_POSIF/global_posif.h"
+ 411              	 .file 11 "../Dave/Generated/PWM_BC/pwm_bc.h"
+ 412              	 .file 12 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Include/core_cm4.h"
+ 413              	 .file 13 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Infineon/XMC4500_series/Include/system_XMC4500.h"
+ 414              	 .file 14 "../Dave/Generated/PWM_BC/../GLOBAL_CCU8/global_ccu8_extern.h"
+ 415              	 .file 15 "../Dave/Generated/PWM_BC/../GLOBAL_POSIF/global_posif_extern.h"
+ 416              	 .file 16 "../Dave/Generated/PWM_BC/pwm_bc_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pwm_bc_conf.c
+    {standard input}:24     .rodata.PWM_BC_0_PhUHighpin:00000000 PWM_BC_0_PhUHighpin
+    {standard input}:21     .rodata.PWM_BC_0_PhUHighpin:00000000 $d
+    {standard input}:33     .rodata.PWM_BC_0_PhULowpin:00000000 PWM_BC_0_PhULowpin
+    {standard input}:30     .rodata.PWM_BC_0_PhULowpin:00000000 $d
+    {standard input}:42     .rodata.PWM_BC_0_PhVHighpin:00000000 PWM_BC_0_PhVHighpin
+    {standard input}:39     .rodata.PWM_BC_0_PhVHighpin:00000000 $d
+    {standard input}:51     .rodata.PWM_BC_0_PhVLowpin:00000000 PWM_BC_0_PhVLowpin
+    {standard input}:48     .rodata.PWM_BC_0_PhVLowpin:00000000 $d
+    {standard input}:60     .rodata.PWM_BC_0_PhWHighpin:00000000 PWM_BC_0_PhWHighpin
+    {standard input}:57     .rodata.PWM_BC_0_PhWHighpin:00000000 $d
+    {standard input}:69     .rodata.PWM_BC_0_PhWLowpin:00000000 PWM_BC_0_PhWLowpin
+    {standard input}:66     .rodata.PWM_BC_0_PhWLowpin:00000000 $d
+    {standard input}:78     .rodata.PWM_BC_0_PhUHighpin_Config:00000000 PWM_BC_0_PhUHighpin_Config
+    {standard input}:75     .rodata.PWM_BC_0_PhUHighpin_Config:00000000 $d
+    {standard input}:89     .rodata.PWM_BC_0_PhULowpin_Config:00000000 PWM_BC_0_PhULowpin_Config
+    {standard input}:86     .rodata.PWM_BC_0_PhULowpin_Config:00000000 $d
+    {standard input}:100    .rodata.PWM_BC_0_PhVHighpin_Config:00000000 PWM_BC_0_PhVHighpin_Config
+    {standard input}:97     .rodata.PWM_BC_0_PhVHighpin_Config:00000000 $d
+    {standard input}:111    .rodata.PWM_BC_0_PhVLowpin_Config:00000000 PWM_BC_0_PhVLowpin_Config
+    {standard input}:108    .rodata.PWM_BC_0_PhVLowpin_Config:00000000 $d
+    {standard input}:122    .rodata.PWM_BC_0_PhWHighpin_Config:00000000 PWM_BC_0_PhWHighpin_Config
+    {standard input}:119    .rodata.PWM_BC_0_PhWHighpin_Config:00000000 $d
+    {standard input}:133    .rodata.PWM_BC_0_PhWLowpin_Config:00000000 PWM_BC_0_PhWLowpin_Config
+    {standard input}:130    .rodata.PWM_BC_0_PhWLowpin_Config:00000000 $d
+    {standard input}:144    .rodata.PWM_BC_0_Inverterpin:00000000 PWM_BC_0_Inverterpin
+    {standard input}:141    .rodata.PWM_BC_0_Inverterpin:00000000 $d
+    {standard input}:153    .rodata.PWM_BC_0_Inverterpin_Config:00000000 PWM_BC_0_Inverterpin_Config
+    {standard input}:150    .rodata.PWM_BC_0_Inverterpin_Config:00000000 $d
+    {standard input}:164    .data.PWM_BC_0_POSIF_MCM_Config:00000000 PWM_BC_0_POSIF_MCM_Config
+    {standard input}:161    .data.PWM_BC_0_POSIF_MCM_Config:00000000 $d
+    {standard input}:174    .rodata.PWM_BC_0_SliceUConfig:00000000 PWM_BC_0_SliceUConfig
+    {standard input}:171    .rodata.PWM_BC_0_SliceUConfig:00000000 $d
+    {standard input}:183    .rodata.PWM_BC_0_SliceVConfig:00000000 PWM_BC_0_SliceVConfig
+    {standard input}:180    .rodata.PWM_BC_0_SliceVConfig:00000000 $d
+    {standard input}:192    .rodata.PWM_BC_0_SliceWConfig:00000000 PWM_BC_0_SliceWConfig
+    {standard input}:189    .rodata.PWM_BC_0_SliceWConfig:00000000 $d
+    {standard input}:201    .rodata.PWM_BC_0_ExtStartConfig:00000000 PWM_BC_0_ExtStartConfig
+    {standard input}:198    .rodata.PWM_BC_0_ExtStartConfig:00000000 $d
+    {standard input}:211    .data.PWM_BC_0_Phase_DeadTimeConfig:00000000 PWM_BC_0_Phase_DeadTimeConfig
+    {standard input}:208    .data.PWM_BC_0_Phase_DeadTimeConfig:00000000 $d
+    {standard input}:225    .rodata.PWM_BC_0_Timer_InitHandle:00000000 PWM_BC_0_Timer_InitHandle
+    {standard input}:222    .rodata.PWM_BC_0_Timer_InitHandle:00000000 $d
+    {standard input}:242    .rodata.PWM_BC_0_Config:00000000 PWM_BC_0_Config
+    {standard input}:239    .rodata.PWM_BC_0_Config:00000000 $d
+    {standard input}:298    .data.PWM_BC_0:00000000 PWM_BC_0
+    {standard input}:295    .data.PWM_BC_0:00000000 $d
+
+UNDEFINED SYMBOLS
+GLOBAL_POSIF_0
+GLOBAL_CCU8_0

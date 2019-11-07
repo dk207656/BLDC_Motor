@@ -1,0 +1,946 @@
+package Model.APPS.PWM_BC.v4_0_16;
+
+/*
+ *  * Copyright (c) 2015-2017, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ */
+
+import ifx.davex.app.manifest.*
+/*************** Revision History **********************************************
+ Version       Date        Description 
+ 4.0.0    15-Feb-2015     1. Initial version<br>
+ 4.0.1    20-Feb-2015     1. Help document update <br>   
+ 4.0.5    20-Jun-2015     1. Sync Start Updated <br> 
+                          2. Period match interrupt is replaced with one match   <br>        
+                          3. MCI & MOUT signals are added and connected<br> 
+                          4. Sync Signal Connectivity updated<br>
+ 4.0.7    14-July-2015    1. Required APP minimum version updated<br/>  
+ 4.0.9    08-Oct-2015     1. Copyright information added in manifest <br/>    
+ 4.0.11   11-Jan-2016     1. Updated version of the required GLOBAL_POSIF APP </br>
+ 4.0.13   10-Feb-2016     1. Updated version of the required GLOBAL_POSIF APP </br>
+ 4.0.14   04-Aug-2015     1. APP version updated for PR.<br/>
+ 4.0.16   12-Oct-2017     1. Add support for XMC1402, XMC1404, XMC4700 and XMC4800 device.<br/>
+ *******************************************************************************/
+class  PWM_BC extends PWM_BC_GUI {
+    /* Note  : PWM_BC properties are mandatory and important*/
+    /* Begin : PWM_BC property section*/
+    /**
+     * APP version
+     * Format: a string with three digit separated by a dot.
+     */
+    def version            = '4.0.16'
+    /**
+     * APP categories declaration.
+     * It is list of strings. Subcategories are separated by slash.
+     * No limits on number of categories and subcategories depth.
+     */
+    def categoriesDescription =  ["Motor Control/PWM Generation"]
+
+    /** 
+     * Minimum DAVE version required for this APP.
+     * 
+     * It is string with three digit separated by a dot.
+     */
+    def minDaveVersion           = '4.0.0'
+  
+    /** 
+     * Keywords used by search feature in APPs selection view
+     * 
+     * It is a list of string.
+     */
+    def keywords      = ['Motor','Motor Control','bc','Drive', 'PWM', 'block', 'commutation', 'trapezoidal', 'BLDC', 'SRM', 'CCU8','multi channel','all']
+  
+    /** 
+     * softwareIDs is used to declare which devices are compatible with this APP.
+     * It is a map with key a string containing a pattern that shall match the SW id of
+     * the device and as value the minimal version of the APP.
+     */
+    
+    /**
+     * Any step , any variant and any packages of XMC4500, XMC4400, XMC4200 and XMC4100
+     * Any step, any variant of XMC1300 except T016 package
+     */
+    def softwareIDs   = [
+    "XMC1.3.*.(Q024|Q040|T038).*":"1.0.0", 
+    "XMC1.4.04.*.*":"1.0.0",
+    "XMC1.4.02.*.*":"1.0.0",
+	"XMC4.8.*.*.*":"1.0.0",
+	"XMC4.7.*.*.*":"1.0.0",
+    "XMC4.5.*.*.*":"1.0.0",
+	"XMC4.4.*.*.*":"1.0.0",
+	"XMC4.2.*.*.*":"1.0.0",
+	"XMC4.1.*.*.*":"1.0.0"
+						 ]
+    /**
+     * Singleton property:
+     * When it is true the APP can be instantiated only once.
+     */
+    def singleton     = false
+    /**
+     * initProvider property
+     * It shall be true to add a call to <APPName>_Init()
+     */
+    def initProvider  = true
+    /**
+     * Deprecated APP
+     * Set it to true to indicate that the APP shall be not used for new projects.
+     */
+    def deprecated    = false
+    /**
+     * Sharable property.
+     * It shall be true to allows multiple apps to require the same instance of this APP.
+     */
+    def sharable      = true
+    /**
+     *  APP function description.
+     */
+    def description = "Generates PWM for block commutation\n(trapezoidal) using CCU8 and POSIF module."
+    /* End   : PWM_BC property section*/
+    
+    /* Begin : User variable section*/
+    GFloat      gfloat_clock_mhz = GFloat(widgetName: "Clock_MHz",value:120);
+    GInteger gint_prescaler = GInteger(widgetName: "Prescaler",value:0,min:0,max:15);
+    GInteger gint_deadtime_rising_edge_reg = GInteger(widgetName: "Rising Edge Deadtime Reg",value:0,min:0,max:255);
+    GInteger gint_deadtime_falling_edge_reg = GInteger(widgetName: "Falling Edge Deadtime Reg",value:0,min:0,max:255);
+    GInteger gint_deadtime_prescaler = GInteger(widgetName: "Deadtime Prescaler",value:0,min:0,max:3);
+    GInteger gint_frequency = GInteger(value:0)
+    GString str_solvervar = GString(widgetName:"Solver URI", value:"0");
+    GCheck gcheck_2hall = GCheck(widgetName: "2 Hall Support",value:false)
+    GCheck gcheck_ps = GCheck(value:true)
+    GCheck gcheck_syncstart = GCheck(value:true)
+    
+    /*CCU8 config slice*/
+    MVirtualResourceGroup hwres_ccu8_slice_configa
+    MVirtualResourceGroup hwres_ccu8_slice_configb
+    MVirtualResourceGroup hwres_ccu8_slice_configc
+    /*port pad */
+    MVirtualResourceGroup hwres_port_pad_phuhigh
+    MVirtualResourceGroup hwres_port_pad_phulow
+    MVirtualResourceGroup hwres_port_pad_phvhigh
+    MVirtualResourceGroup hwres_port_pad_phvlow
+    MVirtualResourceGroup hwres_port_pad_phwhigh
+    MVirtualResourceGroup hwres_port_pad_phwlow
+    MVirtualResourceGroup hwres_port_pad_trap
+    MVirtualResourceGroup hwres_port_pad_inverterenable
+    
+    MVirtualResourceGroup hwres_scu_ccu8_global_enable
+    MVirtualResourceGroup hwres_posif_mcm
+    
+    /*Global APPs*/
+    MRequiredApp appres_global_ccu8_app0
+    MRequiredApp appres_global_posif_app0
+    
+
+    /*Global Signal*/
+    MVirtualSignal vs_pwm_bc_globalsignal_posifmcm
+    MVirtualSignalRA vs_global_posif_global
+    MVirtualSignal vs_pwm_bc_globalsignal_phu_config
+    MVirtualSignal vs_pwm_bc_globalsignal_phv_config
+    MVirtualSignal vs_pwm_bc_globalsignal_phw_config
+    
+    /*External Start Signal*/
+    MVirtualSignal vs_pwm_bc_gp0_unsync_configa
+    MVirtualSignal vs_pwm_bc_gp0_unsync_configb
+    MVirtualSignal vs_pwm_bc_gp0_unsync_configc
+
+    /*Trap Signal*/
+    MVirtualSignal vs_pwm_bc_gp2_unsync_configa
+    MVirtualSignal vs_pwm_bc_gp2_unsync_configb
+    MVirtualSignal vs_pwm_bc_gp2_unsync_configc
+
+    /*Period/One Match interrupt*/
+    MVirtualSignal vs_pwm_bc_pmus_omds_phu
+    MVirtualSignal vs_pwm_bc_pmus_omds_phv
+    MVirtualSignal vs_pwm_bc_pmus_omds_phw
+
+    /*Compare Match interrupt*/
+    MVirtualSignal vs_pwm_bc_cmds_cmus_phu
+    MVirtualSignal vs_pwm_bc_cmds_cmus_phv
+    MVirtualSignal vs_pwm_bc_cmds_cmus_phw
+    MVirtualSignal vs_pwm_bc_cmds_op_cmus_phv
+    MVirtualSignal vs_pwm_bc_cmds_op_cmus_phw
+
+    /*Trap interrupt*/
+    MVirtualSignal vs_pwm_bc_e2as_phu
+    MVirtualSignal vs_pwm_bc_e2as_phv
+    MVirtualSignal vs_pwm_bc_e2as_phw
+
+    /*CH-ST*/
+    MVirtualSignal vs_pwm_bc_ch_st_phu
+    MVirtualSignal vs_pwm_bc_ch_st_phv
+    MVirtualSignal vs_pwm_bc_ch_st_phw
+    
+    /*CH-ST - if optimization enabled*/
+    MVirtualSignal vs_pwm_bc_op_ch_st_phv
+    MVirtualSignal vs_pwm_bc_op_ch_st_phw
+
+
+    /*STATUS*/
+    MVirtualSignal vs_pwm_bc_st_phu
+    MVirtualSignal vs_pwm_bc_st_phv
+    MVirtualSignal vs_pwm_bc_st_phw
+
+    /*OUT0*/
+    MVirtualSignal vs_pwm_bc_out0_phu
+    MVirtualSignal vs_pwm_bc_out0_phv
+    MVirtualSignal vs_pwm_bc_out0_phw
+    /*OUT0 - if optimization enabled*/
+    MVirtualSignal vs_pwm_bc_op_out0_phv
+    MVirtualSignal vs_pwm_bc_op_out0_phw
+    /*OUT1*/
+    MVirtualSignal vs_pwm_bc_out1_phu
+    MVirtualSignal vs_pwm_bc_out1_phv
+    MVirtualSignal vs_pwm_bc_out1_phw
+    /*OUT1 - if optimization enabled*/
+    MVirtualSignal vs_pwm_bc_op_out1_phv
+    MVirtualSignal vs_pwm_bc_op_out1_phw
+    /*SYNC Signal*/
+    MVirtualSignal vs_pwm_bc_ps_phu
+    MVirtualSignal vs_pwm_bc_ps_phv
+    MVirtualSignal vs_pwm_bc_ps_phw
+    
+    /*POSIF MCM Signals*/
+    MVirtualSignal vs_pwm_bc_mset
+    MVirtualSignal vs_pwm_bc_msync
+    MVirtualSignal vs_pwm_bc_out6
+    MVirtualSignal vs_pwm_bc_mste
+    MVirtualSignal vs_pwm_bc_mout0
+    MVirtualSignal vs_pwm_bc_mci0
+    
+    /*Pad signals*/
+    MVirtualSignal vs_pwm_bc_pin_phu_high
+    MVirtualSignal vs_pwm_bc_pin_phu_low
+    MVirtualSignal vs_pwm_bc_pin_phv_high
+    MVirtualSignal vs_pwm_bc_pin_phv_low
+    MVirtualSignal vs_pwm_bc_pin_phw_high
+    MVirtualSignal vs_pwm_bc_pin_phw_low
+    
+    MVirtualSignal vs_pwm_bc_pin_trap
+    MVirtualSignal vs_pwm_bc_pin_inverter
+
+    /*Required APP Signals*/
+    MVirtualSignalRA vs_global_ccu8_global
+    MVirtualSignalRA vs_global_ccu8_gsc_enable
+    
+    /* Solver variables */
+    SolverVariable sv_phu_high_out = SolverVariable()
+    SolverVariable sv_phu_low_out = SolverVariable()
+    SolverVariable sv_phv_high_out = SolverVariable()
+    SolverVariable sv_phv_low_out = SolverVariable()
+    SolverVariable sv_phw_high_out = SolverVariable()
+    SolverVariable sv_phw_low_out = SolverVariable()
+    
+    SolverVariable sv_phu_cmp = SolverVariable()
+    SolverVariable sv_phv_cmp = SolverVariable()
+    SolverVariable sv_phw_cmp = SolverVariable()
+    
+    SolverVariable sv_phu_st = SolverVariable()
+    SolverVariable sv_phv_st = SolverVariable()
+    SolverVariable sv_phw_st = SolverVariable()
+    
+  /* End   : User variable section*/
+
+    /* PWM_BC Constructor*/
+    public PWM_BC(DaveEnv daveEnv) {
+    /* ------------------------------------------------------------------------------------------------------------------ */
+    /* ----------------------------------- Target Specific User Variable Initialization --------------------------------- */
+    /* ------------------------------------------------------------------------------------------------------------------ */
+    String family = daveEnv.project.selectedDevice.deviceId.family
+    String series = daveEnv.project.selectedDevice.deviceId.series
+    String SubDevicefamily = null
+    String ic_package = null
+    
+    int PRESCALER_MAX = 15
+    int DT_REG_MAX = 255
+    int DT_PRESCALER_MAX = 3
+    /*device selection*/
+    if (family == "XMC4")
+    {
+      gcombo_direct_output.value = "Active Low"
+      gcombo_indirect_output.value = "Active Low"
+      if((series == "2") || (series == "1"))
+      {
+        SubDevicefamily = "4.2"
+        ic_package      ="Q48"
+      }
+	  else if ((series == "4") || (series == "5"))
+	  {
+		SubDevicefamily = "4.5"
+	  }
+	  else
+	  {
+		SubDevicefamily = "4.7"		  
+	  }
+    } 
+    else 
+    {
+      if(series == "3")
+	  {
+        SubDevicefamily = "1.3"
+	  }
+	  else
+	  {
+		SubDevicefamily = "1.4"		  
+	  }
+    }
+    /*Local MF Function*/
+    MF OPTIMIZED_SLICE            = MF({(gcheck_sliceconsumption.value == true)}, Boolean)
+    MF OPTIMIZED_SLICE_DISABLED   = MF({(gcheck_sliceconsumption.value != true)}, Boolean)
+    /***************************************Solver Constraints*************************************************/
+    /*Solver constraint for output selection - Phase U*/
+    SolverConstraint PhUout0Range = UriElementRange(sv_phu_high_out, ["out0"])
+    SolverConstraint PhUout1Range = UriElementRange(sv_phu_low_out, ["out1"])
+    SolverConstraint PhUout2Range = UriElementRange(sv_phu_high_out, ["out2"])
+    SolverConstraint PhUout3Range = UriElementRange(sv_phu_low_out, ["out3"])
+    
+    addIfAndOnlyIfConstraint(PhUout0Range, PhUout1Range)
+    addIfAndOnlyIfConstraint(PhUout2Range, PhUout3Range)
+    
+    /*Solver constraint for output selection - Phase V*/
+    SolverConstraint PhVout0Range = UriElementRange(sv_phv_high_out, ["out0"])
+    SolverConstraint PhVout1Range = UriElementRange(sv_phv_low_out, ["out1"])
+    SolverConstraint PhVout2Range = UriElementRange(sv_phv_high_out, ["out2"])
+    SolverConstraint PhVout3Range = UriElementRange(sv_phv_low_out, ["out3"])
+    
+    addIfAndOnlyIfConstraint(PhVout0Range, PhVout1Range)
+    addIfAndOnlyIfConstraint(PhVout2Range, PhVout3Range)
+    
+    /*Solver constraint for output selection - Phase W*/
+    SolverConstraint PhWout0Range = UriElementRange(sv_phw_high_out, ["out0"])
+    SolverConstraint PhWout1Range = UriElementRange(sv_phw_low_out, ["out1"])
+    SolverConstraint PhWout2Range = UriElementRange(sv_phw_high_out, ["out2"])
+    SolverConstraint PhWout3Range = UriElementRange(sv_phw_low_out, ["out3"])
+    
+    addIfAndOnlyIfConstraint(PhWout0Range, PhWout1Range)
+    addIfAndOnlyIfConstraint(PhWout2Range, PhWout3Range)
+    
+    addUriElementRangeConstraint(sv_phu_high_out,["out0","out2"])
+    addUriElementRangeConstraint(sv_phu_low_out,["out1","out3"])
+    
+    addUriElementRangeConstraint(sv_phv_high_out,["out0","out2"])
+    addUriElementRangeConstraint(sv_phv_low_out,["out1","out3"])
+    
+    addUriElementRangeConstraint(sv_phw_high_out,["out0","out2"])
+    addUriElementRangeConstraint(sv_phw_low_out,["out1","out3"])
+    
+    /*Compare match solver constraint*/
+    addUriElementRangeConstraint(sv_phu_cmp,MF({["cmd1s_cmu1s","cmd2s_cmu2s"]}, List))
+    addUriElementRangeConstraint(sv_phv_cmp,MF({["cmd1s_cmu1s","cmd2s_cmu2s"]}, List))
+    addUriElementRangeConstraint(sv_phw_cmp,MF({["cmd1s_cmu1s","cmd2s_cmu2s"]}, List))
+    
+    SolverConstraint PhUCmp0 = UriElementRange(sv_phu_cmp, ["cmd1s_cmu1s"])
+    SolverConstraint PhUCmp1 = UriElementRange(sv_phu_cmp, ["cmd2s_cmu2s"])
+    
+    SolverConstraint PhVCmp0 = UriElementRange(sv_phv_cmp, ["cmd1s_cmu1s"])
+    SolverConstraint PhVCmp1 = UriElementRange(sv_phv_cmp, ["cmd2s_cmu2s"])
+    
+    SolverConstraint PhWCmp0 = UriElementRange(sv_phw_cmp, ["cmd1s_cmu1s"])
+    SolverConstraint PhWCmp1 = UriElementRange(sv_phw_cmp, ["cmd2s_cmu2s"])
+    
+    /*Channel 1 Compare match available only when channel 1 output is selected*/
+    addIfAndOnlyIfConstraint(PhUout0Range, PhUCmp0)
+    /*Channel 2 Compare match available only when channel 2 output is selected*/
+    addIfAndOnlyIfConstraint(PhUout2Range, PhUCmp1)
+    
+    /*Channel 1 Compare match available only when channel 1 output is selected*/
+    addIfAndOnlyIfConstraint(PhVout0Range, PhVCmp0)
+    /*Channel 2 Compare match available only when channel 2 output is selected*/
+    addIfAndOnlyIfConstraint(PhVout2Range, PhVCmp1)
+    
+    /*Channel 1 Compare match available only when channel 1 output is selected*/
+    addIfAndOnlyIfConstraint(PhWout0Range, PhWCmp0)    
+    /*Channel 2 Compare match available only when channel 2 output is selected*/
+    addIfAndOnlyIfConstraint(PhWout2Range, PhWCmp1)
+    
+    /*status bit solver constraint*/
+    SolverConstraint PhUSta = UriElementRange(sv_phu_st, ["sta"])    
+    SolverConstraint PhVSta = UriElementRange(sv_phv_st, ["sta"])    
+    SolverConstraint PhWSta = UriElementRange(sv_phw_st, ["sta"])
+    SolverConstraint PhUStb = UriElementRange(sv_phu_st, ["stb"])
+    SolverConstraint PhVStb = UriElementRange(sv_phv_st, ["stb"])
+    SolverConstraint PhWStb = UriElementRange(sv_phw_st, ["stb"])
+    
+    addIfAndOnlyIfConstraint(PhUout0Range, PhUSta)
+    addIfAndOnlyIfConstraint(PhVout0Range, PhVSta)
+    addIfAndOnlyIfConstraint(PhWout0Range, PhWSta)
+    
+    /* stb signal is not available for XMC13 device */
+    //if(SubDevicefamily != "1.3")
+    //{      
+      addIfAndOnlyIfConstraint(PhUout2Range, PhUStb)
+      addIfAndOnlyIfConstraint(PhVout2Range, PhVStb)
+      addIfAndOnlyIfConstraint(PhWout2Range, PhWStb)
+    //}
+
+
+    /* ------------------------------------------------------------------------------------------------------------ */
+    /* --------------------------------------------- APP consumption Block ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------------------ */
+    appres_global_ccu8_app0 = MRequiredApp("GLOBAL_CCU8","Global CCU8", RSHARABLE, "4.0.2")
+    appres_global_posif_app0 = MRequiredApp("GLOBAL_POSIF","Global Posif", RSHARABLE, "4.0.12")
+    
+    /* ------------------------------------------------------------------------------------------------------------ */
+    /* ------------------------------------- Hardware resource consumption block ---------------------------------- */
+    /* ------------------------------------------------------------------------------------------------------------ */
+    
+    /*******************************CCU8 Slice Consumption*************************************/
+    hwres_ccu8_slice_configa = MVirtualResourceGroup(MF(
+                                                      {
+                                                      if(gcheck_sliceconsumption.value == true)
+                                                      {
+                                                        return "PhUV Slice"      
+                                                      }
+                                                      else
+                                                      {
+                                                        return "PhU Slice"
+                                                      }
+                                                      }, String), 
+                                                     ["peripheral", "ccu8", "*", "cc8", "*"]);
+    hwres_ccu8_slice_configb = MVirtualResourceGroup(MF(
+                                                      {
+                                                      if(gcheck_sliceconsumption.value == true)
+                                                      {
+                                                        return "PhW Slice"
+                                                      }
+                                                      else
+                                                      {
+                                                        return "PhV Slice"
+                                                      }
+                                                      }, String), 
+                                                     ["peripheral", "ccu8", "*", "cc8", "*"]);    
+    hwres_ccu8_slice_configc = MVirtualResourceGroup("PhW Slice", ["peripheral", "ccu8", "*", "cc8", "*"],
+                                                     MF({(gcheck_sliceconsumption.value != true)}, Boolean));
+     
+    /****************************POSIF MCM Resource Consumption********************************/
+    hwres_posif_mcm = MVirtualResourceGroup("MultiChannel Mode", ["peripheral", "posif", "*", "posif", "mcm"]);
+
+    /**********************************Pad Consumption*****************************************/
+    /*output pad*/
+    hwres_port_pad_phuhigh = MVirtualResourceGroup("PhaseU_High pin", ["port", "p", "*", "pad", "*"]);
+    hwres_port_pad_phulow  = MVirtualResourceGroup("PhaseU_Low pin", ["port", "p", "*", "pad", "*"]);
+    hwres_port_pad_phvhigh = MVirtualResourceGroup("PhaseV_High pin", ["port", "p", "*", "pad", "*"]);
+    hwres_port_pad_phvlow  = MVirtualResourceGroup("PhaseV_Low pin", ["port", "p", "*", "pad", "*"]);
+    hwres_port_pad_phwhigh = MVirtualResourceGroup("PhaseW_High pin", ["port", "p", "*", "pad", "*"]);
+    hwres_port_pad_phwlow  = MVirtualResourceGroup("PhaseW_Low pin", ["port", "p", "*", "pad", "*"]);
+    /*trap*/
+    hwres_port_pad_trap    = MVirtualResourceGroup("Trap Pin", ["port", "p", "*", "pad", "*"],
+                             MF({(gcombo_traplevel.value != "Trap Disabled")}, Boolean));
+    /*inverter pad*/
+    hwres_port_pad_inverterenable = MVirtualResourceGroup("Inverter Enable Pin", ["port", "p", "*", "pad", "*"],
+                                    MF({(gcombo_inverterpin_level.value != "Inverter Pin Disabled")}, Boolean));
+    
+    /* --------------------------------------------------------------------------------------------------------- */
+    /* -------------------------------------------- APP IO Signals --------------------------------------------- */
+    /* --------------------------------------------------------------------------------------------------------- */
+    /************************************Global Signals********************************************/
+    /*CCU8*/
+    vs_pwm_bc_globalsignal_phu_config = MVirtualSignal(hwres_ccu8_slice_configa,MF(
+                                                                                  {
+                                                                                  if(gcheck_sliceconsumption.value == true)
+                                                                                  {
+                                                                                    return "ph_uv_global_signal"
+                                                                                  }
+                                                                                  else
+                                                                                  {
+                                                                                    return "ph_u_global_signal"
+                                                                                  }
+                                                                                  }, String),"global_signal", true, false)
+    vs_pwm_bc_globalsignal_phv_config  = MVirtualSignal(hwres_ccu8_slice_configb,MF(
+                                                                                   {
+                                                                                   if(gcheck_sliceconsumption.value == true)
+                                                                                   {
+                                                                                     return "ph_w_global_signal"
+                                                                                   }
+                                                                                   else
+                                                                                   {
+                                                                                     return "ph_v_global_signal"       
+                                                                                   }
+                                                                                   }, String),"global_signal", true, false)
+    vs_pwm_bc_globalsignal_phw_config  = MVirtualSignal(hwres_ccu8_slice_configc,"ph_w_global_signal","global_signal",
+                                         MF({(gcheck_sliceconsumption.value != true)}, Boolean), false)
+    /*POSIF*/
+    vs_pwm_bc_globalsignal_posifmcm = MVirtualSignal(hwres_posif_mcm,"Global Signal Posif","global_signal", true, false)
+    
+    /************************************CCU8 External Start Signal********************************************/
+    vs_pwm_bc_gp0_unsync_configa = MVirtualSignal(hwres_ccu8_slice_configa,MF(
+                                                                             {
+                                                                             if(gcheck_sliceconsumption.value == true)
+                                                                             {
+                                                                                return "ph_uv_external_start"
+                                                                             }
+                                                                             else
+                                                                             {
+                                                                                return "ph_u_external_start" 
+                                                                             }
+                                                                             }, String),"gp0_unsync",true,true)
+    vs_pwm_bc_gp0_unsync_configb = MVirtualSignal(hwres_ccu8_slice_configb,MF(
+                                                                             {
+                                                                             if(gcheck_sliceconsumption.value == true)
+                                                                             {
+                                                                                return "ph_w_external_start"     
+                                                                             }
+                                                                             else
+                                                                             {
+                                                                                return "ph_v_external_start"     
+                                                                             }
+                                                                             }, String),"gp0_unsync",true,true)
+    vs_pwm_bc_gp0_unsync_configc = MVirtualSignal(hwres_ccu8_slice_configc,"ph_w_external_start","gp0_unsync", MF({(gcheck_sliceconsumption.value != true)}, Boolean), true)
+    
+    /****************************************CCU8 Trap Signal*************************************************/
+    vs_pwm_bc_gp2_unsync_configa = MVirtualSignal(hwres_ccu8_slice_configa,MF(
+                                                                             {
+                                                                             if(gcheck_sliceconsumption.value == true)
+                                                                             {
+                                                                                return "ph_uv_trap"
+                                                                             }
+                                                                             else
+                                                                             {
+                                                                                return "ph_u_trap"     
+                                                                             }
+                                                                             }, String),"gp2_unsync",true,false)
+    vs_pwm_bc_gp2_unsync_configb = MVirtualSignal(hwres_ccu8_slice_configb,MF(
+                                                                             {
+                                                                             if(gcheck_sliceconsumption.value == true)
+                                                                             {
+                                                                               return "ph_w_trap"
+                                                                             }
+                                                                             else
+                                                                             {
+                                                                               return "ph_v_trap"
+                                                                             }
+                                                                             }, String),"gp2_unsync",true,false)
+    vs_pwm_bc_gp2_unsync_configc = MVirtualSignal(hwres_ccu8_slice_configc,"ph_w_trap","gp2_unsync", MF({(gcheck_sliceconsumption.value != true)}, Boolean), false)
+    
+    /****************************************CCU8 Interrupt Signals*******************************************/
+    /*Period/One Match*/
+    vs_pwm_bc_pmus_omds_phu = MVirtualSignal(hwres_ccu8_slice_configa,MF(
+                                                                        {
+                                                                        if(gcheck_sliceconsumption.value == true)
+                                                                        {
+                                                                         return "event_ph_uv_period/one_match"
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                         return "event_ph_u_period/one_match"
+                                                                        }
+                                                                        }, String),"pmus_omds",true,true)
+    vs_pwm_bc_pmus_omds_phv = MVirtualSignal(hwres_ccu8_slice_configb,MF(
+                                                                        {
+                                                                        if(gcheck_sliceconsumption.value == true)
+                                                                        {
+                                                                         return "event_ph_w_period/one_match"
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                         return "event_ph_v_period/one_match"
+                                                                        }
+                                                                        }, String),"pmus_omds",true,true)
+    vs_pwm_bc_pmus_omds_phw = MVirtualSignal(hwres_ccu8_slice_configc,"event_ph_w_period/one_match","pmus_omds", MF({(gcheck_sliceconsumption.value != true)}, Boolean), true)
+    
+    /*Compare Match*/
+    /* If optimization disabled  */
+    vs_pwm_bc_cmds_cmus_phu = MVirtualSignal(hwres_ccu8_slice_configa,"event_ph_u_compare_match up/down",sv_phu_cmp,true,true)
+    vs_pwm_bc_cmds_cmus_phv = MVirtualSignal(hwres_ccu8_slice_configb,"event_ph_v_compare_match up/down",sv_phv_cmp,OPTIMIZED_SLICE_DISABLED,true)
+    vs_pwm_bc_cmds_cmus_phw = MVirtualSignal(hwres_ccu8_slice_configc,"event_ph_w_compare_match up/down",sv_phw_cmp,OPTIMIZED_SLICE_DISABLED,true)
+    
+    /* If optimization is enabled  */
+    vs_pwm_bc_cmds_op_cmus_phv = MVirtualSignal(hwres_ccu8_slice_configa,"event_ph_v_compare_match up/down",sv_phv_cmp,OPTIMIZED_SLICE,true)
+    vs_pwm_bc_cmds_op_cmus_phw = MVirtualSignal(hwres_ccu8_slice_configb,"event_ph_w_compare_match up/down",sv_phw_cmp,OPTIMIZED_SLICE,true)
+    
+    /*Trap*/
+    vs_pwm_bc_e2as_phu = MVirtualSignal(hwres_ccu8_slice_configa,MF(
+                                                                   {
+                                                                   if(gcheck_sliceconsumption.value == true)
+                                                                   {
+                                                                     return  "event_ph_uv_trap"
+                                                                   }
+                                                                   else
+                                                                   {
+                                                                     return  "event_ph_u_trap"
+                                                                   }
+                                                                   }, String),"e2as",true,true)
+    vs_pwm_bc_e2as_phv = MVirtualSignal(hwres_ccu8_slice_configb,MF({
+                                                                    if(gcheck_sliceconsumption.value == true)
+                                                                    {
+                                                                      return "event_ph_w_trap"
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                      return "event_ph_v_trap"
+                                                                    }
+                                                                    }, String),"e2as",true,true)
+    vs_pwm_bc_e2as_phw = MVirtualSignal(hwres_ccu8_slice_configc,"event_ph_w_trap","e2as", MF({(gcheck_sliceconsumption.value != true)}, Boolean), true)
+   
+    /**************************************Status Signals**************************************************/
+    vs_pwm_bc_ch_st_phu = MVirtualSignal(hwres_ccu8_slice_configa,"ph_u_status",sv_phu_st,true,true)
+    vs_pwm_bc_ch_st_phv = MVirtualSignal(hwres_ccu8_slice_configb,"ph_v_status",sv_phv_st,OPTIMIZED_SLICE_DISABLED,true)
+    vs_pwm_bc_ch_st_phw = MVirtualSignal(hwres_ccu8_slice_configc,"ph_w_status",sv_phw_st,OPTIMIZED_SLICE_DISABLED,true)
+        
+    /* If optimization is enabled  */
+    vs_pwm_bc_op_ch_st_phv = MVirtualSignal(hwres_ccu8_slice_configa,"ph_v_status",sv_phv_st,OPTIMIZED_SLICE,true)
+    vs_pwm_bc_op_ch_st_phw = MVirtualSignal(hwres_ccu8_slice_configb,"ph_w_status",sv_phw_st,OPTIMIZED_SLICE,true)
+      
+    vs_pwm_bc_st_phu = MVirtualSignal(hwres_ccu8_slice_configa,MF({
+                                                                  if(gcheck_sliceconsumption.value == true)
+                                                                  {
+                                                                     return "ph_uv_slice_status"
+                                                                  }
+                                                                  else
+                                                                  {
+                                                                     return "ph_u_slice_status"  
+                                                                  }
+                                                                  }, String),"st",true,true)
+    vs_pwm_bc_st_phv = MVirtualSignal(hwres_ccu8_slice_configb,MF({
+                                                                  if(gcheck_sliceconsumption.value == true)
+                                                                  {
+                                                                     return "ph_w_slice_status"
+                                                                  }
+                                                                  else
+                                                                  {
+                                                                     return "ph_v_slice_status"
+                                                                  }
+                                                                  }, String),"st",true,true)
+    vs_pwm_bc_st_phw = MVirtualSignal(hwres_ccu8_slice_configc,"ph_w_slice_status","st", MF({(gcheck_sliceconsumption.value != true)}, Boolean), true)
+    
+    /**************************************POSIF Signals**************************************************/
+    vs_pwm_bc_mset = MVirtualSignal(hwres_posif_mcm, "multichannel_next_pattern_update_set", "pifmset",true,true)
+    vs_pwm_bc_msync = MVirtualSignal(hwres_posif_mcm, "multichannel_pattern_update_synchronization", "pifmsync",true,false)
+    vs_pwm_bc_out6 = MVirtualSignal(hwres_posif_mcm, "multichannel_pattern_sync_trigger", "out6",true,false)
+    vs_pwm_bc_mste = MVirtualSignal(hwres_posif_mcm, "multichannel_pattern_update", "mste",true,true)
+    vs_pwm_bc_mout0 = MVirtualSignal(hwres_posif_mcm, "multichannel_pattern_output_0", "mout0",true,false)
+    vs_pwm_bc_mci0  = MVirtualSignal(hwres_ccu8_slice_configa, "multichannel_pattern_input_0", "mci0",true,false)
+    
+    /**************************************CCU8 PWM Sync Signals*****************************************/
+    vs_pwm_bc_ps_phu = MVirtualSignal(hwres_ccu8_slice_configa,MF({
+                                                                  if(gcheck_sliceconsumption.value == true)
+                                                                  {
+                                                                    return "ph_uv_period_synchronization"
+                                                                  }
+                                                                  else
+                                                                  {
+                                                                    return "ph_u_period_synchronization"
+                                                                  }
+                                                                  }, String),"ps",true,true)
+    vs_pwm_bc_ps_phv = MVirtualSignal(hwres_ccu8_slice_configb,MF({
+                                                                  if(gcheck_sliceconsumption.value == true)
+                                                                  {
+                                                                    return "ph_w_period_synchronization"
+                                                                  }
+                                                                  else
+                                                                  {
+                                                                    return "ph_v_period_synchronization"
+                                                                  }
+                                                                  }, String),"ps",true,true)
+    vs_pwm_bc_ps_phw = MVirtualSignal(hwres_ccu8_slice_configc,"ph_w_period_synchronization","ps",true,true)
+    
+    /**************************************PWM Output Signals**************************************************/
+    vs_pwm_bc_out0_phu = MVirtualSignal(hwres_ccu8_slice_configa,"ph_u_high",sv_phu_high_out,true,false)
+    /* If optimized slice is enabled then use another channel from the same slice */
+    vs_pwm_bc_op_out0_phv = MVirtualSignal(hwres_ccu8_slice_configa,"ph_v_high",sv_phv_high_out,OPTIMIZED_SLICE,false)
+    vs_pwm_bc_out0_phv = MVirtualSignal(hwres_ccu8_slice_configb,"ph_v_high",sv_phv_high_out,OPTIMIZED_SLICE_DISABLED,false)
+    /* If optimized slice is enabled then use another channel from the same slice */
+    vs_pwm_bc_op_out0_phw = MVirtualSignal(hwres_ccu8_slice_configb,"ph_v_high",sv_phw_high_out,OPTIMIZED_SLICE,false)
+    vs_pwm_bc_out0_phw = MVirtualSignal(hwres_ccu8_slice_configc,"ph_w_high",sv_phw_high_out,OPTIMIZED_SLICE_DISABLED,false)
+        
+    vs_pwm_bc_out1_phu = MVirtualSignal(hwres_ccu8_slice_configa,"ph_u_low",sv_phu_low_out,true,false)
+    /* If optimized slice is enabled then use another channel from the same slice */
+    vs_pwm_bc_op_out1_phv = MVirtualSignal(hwres_ccu8_slice_configa,"ph_v_low",sv_phv_low_out,OPTIMIZED_SLICE,false)
+    vs_pwm_bc_out1_phv = MVirtualSignal(hwres_ccu8_slice_configb,"ph_v_low",sv_phv_low_out,OPTIMIZED_SLICE_DISABLED,false)
+    /* If optimized slice is enabled then use another channel from the same slice */
+    vs_pwm_bc_op_out1_phw = MVirtualSignal(hwres_ccu8_slice_configb,"ph_v_low",sv_phw_low_out,OPTIMIZED_SLICE,false)
+    vs_pwm_bc_out1_phw = MVirtualSignal(hwres_ccu8_slice_configc,"ph_w_low",sv_phw_low_out,,OPTIMIZED_SLICE_DISABLED,false)
+    
+
+    /**************************************Pad Signals for PWM Outputs***********************************************/
+    @AddPin
+    vs_pwm_bc_pin_phu_high  =  MVirtualSignal(hwres_port_pad_phuhigh, "ph_u_high_pad", "pad", true, false)
+    @AddPin
+    vs_pwm_bc_pin_phv_high  =  MVirtualSignal(hwres_port_pad_phvhigh, "ph_v_high_pad", "pad", true, false)
+    @AddPin
+    vs_pwm_bc_pin_phw_high  =  MVirtualSignal(hwres_port_pad_phwhigh, "ph_w_high_pad", "pad", true, false)
+    @AddPin
+    vs_pwm_bc_pin_phu_low  =  MVirtualSignal(hwres_port_pad_phulow, "ph_u_low_pad", "pad", true, false)
+    @AddPin
+    vs_pwm_bc_pin_phv_low  =  MVirtualSignal(hwres_port_pad_phvlow, "ph_v_low_pad", "pad", true, false)
+    @AddPin
+    vs_pwm_bc_pin_phw_low  =  MVirtualSignal(hwres_port_pad_phwlow, "ph_w_low_pad", "pad", true, false)
+    @AddPin
+    vs_pwm_bc_pin_trap = MVirtualSignal(hwres_port_pad_trap, "trap_pad", "pad", MF({(gcombo_traplevel.value != "Trap Disabled")}, Boolean), false)
+    @AddPin
+    vs_pwm_bc_pin_inverter = MVirtualSignal(hwres_port_pad_inverterenable, "inverter_enable_pad", "pad", MF({(gcombo_inverterpin_level.value != "Inverter Pin Disabled")}, Boolean), true)
+    
+    /***************************************Required APP Signals*****************************************************/
+    vs_global_ccu8_global = MVirtualSignalRA(appres_global_ccu8_app0,"vs_global_ccu8_globalsignal")
+    vs_global_posif_global = MVirtualSignalRA(appres_global_posif_app0,"vs_global_posif_globalsignal")
+    vs_global_ccu8_gsc_enable = MVirtualSignalRA(appres_global_ccu8_app0,"vs_global_ccu8_gsc_enable")
+    
+    /* ----------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------- APP IO Connections -------------------------------------- */
+    /* ----------------------------------------------------------------------------------------------------- */
+    /** global signal **/
+    
+    addConnectionConstraint(vs_global_ccu8_global, vs_pwm_bc_globalsignal_phu_config)
+    addConnectionConstraint(vs_global_ccu8_global, vs_pwm_bc_globalsignal_phv_config)
+    addConnectionConstraint(vs_global_ccu8_global, vs_pwm_bc_globalsignal_phw_config,MF({(gcheck_sliceconsumption.value != true)}, Boolean))
+    
+    if(SubDevicefamily != "1.4")
+    {      
+      /** posif global to posif mcm connection **/
+      addConnectionConstraint(vs_global_posif_global, vs_pwm_bc_globalsignal_posifmcm)
+    }
+    
+    /** CCU8 Phase outputs to the Pad **/
+    /*high side*/
+    addConnectionConstraint(vs_pwm_bc_out0_phu, vs_pwm_bc_pin_phu_high)
+    addConnectionConstraint(vs_pwm_bc_out0_phv, vs_pwm_bc_pin_phv_high,OPTIMIZED_SLICE_DISABLED)
+    addConnectionConstraint(vs_pwm_bc_out0_phw, vs_pwm_bc_pin_phw_high,OPTIMIZED_SLICE_DISABLED)
+    addConnectionConstraint(vs_pwm_bc_op_out0_phv, vs_pwm_bc_pin_phv_high,OPTIMIZED_SLICE)
+    addConnectionConstraint(vs_pwm_bc_op_out0_phw, vs_pwm_bc_pin_phw_high,OPTIMIZED_SLICE)
+    /*low side*/
+    addConnectionConstraint(vs_pwm_bc_out1_phu, vs_pwm_bc_pin_phu_low)
+    addConnectionConstraint(vs_pwm_bc_out1_phv, vs_pwm_bc_pin_phv_low,OPTIMIZED_SLICE_DISABLED)
+    addConnectionConstraint(vs_pwm_bc_out1_phw, vs_pwm_bc_pin_phw_low,OPTIMIZED_SLICE_DISABLED)
+    addConnectionConstraint(vs_pwm_bc_op_out1_phv, vs_pwm_bc_pin_phv_low,OPTIMIZED_SLICE)
+    addConnectionConstraint(vs_pwm_bc_op_out1_phw, vs_pwm_bc_pin_phw_low,OPTIMIZED_SLICE)
+
+    /** Input trap pin to the external trap signal of the CCU8 slices **/
+    addConnectionConstraint(vs_pwm_bc_pin_trap, vs_pwm_bc_gp2_unsync_configa)
+    addConnectionConstraint(vs_pwm_bc_pin_trap, vs_pwm_bc_gp2_unsync_configb)
+    addConnectionConstraint(vs_pwm_bc_pin_trap, vs_pwm_bc_gp2_unsync_configc)
+
+    /** SCU sync start to external start input signals of the slices **/
+    addConnectionConstraint(vs_global_ccu8_gsc_enable, vs_pwm_bc_gp0_unsync_configa)
+    addConnectionConstraint(vs_global_ccu8_gsc_enable, vs_pwm_bc_gp0_unsync_configb)
+    addConnectionConstraint(vs_global_ccu8_gsc_enable, vs_pwm_bc_gp0_unsync_configc)
+
+    /** CCU8 PS signal to POSIF MSYNC signal **/
+    addConnectionConstraint(vs_pwm_bc_ps_phv, vs_pwm_bc_msync, MF({
+        ((gcheck_sliceconsumption.value == false) && (gcheck_ps.value == true))
+        }, Boolean))
+    addConnectionConstraint(vs_pwm_bc_ps_phw, vs_pwm_bc_msync, MF({
+        ((gcheck_sliceconsumption.value == true) && (gcheck_ps.value == true))
+        }, Boolean))
+    addConnectionConstraint(vs_pwm_bc_mout0, vs_pwm_bc_mci0)
+    /* ----------------------------------------------------------------------------------------------------- */
+    /* ---------------------------------------- APP Configuration ------------------------------------------ */
+    /* ----------------------------------------------------------------------------------------------------- */
+    /** Minimum resolution value calculated based on clock**/
+    gfloat_resolution.minValue = MF({(1000/gfloat_clock_mhz.value)},Float)
+    /** Maximum resolution value calculated based on clock**/
+    gfloat_resolution.maxValue = MF({((1000*65535)/(gfloat_clock_mhz.value))},Float)
+    if(family == "XMC1")
+    {
+	  if(SubDevicefamily == "1.3")
+	  {
+        gfloat_resolution.value = 16
+	  }
+	  else
+	  {
+		gfloat_resolution.value = 11
+	  }
+      gcombo_direct_output.value = "Active High"
+      gcombo_indirect_output.value = "Active High"
+      glabel_pwmout_strength.visible = false
+      gcombo_pwmout_strength.visible = false
+      glabel_invout_dstrength.visible = false
+      gcombo_invout_dstrength.visible = false
+    }
+	else
+	{
+      if(SubDevicefamily == "4.2")
+      {
+        gfloat_resolution.value = 13
+      }
+      else if(SubDevicefamily == "4.5")
+      {
+        gfloat_resolution.value = 9
+      }
+	  else
+	  {
+	    gfloat_resolution.value = 7		
+	  }
+	}
+    /* --------------------------- TAB : Timer related configuration -------------------------------------- */
+    gfloat_clock_mhz.value = MF({appres_global_ccu8_app0.getVal(["gfloat_clkFreq", "value"])}, Float)
+    /**Prescaler calculation**/
+    gint_prescaler.value = MF({
+      Float resolution = gfloat_resolution.value
+      Float clock_period = (1000 /gfloat_clock_mhz.value)                 /* convert hz to nsec*/
+      Integer divider = (resolution) / clock_period;                      /* calculate the clock divider required*/
+      if(divider < 1)
+      {
+        divider = 1;
+      }
+      Integer prescaler = Math.floor(Math.log(divider) / Math.log( 2 ) ); /* find the nearest integer in upper side*/
+      if(prescaler > PRESCALER_MAX) 
+      {
+        prescaler = PRESCALER_MAX;
+      }
+      return prescaler;
+      }, Integer);
+    /**Actual Resolution**/
+    gfloat_act_resolution.value = MF({
+      Float clock_period = (1000 /gfloat_clock_mhz.value)                 /* convert hz to nsec*/
+      Integer prescaler = gint_prescaler.value
+      Float act_resolution = clock_period *  2.power(prescaler);          /* calculate actual resolution value*/
+      return act_resolution;
+      }, Float);
+
+    /**Frequency minimum value**/
+    gint_freq.minValue = MF({
+      Integer min_frequency = 1000000000 / (gfloat_act_resolution.value * 65535)
+	  if(min_frequency == 0)
+	  {
+		  min_frequency = 1
+	  }
+	  return min_frequency;
+      }, Integer);
+    /**Frequency maximum value**/
+    gint_freq.maxValue = MF({
+      Integer max = 1000000000 / (2 * gfloat_act_resolution.value)
+      return max;
+      }, Integer);
+    /**It is module frequency calculation used in template**/
+    gint_frequency.value = MF({
+      (Integer)((gfloat_clock_mhz.value / (Math.pow(2,gint_prescaler.value)) ) * 1000000)
+     },Integer)
+    /**Period register count value**/
+    gint_periodreg.value = MF({
+      Float resolution = gfloat_act_resolution.value * 2.0
+      Float freq_Hz = gint_freq.value
+      Float period = 1000000000/freq_Hz                                  /* convert hz to nsec*/
+      Integer period_reg = (period / resolution) - 1                     /* period register value based on PWM freq and actual resolution*/
+      if (period_reg > 65535)
+      {
+        period_reg = 0
+      }
+      return period_reg;
+      }, Integer);
+    /**Dead time prescaler value**/
+    gint_deadtime_prescaler.value = MF({
+      Float resolution = gfloat_act_resolution.value
+      Float deadtime_max = 0
+      Integer deadtime_reg = deadtime_max / resolution
+      Integer prescaler = 0
+      
+      /* Check for max. dead time */
+      if(gfloat_deadtime_rising_edge.value > gfloat_deadtime_falling_edge.value)
+      {
+          deadtime_max = gfloat_deadtime_rising_edge.value
+      }
+      else
+      {
+          deadtime_max = gfloat_deadtime_falling_edge.value
+      }
+      /* if dead time reg is > 255, increase the prescaler and calculate the dead time reg value*/
+      while((deadtime_reg > DT_REG_MAX) && (prescaler <= DT_PRESCALER_MAX))
+      {
+        prescaler = prescaler +1
+        resolution = resolution * 2.power(prescaler)
+        deadtime_reg = deadtime_max / resolution
+      }
+      return prescaler
+      }, Integer);
+     /* Dead time configuration for rising edge */
+     gint_deadtime_rising_edge_reg.value =
+								MF({
+									Integer deadtime_reg
+									Integer deadtime_prescaler = 0
+									deadtime_reg = (Integer)(Math.round((gfloat_deadtime_rising_edge.value)/(gfloat_act_resolution.value)))
+									while ((deadtime_reg > 255) && (deadtime_prescaler < 3))
+									{
+									  deadtime_prescaler = deadtime_prescaler + 1
+									  deadtime_reg = (Integer)(gfloat_deadtime_rising_edge.value/ (((Integer)(gfloat_act_resolution.value)) << deadtime_prescaler))
+									}
+									return deadtime_reg
+								   },Integer)
+
+     /* Dead time configuration for falling edge */
+     gint_deadtime_falling_edge_reg.value =
+								MF({
+									Integer deadtime_reg
+									Integer deadtime_prescaler = 0
+									deadtime_reg = (Integer)(Math.round((gfloat_deadtime_falling_edge.value)/(gfloat_act_resolution.value)))
+									while ((deadtime_reg > 255) && (deadtime_prescaler < 3))
+									{
+									  deadtime_prescaler = deadtime_prescaler + 1
+									  deadtime_reg = (Integer)(gfloat_deadtime_falling_edge.value/ (((Integer)(gfloat_act_resolution.value)) << deadtime_prescaler))
+									}
+									return deadtime_reg
+								   },Integer)
+  
+    /**Hide if XMC42 Q48 package is selected Pins are not connected to compare channel 2**/
+    gcheck_sliceconsumption.visible =  MF({(ic_package != "Q48")}, Boolean);
+    /* ------------------------- TAB : Modulation related configuration -------------------------------------------------- */
+    gimage_hsm.path = MF({
+                           if(gcombo_modtype.value == "High Side")
+                           {
+                             return "Uimodel/HS_Modulation.png"
+                           }
+                           else if(gcombo_modtype.value == "Low Side")
+                           {
+                             return "Uimodel/LS_Modulation.PNG" 
+                           }
+                           else if(gcombo_modtype.value == "Synchronous Rectification")
+                           {
+                             return "Uimodel/Comple_Modulation.PNG"
+                           }
+                           else
+                           {
+                             return "Uimodel/SyncRecti_Modulation.PNG" 
+                           }
+                         }
+                 , String);
+
+    
+    /* ------------------------- TAB : Power Board Configurations related configuration -------------------------------*/
+    /*Dead time is required only for complementary modulation or for Complementary with Synchronous Rectification */
+    gfloat_deadtime_rising_edge.enabled = MF({((gcombo_modtype.value == "Synchronous Rectification") ||
+                                               (gcombo_modtype.value == "Synchronous Rectification (Balanced)"))}, Boolean);
+    gfloat_deadtime_falling_edge.enabled = MF({((gcombo_modtype.value == "Synchronous Rectification") ||
+                                                (gcombo_modtype.value == "Synchronous Rectification (Balanced)"))}, Boolean);
+    gcombo_trapexit.enabled = MF({(gcombo_traplevel.value != "Trap Disabled")}, Boolean);
+    gcombo_trapsync.enabled = MF({(gcombo_traplevel.value != "Trap Disabled") }, Boolean);
+    
+    /* ------------------------- TAB : Interrupts related configuration ---------------------------------------------- */
+    gcheck_trap_interrupt.enabled = MF({(gcombo_traplevel.value != "Trap Disabled")}, Boolean);
+    /* ------------------------- TAB : Pin Configurations related configuration -------------------------------------- */
+    gcombo_trap_opchar.enabled = MF({(gcombo_traplevel.value != "Trap Disabled")}, Boolean);
+    gcombo_invout_opchar.enabled = MF({(gcombo_inverterpin_level.value != "Inverter Pin Disabled")}, Boolean);
+    gcombo_invout_dstrength.enabled = MF({(gcombo_inverterpin_level.value != "Inverter Pin Disabled")}, Boolean);
+    
+  }
+  
+  /* File Generation*/
+  def generateFiles(){
+    copy("pwm_bc.h", "pwm_bc.h")
+    copy("pwm_bc.c", "pwm_bc.c")
+    generate("pwm_bc_confc.tmpl", "pwm_bc_conf.c")
+    generate("pwm_bc_confh.tmpl", "pwm_bc_conf.h")
+    generate("pwm_bc_externh.tmpl", "pwm_bc_extern.h")
+  }
+
+}

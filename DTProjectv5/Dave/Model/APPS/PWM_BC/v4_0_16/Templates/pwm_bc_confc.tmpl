@@ -1,0 +1,1482 @@
+package Model.APPS.PWM_BC.v4_0_16.Templates;
+
+import Model.APPS.PWM_BC.v4_0_16.PWM_BC
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2017, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-20:
+ *     - Initial version
+ *
+ * 2015-06-20:
+ *     - Sync start functionality updated
+ *
+ * @endcond
+ *
+ */
+
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+#include "pwm_bc.h"
+
+""");
+
+List   mappeduri           = null;
+List   pinuri              = null;
+List   trap_uri            = null;
+List   inverter_pin_uri    = null;
+String app_inst            = null;
+String kernel_no           = null;
+String phaseu              = null;
+String phasev              = null;
+String phasew              = null;
+String phaseu_ch           = null;
+String phasev_ch           = null;
+String phasew_ch           = null;
+String phaseu_out0         = null;
+String phaseu_out1         = null;
+String phasev_out0         = null;
+String phasev_out1         = null;
+String phasew_out0         = null;
+String phasew_out1         = null;
+String posif               = null;
+String inverterpin         = null;
+String port_inverter       = null;
+String pin_inverter        = null;
+String port_trap           = null;
+String pin_trap            = null;
+String dtenable_ch1        = null;
+String dtenable_ch2        = null;
+String trappindummyread    = null;
+String syncwithpwm         = null;
+String shadowtransfer      = null;
+String syncstart           = null;
+String enable_trap;
+String output_strength;
+String output_strength_inv;
+Integer currenttrig_no;
+/*This function return 1 if argument is true else return 0*/
+def boolvalreturn = {def arg -> (arg == false ? 0 : 1)}
+List   port                  = [0,0,0,0,0,0];
+List   pin                   = [0,0,0,0,0,0];
+List   openloop_mcp          = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+List   mcp                   = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+List   mcp_cmplmnt           = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+List   mcp_cmplmnt_syncrecti = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+List   mcp_cmplmnt_syncrecti_r = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+
+/******************************************************************************/
+List posifinputportarray =
+['XMC_POSIF_INPUT_PORT_A',
+ 'XMC_POSIF_INPUT_PORT_B',
+ 'XMC_POSIF_INPUT_PORT_C',
+ 'XMC_POSIF_INPUT_PORT_D',
+ 'XMC_POSIF_INPUT_PORT_E',
+ 'XMC_POSIF_INPUT_PORT_F',
+ 'XMC_POSIF_INPUT_PORT_G',
+ 'XMC_POSIF_INPUT_PORT_H'];
+List deadtimedivArray = ['XMC_CCU8_SLICE_DTC_DIV_1',
+  'XMC_CCU8_SLICE_DTC_DIV_2',
+  'XMC_CCU8_SLICE_DTC_DIV_4',
+  'XMC_CCU8_SLICE_DTC_DIV_8'];
+List input_array =
+  ['XMC_CCU8_SLICE_INPUT_A',
+  'XMC_CCU8_SLICE_INPUT_B',
+  'XMC_CCU8_SLICE_INPUT_C',
+  'XMC_CCU8_SLICE_INPUT_D',
+  'XMC_CCU8_SLICE_INPUT_E',
+  'XMC_CCU8_SLICE_INPUT_F',
+  'XMC_CCU8_SLICE_INPUT_G',
+  'XMC_CCU8_SLICE_INPUT_H',
+  'XMC_CCU8_SLICE_INPUT_I',
+  'XMC_CCU8_SLICE_INPUT_J',
+  'XMC_CCU8_SLICE_INPUT_K',
+  'XMC_CCU8_SLICE_INPUT_L',
+  'XMC_CCU8_SLICE_INPUT_M',
+  'XMC_CCU8_SLICE_INPUT_N',
+  'XMC_CCU8_SLICE_INPUT_O',
+  'XMC_CCU8_SLICE_INPUT_P'
+  ];
+List Input_array_xmc1400 = [
+	
+	'XMC_CCU8_SLICE_INPUT_AA',
+	'XMC_CCU8_SLICE_INPUT_AB',
+	'XMC_CCU8_SLICE_INPUT_AC',
+	'XMC_CCU8_SLICE_INPUT_AD',
+	'XMC_CCU8_SLICE_INPUT_AE',
+	'XMC_CCU8_SLICE_INPUT_AF',
+	'XMC_CCU8_SLICE_INPUT_AG',
+	'XMC_CCU8_SLICE_INPUT_AH',
+	'XMC_CCU8_SLICE_INPUT_AI',
+	'XMC_CCU8_SLICE_INPUT_AJ',
+	'XMC_CCU8_SLICE_INPUT_AK',
+	'XMC_CCU8_SLICE_INPUT_AL',
+	'XMC_CCU8_SLICE_INPUT_AM',
+	'XMC_CCU8_SLICE_INPUT_AN',
+	'XMC_CCU8_SLICE_INPUT_AO',
+	'XMC_CCU8_SLICE_INPUT_AP',
+	'XMC_CCU8_SLICE_INPUT_AQ',
+	'XMC_CCU8_SLICE_INPUT_AR',
+	'XMC_CCU8_SLICE_INPUT_AS',
+	'XMC_CCU8_SLICE_INPUT_AT',
+	'XMC_CCU8_SLICE_INPUT_AU',
+	'XMC_CCU8_SLICE_INPUT_AV',
+	'XMC_CCU8_SLICE_INPUT_AW',
+	'XMC_CCU8_SLICE_INPUT_AX',
+	'XMC_CCU8_SLICE_INPUT_AY',
+	'XMC_CCU8_SLICE_INPUT_AZ',
+	'XMC_CCU8_SLICE_INPUT_BA',
+	'XMC_CCU8_SLICE_INPUT_BB',
+	'XMC_CCU8_SLICE_INPUT_BC',
+	'XMC_CCU8_SLICE_INPUT_BD',
+	'XMC_CCU8_SLICE_INPUT_BE',
+	'XMC_CCU8_SLICE_INPUT_BF',
+	'XMC_CCU8_SLICE_INPUT_BG',
+	'XMC_CCU8_SLICE_INPUT_BH',
+	'XMC_CCU8_SLICE_INPUT_BI',
+	'XMC_CCU8_SLICE_INPUT_BJ',
+	'XMC_CCU8_SLICE_INPUT_BK',
+	'XMC_CCU8_SLICE_INPUT_BL',
+	'XMC_CCU8_SLICE_INPUT_BM',
+	'XMC_CCU8_SLICE_INPUT_BN',
+	'XMC_CCU8_SLICE_INPUT_BO',
+	'XMC_CCU8_SLICE_INPUT_BP',
+	'XMC_CCU8_SLICE_INPUT_BQ',
+	'XMC_CCU8_SLICE_INPUT_BR',
+	'XMC_CCU8_SLICE_INPUT_BS',
+	'XMC_CCU8_SLICE_INPUT_BT',
+	'XMC_CCU8_SLICE_INPUT_BU',
+	'XMC_CCU8_SLICE_INPUT_BV',
+];
+
+List traplevelArray = [
+					   'XMC_CCU8_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH',
+					   'XMC_CCU8_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW',
+					   'XMC_CCU8_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH'
+					  ];
+List trapexitArray =  [
+					   'XMC_CCU8_SLICE_TRAP_EXIT_MODE_AUTOMATIC',
+					   'XMC_CCU8_SLICE_TRAP_EXIT_MODE_SW'
+					  ];
+List modulation =     [
+					   "PWM_BC_HIGHSIDE_MOD",
+					   "PWM_BC_LOWSIDE_MOD",
+					   "PWM_BC_SYNCHRONOUS_RECTIFICATION_MOD",
+					   "PWM_BC_SYNCHRONOUS_RECTIFICATION_BALANCED_MOD"
+					  ];
+List directionArray = [
+					   "PWM_BC_CLOCKWISE",
+					   "PWM_BC_ANTICLOCKWISE"
+					  ];
+List gpio_mode  =
+				  [
+					  "XMC_GPIO_MODE_INPUT_TRISTATE" ,              //!< XMC_GPIO_MODE_INPUT_TRISTATE
+					  "XMC_GPIO_MODE_INPUT_PULL_DOWN" ,             //!< XMC_GPIO_MODE_INPUT_PULL_DOWN
+					  "XMC_GPIO_MODE_INPUT_PULL_UP" ,               //!< XMC_GPIO_MODE_INPUT_PULL_UP
+					  "XMC_GPIO_MODE_INPUT_SAMPLING" ,              //!< XMC_GPIO_MODE_INPUT_SAMPLING
+					  "XMC_GPIO_MODE_INPUT_INVERTED_TRISTATE" ,     //!< XMC_GPIO_MODE_INPUT_INVERTED_TRISTATE
+					  "XMC_GPIO_MODE_INPUT_INVERTED_PULL_DOWN",     //!< XMC_GPIO_MODE_INPUT_INVERTED_PULL_DOWN
+					  "XMC_GPIO_MODE_INPUT_INVERTED_PULL_UP",       //!< XMC_GPIO_MODE_INPUT_INVERTED_PULL_UP  
+					  "XMC_GPIO_MODE_INPUT_INVERTED_SAMPLING",      //!< XMC_GPIO_MODE_INPUT_INVERTED_SAMPLING
+					  "XMC_GPIO_MODE_OUTPUT_PUSH_PULL",             //!< XMC_GPIO_MODE_OUTPUT_PUSH_PULL
+					  "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1",        //!< XMC_GPIO_MODE_OUTPUT_PUSH_PULL
+					  "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT2",        //!< XMC_GPIO_MODE_OUTPUT_PUSH_PULL
+					  "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT3",        //!< XMC_GPIO_MODE_OUTPUT_PUSH_PULL
+					  "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT4",        //!< XMC_GPIO_MODE_OUTPUT_PUSH_PULL
+					  "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT5",        //!< XMC_GPIO_MODE_OUTPUT_PUSH_PULL
+					  "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT6",        //!< XMC_GPIO_MODE_OUTPUT_PUSH_PULL
+					  "XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT7",        //!< XMC_GPIO_MODE_OUTPUT_PUSH_PULL
+					  "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN",            //!< XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN
+					  "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT1",       //!< XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN
+					  "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT2",       //!< XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN
+					  "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT3",       //!< XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN
+					  "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT4",       //!< XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN
+					  "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT5",       //!< XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN
+					  "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT6",       //!< XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN
+					  "XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT7",       //!< XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN
+				  ];
+/******************************************************************************/
+for (Object appIns : appInstancesList ) {
+  
+  app_inst = appIns.getInstanceLabel()
+  mappeduri = appIns.hwres_ccu8_slice_configa.getSolverUri() /*slice 1 is always consumed*/
+  
+  Integer phaseu_no;
+  Integer phasev_no;
+  Integer phasew_no;
+  Integer phu_shift       = 0;
+  Integer phv_shift       = 0;
+  Integer phw_shift       = 0;
+  Integer PhU_DeadTime    = 0;
+  Integer PhV_DeadTime    = 0;
+  Integer PhW_DeadTime    = 0;
+  Integer phu_sr          = 0;
+  Integer phv_sr          = 0;
+  Integer phw_sr          = 0;
+  Integer temp            = 0;
+  Integer index           = 0;
+  Integer pwm_padmode     = 0;
+  Integer inv_padmode     = 0;
+  Integer reg_read_phu_h  = 0;
+  Integer reg_read_phu_l  = 0;
+  Integer reg_read_phv_h  = 0;
+  Integer reg_read_phv_l  = 0;
+  Integer reg_read_phw_h  = 0;
+  Integer reg_read_phw_l  = 0;
+  List   phw_mcp          = [0,1,0,2,2,0,1];
+  List   phv_mcp          = [0,2,2,0,1,1,0];
+  List   phu_mcp          = [0,0,1,1,0,2,2];
+  List   phw_mcp_r        = [0,0,0,0,0,0,0];
+  List   phv_mcp_r        = [0,0,0,0,0,0,0];
+  List   phu_mcp_r        = [0,0,0,0,0,0,0];
+  List   event_sr         = [0,0,0,0];
+  if (mappeduri != null) {
+    kernel_no = mappeduri[4]
+    phaseu  = mappeduri[6]
+  /*get slice number of phase U */      
+  mappeduri = appIns.hwres_ccu8_slice_configb.getSolverUri()  
+  if (mappeduri != null) {
+      if(appIns.gcheck_sliceconsumption.value != true)
+      {
+        /*get slice number phase V */
+        phasev  = mappeduri[6]
+      }
+      else
+      {
+        phasev = phaseu
+        phasew = mappeduri[6]	  
+      }
+  }
+  mappeduri = appIns.hwres_ccu8_slice_configc.getSolverUri() 
+  if (mappeduri != null) {
+	/*get slice number of phase W */
+	phasew  = mappeduri[6]
+  }
+  
+  /*phase u channel, multichannel and output manipulation*/
+  if(appIns.sv_phu_high_out.getSolverValue() == "out0")
+  {
+	phaseu_ch = "1"
+	phu_shift = 0;
+	PhU_DeadTime = (12 | 1);
+	phaseu_out0 = "XMC_CCU8_SLICE_OUTPUT_0"
+	phaseu_out1 = "XMC_CCU8_SLICE_OUTPUT_1"
+	phu_sr = ((int)(appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_cm1sr")) << 2)
+
+  }
+  else
+  {
+	phaseu_ch = "2"
+	phu_shift = Integer.parseInt(phaseu_ch);
+	PhU_DeadTime = (12 | 2);
+	phaseu_out0 = "XMC_CCU8_SLICE_OUTPUT_2"
+	phaseu_out1 = "XMC_CCU8_SLICE_OUTPUT_3"
+	phu_sr = ((int)(appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_cm2sr"))<< 4)
+  }
+  /*phase v channel, multichannel and output manipulation*/
+  if(appIns.sv_phv_high_out.getSolverValue() == "out0")
+  {
+	phasev_ch = "1"
+	phv_shift = 0;
+	PhV_DeadTime = (12 | 1);
+	phasev_out0 = "XMC_CCU8_SLICE_OUTPUT_0"
+	phasev_out1 = "XMC_CCU8_SLICE_OUTPUT_1"
+	phv_sr = ((int)(appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_cm1sr")) << 2)
+  }
+  else
+  {
+	phasev_ch = "2"
+	phv_shift = Integer.parseInt(phasev_ch);
+	PhV_DeadTime = (12 | 2);
+	phasev_out0 = "XMC_CCU8_SLICE_OUTPUT_2"
+	phasev_out1 = "XMC_CCU8_SLICE_OUTPUT_3"
+	phv_sr = ((int)(appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_cm2sr"))<< 4)
+  }
+  /*phase w channel, multichannel and output manipulation*/
+  if(appIns.sv_phw_high_out.getSolverValue() == "out0")
+  {
+	phasew_ch = "1"
+	phw_shift = 0;
+	PhW_DeadTime = (12 | 1);
+	phasew_out0 = "XMC_CCU8_SLICE_OUTPUT_0"
+	phasew_out1 = "XMC_CCU8_SLICE_OUTPUT_1"
+	if(appIns.gcheck_sliceconsumption.value != true)
+	{
+	  phw_sr = ((int)(appIns.hwres_ccu8_slice_configc.getRegValue("srs","srs_cm1sr")) << 2)
+	}
+  }
+  else
+  {
+	phasew_ch = "2"
+	phw_shift = Integer.parseInt(phasew_ch);
+	PhW_DeadTime = (12 | 2);
+	phasew_out0 = "XMC_CCU8_SLICE_OUTPUT_2"
+	phasew_out1 = "XMC_CCU8_SLICE_OUTPUT_3"
+	if(appIns.gcheck_sliceconsumption.value != true)
+	{
+	  phw_sr = ((int)(appIns.hwres_ccu8_slice_configc.getRegValue("srs","srs_cm2sr"))<< 4)
+	}
+  }
+  mappeduri = appIns.hwres_posif_mcm.getSolverUri()
+  if (mappeduri != null)
+  {
+    posif = mappeduri[4]  /*get posif module number*/
+  }
+  /******************************Pin Datas************************************************************/
+  /* Ph U high pin */
+  pinuri = appIns.hwres_port_pad_phuhigh.getSolverUri()
+  port[0] = pinuri[4];
+  pin[0] = pinuri[6];
+  /* Ph U low pin */
+  pinuri = appIns.hwres_port_pad_phulow.getSolverUri()
+  port[1] = pinuri[4];
+  pin[1] = pinuri[6];
+  /* Ph V high pin */
+  pinuri = appIns.hwres_port_pad_phvhigh.getSolverUri()
+  port[2] = pinuri[4];
+  pin[2] = pinuri[6];
+  /* Ph V low pin */
+  pinuri = appIns.hwres_port_pad_phvlow.getSolverUri()
+  port[3] = pinuri[4];
+  pin[3] = pinuri[6];
+  /* Ph W high pin */
+  pinuri = appIns.hwres_port_pad_phwhigh.getSolverUri()
+  port[4] = pinuri[4];
+  pin[4] = pinuri[6];
+  /* Ph W low pin */
+  pinuri = appIns.hwres_port_pad_phwlow.getSolverUri()
+  port[5] = pinuri[4];
+  pin[5] = pinuri[6];
+  
+  /* Trap pin */
+  pinuri = appIns.hwres_port_pad_trap.getSolverUri()
+  if(pinuri != null)
+  {
+	port_trap = pinuri[4];
+	pin_trap = pinuri[6];
+  }
+  /* Inverter enable pin */
+  pinuri = appIns.hwres_port_pad_inverterenable.getSolverUri()
+  if(pinuri != null)
+  {
+	port_inverter = pinuri[4];
+	pin_inverter = pinuri[6];
+  }
+  /**phase numbers in integer format**/
+  phaseu_no = Integer.parseInt(phaseu);/*convert string to integer*/
+  phasev_no = Integer.parseInt(phasev);/*convert string to integer*/
+  phasew_no = Integer.parseInt(phasew);/*convert string to integer*/
+  
+  /**shadow transfer mask**/
+  shadowtransfer = Long.toHexString((1 << (4 * phaseu_no)) | (1 << (4 * phasev_no)) | (1 << (4 * phasew_no)));
+  
+  /**syncstart mask**/
+  syncstart = Long.toHexString(1 << (Integer.parseInt(kernel_no) + 8));
+/******************************************************************************/
+/**determine whether trap to be sync with pwm or not**/
+if(appIns.gcombo_trapsync.options.indexOf(appIns.gcombo_trapsync.value) == 0)
+{
+  syncwithpwm= "false"
+}
+else
+{
+  syncwithpwm= "true"
+}
+/*determine inverter pin enable low/high*/
+if(appIns.gcombo_inverterpin_level.value != "Inverter Pin Disabled")
+{
+  if(appIns.gcombo_inverterpin_level.value == "Active High")
+  {
+  inverterpin = "PWM_BC_IPIN_HIGH";
+  }
+  else
+  {
+  inverterpin = "PWM_BC_IPIN_LOW";
+  }
+}
+else
+{
+  inverterpin = "PWM_BC_IPIN_NOTREQUIRED";
+}
+
+/******************************************************************************/
+/*deadtime enable channel determination based on selected modulation type*/
+
+if(appIns.gcombo_modtype.options.indexOf(appIns.gcombo_modtype.value) == 2 ||
+  appIns.gcombo_modtype.options.indexOf(appIns.gcombo_modtype.value) == 3)
+{
+  dtenable_ch1 = "true";
+  dtenable_ch2 = "true"
+}
+else
+{
+  dtenable_ch1 = "false";
+  dtenable_ch2 = "false";
+}
+/******************************************************************************/
+/***************************MC Pattern Manipulation****************************/
+/******************************************************************************/
+/* Multi-channel pattern for open loop commutation */
+for(index = 1; index < 7; index++)
+{
+  temp = 0;
+  temp = ((phw_mcp[index] << ((4 * phasew_no) + phw_shift)) |
+          (phv_mcp[index] << ((4 * phasev_no) + phv_shift)) |
+          (phu_mcp[index] << ((4 * phaseu_no)+ phu_shift)));
+  openloop_mcp[index] = Long.toHexString(temp);
+}
+
+/**Get multi channel pattern from GUI for clockwise direction**/
+/*phase w*/
+phw_mcp[1] = appIns.gcombo_phw_1.options.indexOf(appIns.gcombo_phw_1.value)
+phw_mcp[2] = appIns.gcombo_phw_2.options.indexOf(appIns.gcombo_phw_2.value)
+phw_mcp[3] = appIns.gcombo_phw_3.options.indexOf(appIns.gcombo_phw_3.value)
+phw_mcp[4] = appIns.gcombo_phw_4.options.indexOf(appIns.gcombo_phw_4.value)
+phw_mcp[5] = appIns.gcombo_phw_5.options.indexOf(appIns.gcombo_phw_5.value)
+phw_mcp[6] = appIns.gcombo_phw_6.options.indexOf(appIns.gcombo_phw_6.value)
+
+/*phase v*/
+phv_mcp[1] = appIns.gcombo_phv_1.options.indexOf(appIns.gcombo_phv_1.value)
+phv_mcp[2] = appIns.gcombo_phv_2.options.indexOf(appIns.gcombo_phv_2.value)
+phv_mcp[3] = appIns.gcombo_phv_3.options.indexOf(appIns.gcombo_phv_3.value)
+phv_mcp[4] = appIns.gcombo_phv_4.options.indexOf(appIns.gcombo_phv_4.value)
+phv_mcp[5] = appIns.gcombo_phv_5.options.indexOf(appIns.gcombo_phv_5.value)
+phv_mcp[6] = appIns.gcombo_phv_6.options.indexOf(appIns.gcombo_phv_6.value)
+
+/*phase u*/
+phu_mcp[1] = appIns.gcombo_phu_1.options.indexOf(appIns.gcombo_phu_1.value)
+phu_mcp[2] = appIns.gcombo_phu_2.options.indexOf(appIns.gcombo_phu_2.value)
+phu_mcp[3] = appIns.gcombo_phu_3.options.indexOf(appIns.gcombo_phu_3.value)
+phu_mcp[4] = appIns.gcombo_phu_4.options.indexOf(appIns.gcombo_phu_4.value)
+phu_mcp[5] = appIns.gcombo_phu_5.options.indexOf(appIns.gcombo_phu_5.value)
+phu_mcp[6] = appIns.gcombo_phu_6.options.indexOf(appIns.gcombo_phu_6.value)
+
+/**Get multi channel pattern from GUI for anti clockwise direction**/
+/*phase w*/
+phw_mcp_r[1] = appIns.gcombo_phw_6.options.indexOf(appIns.gcombo_phw_6.value)
+phw_mcp_r[2] = appIns.gcombo_phw_5.options.indexOf(appIns.gcombo_phw_5.value)
+phw_mcp_r[3] = appIns.gcombo_phw_4.options.indexOf(appIns.gcombo_phw_4.value)
+phw_mcp_r[4] = appIns.gcombo_phw_3.options.indexOf(appIns.gcombo_phw_3.value)
+phw_mcp_r[5] = appIns.gcombo_phw_2.options.indexOf(appIns.gcombo_phw_2.value)
+phw_mcp_r[6] = appIns.gcombo_phw_1.options.indexOf(appIns.gcombo_phw_1.value)
+
+/*phase v*/
+phv_mcp_r[1] = appIns.gcombo_phv_6.options.indexOf(appIns.gcombo_phv_6.value)
+phv_mcp_r[2] = appIns.gcombo_phv_5.options.indexOf(appIns.gcombo_phv_5.value)
+phv_mcp_r[3] = appIns.gcombo_phv_4.options.indexOf(appIns.gcombo_phv_4.value)
+phv_mcp_r[4] = appIns.gcombo_phv_3.options.indexOf(appIns.gcombo_phv_3.value)
+phv_mcp_r[5] = appIns.gcombo_phv_2.options.indexOf(appIns.gcombo_phv_2.value)
+phv_mcp_r[6] = appIns.gcombo_phv_1.options.indexOf(appIns.gcombo_phv_1.value)
+
+/*phase u*/
+phu_mcp_r[1] = appIns.gcombo_phu_6.options.indexOf(appIns.gcombo_phu_6.value)
+phu_mcp_r[2] = appIns.gcombo_phu_5.options.indexOf(appIns.gcombo_phu_5.value)
+phu_mcp_r[3] = appIns.gcombo_phu_4.options.indexOf(appIns.gcombo_phu_4.value)
+phu_mcp_r[4] = appIns.gcombo_phu_3.options.indexOf(appIns.gcombo_phu_3.value)
+phu_mcp_r[5] = appIns.gcombo_phu_2.options.indexOf(appIns.gcombo_phu_2.value)
+phu_mcp_r[6] = appIns.gcombo_phu_1.options.indexOf(appIns.gcombo_phu_1.value)
+
+/* Multi-channel pattern for HighSide and LowSide Modulation */
+for(index = 1; index < 7; index++)
+{
+  temp = 0;
+  temp = ((phw_mcp[index] << ((4 * phasew_no) + phw_shift)) |
+          (phv_mcp[index] << ((4 * phasev_no) + phv_shift)) |
+          (phu_mcp[index] << ((4 * phaseu_no)+ phu_shift)));
+  
+  mcp[index] = Long.toHexString(temp);
+}
+
+if (appIns.gcheck_2hall.value == true)
+{/* This piece of code have effect only when the APP is consumed by BLDC_SCALAR_CTRL APP*/
+	mcp[0] = mcp[4]
+	mcp[7] = mcp[3]
+}
+
+/** Multi-channel pattern for SynchronousRectification modulation **/
+for(index = 1; index < 7; index++)
+{
+  temp = 0;
+  if(phw_mcp[index] != 0)
+  {
+  temp = (phw_mcp[index] | 0x2) << ((4 * phasew_no) + phw_shift);
+  }
+  else
+  {
+  temp = (phw_mcp[index]) << ((4 * phasew_no) + phw_shift);
+  }
+  if(phv_mcp[index] != 0)
+  {
+  temp = temp | ((phv_mcp[index] | 0x2) << ((4 * phasev_no)+ phv_shift));
+  }
+  else
+  {
+  temp = temp | (phv_mcp[index] << ((4 * phasev_no)+ phv_shift));
+  }
+  if(phu_mcp[index] != 0)
+  {
+  temp = temp | ((phu_mcp[index] | 0x2) << ((4 * phaseu_no)+ phu_shift));
+  }
+  else
+  {
+  temp = temp | (phu_mcp[index] << ((4 * phaseu_no)+ phu_shift));
+  }
+  mcp_cmplmnt[index] = Long.toHexString(temp);
+}
+if (appIns.gcheck_2hall.value == true)
+{
+	mcp_cmplmnt[0] = mcp_cmplmnt[4]
+	mcp_cmplmnt[7] = mcp_cmplmnt[3]
+}
+
+/** Multi-channel pattern for Balanced_SynchronousRectification Modulation for forward direction**/
+for(index = 1; index < 7; index++)
+{
+
+  temp = 0;
+  /**************** phase w *****************/
+  if(phw_mcp[index] != 0)
+  {
+/* if phase w high side is enabled make phase w 3 by OR with 2 so that both output will become active when ever phase v high side is active
+ * otherwise only phase w high side will be active*/
+	if(phw_mcp[index] == 1)
+	{
+	 /*Check if phase v low side is energized*/
+	 if(phv_mcp[index] == 2)
+	 {
+		 /*if yes keep phase w as it is so that only high side is active*/
+		 temp = (phw_mcp[index]) << ((4 * phasew_no) + phw_shift);
+	 }
+	 else
+	 {
+		 /*other wise OR with 2 so that both high side and low side will be active*/
+		 temp = (phw_mcp[index] | 0x2) << ((4 * phasew_no) + phw_shift);
+	 }
+	}
+/*if phase w low side is enabled make phase w 3 by OR with 1 so that both output will become active when ever phase v low side is active*/
+	else
+	{
+		if(phv_mcp[index] == 1)
+		{
+		   temp = (phw_mcp[index]) << ((4 * phasew_no) + phw_shift);
+		}
+		else
+		{
+		   temp = (phw_mcp[index] | 0x1) << ((4 * phasew_no) + phw_shift);
+		}
+	}
+  }
+  else
+  {
+  temp = (phw_mcp[index]) << (4 * phasew_no);
+  }
+  /**************** phase v *****************/
+  if(phv_mcp[index] != 0)
+  {
+	  /* if phase v high side is enabled make phase v 3 by OR with 2 so that both output will become active when ever phase u high side is active
+	   * otherwise only phase v high side will be active*/
+	if(phv_mcp[index] == 1)
+	{
+	 if(phu_mcp[index] == 2)
+	 {
+		temp = temp |(phv_mcp[index]) << ((4 * phasev_no) + phv_shift);
+	 }
+	 else
+	 {
+		 temp = temp |(phv_mcp[index] | 0x2) << ((4 * phasev_no) + phv_shift);
+	 }
+	}
+	/*if phase v low side is enabled make phase v 3 by OR with 1 so that both output will become active when ever phase u low side is active*/
+	else
+	{
+		if(phu_mcp[index] == 1)
+		{
+		   temp = temp |(phv_mcp[index]) << ((4 * phasev_no) + phv_shift);
+		}
+		else
+		{
+		   temp = temp |(phv_mcp[index] | 0x1) << ((4 * phasev_no) + phv_shift);
+		}
+	}
+  }
+  else
+  {
+  temp = temp | (phv_mcp[index] << (4 * phasev_no));
+  }
+  /**************** phase u *****************/
+  if(phu_mcp[index] != 0)
+  {
+	  /* if phase u high side is enabled make phase u 3 by OR with 2 so that both output will become active when ever phase w high side is active
+	   * otherwise only phase u high side will be active*/
+	if(phu_mcp[index] == 1)
+	{
+	 if(phw_mcp[index] == 2)
+	 {
+		temp = temp |(phu_mcp[index]) << ((4 * phaseu_no) + phu_shift);
+	 }
+	 else
+	 {
+		 temp = temp |(phu_mcp[index] | 0x2) << ((4 * phaseu_no) + phu_shift);
+	 }
+	}
+	/*if phase u low side is enabled make phase u 3 by OR with 1 so that both output will become active when ever phase w low side is active*/
+	else
+	{
+		if(phw_mcp[index] == 1)
+		{
+		   temp = temp |(phu_mcp[index]) << ((4 * phaseu_no) + phu_shift);
+		}
+		else
+		{
+		   temp = temp |(phu_mcp[index] | 0x1) << ((4 * phaseu_no) + phu_shift);
+		}
+	}
+  }
+  else
+  {
+  temp = temp | (phu_mcp[index] << (4 * phaseu_no));
+  }
+  mcp_cmplmnt_syncrecti[index] = Long.toHexString(temp);
+  //println ("0x" + mcp_cmplmnt_syncrecti[index])
+}
+
+/** Multi-channel pattern for Balanced_SynchronousRectification Modulation for reverse direction**/
+for(index = 1; index < 7; index++)
+{
+
+  temp_r = 0;
+  /**************** phase w *****************/
+  if(phw_mcp_r[index] != 0)
+  {
+/* if phase w high side is enabled make phase w 3 by OR with 2 so that both output will become active when ever phase v high side is active
+ * otherwise only phase w high side will be active*/
+	if(phw_mcp_r[index] == 1)
+	{
+	 /*Check if phase v not energized*/
+	 if(phv_mcp_r[index] == 0)
+	 {
+		 /*if yes keep phase w as it is so that only high side is active*/
+		 temp_r = (phw_mcp_r[index]) << ((4 * phasew_no) + phw_shift);
+	 }
+	 else
+	 {
+		 /*other wise OR with 2 so that both high side and low side will be active*/
+		 temp_r = (phw_mcp_r[index] | 0x2) << ((4 * phasew_no) + phw_shift);
+	 }
+	}
+/*if phase w low side is enabled make phase w 3 by OR with 1 so that both output will become active when ever phase v low side is active*/
+	else
+	{
+		if(phv_mcp_r[index] == 0)
+		{
+		   temp_r = (phw_mcp_r[index]) << ((4 * phasew_no) + phw_shift);
+		}
+		else
+		{
+		   temp_r = (phw_mcp_r[index] | 0x1) << ((4 * phasew_no) + phw_shift);
+		}
+	}
+  }
+  else
+  {
+  temp_r = (phw_mcp_r[index]) << (4 * phasew_no);
+  }
+  /**************** phase v *****************/
+  if(phv_mcp_r[index] != 0)
+  {
+	  /* if phase v high side is enabled make phase v 3 by OR with 2 so that both output will become active when ever phase u high side is active
+	   * otherwise only phase v high side will be active*/
+	if(phv_mcp_r[index] == 1)
+	{
+	 if(phu_mcp_r[index] == 0)
+	 {
+		temp_r = temp_r |(phv_mcp_r[index]) << ((4 * phasev_no) + phv_shift);
+	 }
+	 else
+	 {
+		 temp_r = temp_r |(phv_mcp_r[index] | 0x2) << ((4 * phasev_no) + phv_shift);
+	 }
+	}
+	/*if phase v low side is enabled make phase v 3 by OR with 1 so that both output will become active when ever phase u low side is active*/
+	else
+	{
+		if(phu_mcp_r[index] == 0)
+		{
+		   temp_r = temp_r |(phv_mcp_r[index]) << ((4 * phasev_no) + phv_shift);
+		}
+		else
+		{
+		   temp_r = temp_r |(phv_mcp_r[index] | 0x1) << ((4 * phasev_no) + phv_shift);
+		}
+	}
+  }
+  else
+  {
+  temp_r = temp_r | (phv_mcp_r[index] << (4 * phasev_no));
+  }
+  /**************** phase u *****************/
+  if(phu_mcp_r[index] != 0)
+  {
+	  /* if phase u high side is enabled make phase u 3 by OR with 2 so that both output will become active when ever phase w high side is active
+	   * otherwise only phase u high side will be active*/
+	if(phu_mcp_r[index] == 1)
+	{
+	 if(phw_mcp_r[index] == 0)
+	 {
+		temp_r = temp_r |(phu_mcp_r[index]) << ((4 * phaseu_no) + phu_shift);
+	 }
+	 else
+	 {
+		 temp_r = temp_r |(phu_mcp_r[index] | 0x2) << ((4 * phaseu_no) + phu_shift);
+	 }
+	}
+	/*if phase u low side is enabled make phase u 3 by OR with 1 so that both output will become active when ever phase w low side is active*/
+	else
+	{
+		if(phw_mcp_r[index] == 0)
+		{
+		   temp_r = temp_r |(phu_mcp_r[index]) << ((4 * phaseu_no) + phu_shift);
+		}
+		else
+		{
+		   temp_r = temp_r |(phu_mcp_r[index] | 0x1) << ((4 * phaseu_no) + phu_shift);
+		}
+	}
+  }
+  else
+  {
+  temp_r = temp_r | (phu_mcp_r[index] << (4 * phaseu_no));
+  }
+  mcp_cmplmnt_syncrecti_r[index] = Long.toHexString(temp_r);
+}
+if (appIns.gcheck_2hall.value == true)/*this code will have effect only if it is consumed by BLDC_SCALAR_CTRL APP*/
+{
+	mcp_cmplmnt_syncrecti_r[0] = mcp_cmplmnt_syncrecti_r[4]
+	mcp_cmplmnt_syncrecti[0] = mcp_cmplmnt_syncrecti[4]
+}
+
+/*************************Event Manipulation*****************************/
+if(appIns.gcheck_sliceconsumption.value != true)
+{
+/*acquire SR multiplexer values for slice 0*/
+event_sr[0] =
+((int)(appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_e2sr")) << 12) |
+((int)(appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_e1sr")) << 10) |
+((int)(appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_e0sr")) << 8) |
+ (phu_sr) |
+((int)(appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_posr")))
+
+/*acquire SR multiplexer values for slice 1*/
+event_sr[1] =
+((int)(appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_e2sr")) << 12) |
+((int)(appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_e1sr")) << 10) |
+((int)(appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_e0sr")) << 8) |
+ (phv_sr) |
+((int)(appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_posr")))
+
+/*acquire SR multiplexer values for slice 2*/
+event_sr[2] =
+((int)(appIns.hwres_ccu8_slice_configc.getRegValue("srs","srs_e2sr")) << 12) |
+((int)(appIns.hwres_ccu8_slice_configc.getRegValue("srs","srs_e1sr")) << 10) |
+((int)(appIns.hwres_ccu8_slice_configc.getRegValue("srs","srs_e0sr")) << 8) |
+(phw_sr) |
+((int)(appIns.hwres_ccu8_slice_configc.getRegValue("srs","srs_posr")))
+}
+
+if(appIns.gcheck_sliceconsumption.value == true)
+{
+/*acquire SR multiplexer values for phase U*/
+event_sr[0] =
+((int)(appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_e2sr")) << 12) |
+((int)(appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_e1sr")) << 10) |
+((int)(appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_e0sr")) << 8) |
+ (phu_sr) |
+ (phv_sr) |
+((int)(appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_posr")))
+
+/* Phase V and Phase U share the same CCU8 slice */
+event_sr[1] = event_sr[0]
+
+/*acquire SR multiplexer values for phase W*/
+event_sr[2] =
+((int)(appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_e2sr")) << 12) |
+((int)(appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_e1sr")) << 10) |
+((int)(appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_e0sr")) << 8) |
+ (phw_sr) |
+((int)(appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_posr")))
+}
+
+/******************************************************************************/
+
+/*dummy mux read*/
+
+appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_cm1sr")
+appIns.hwres_ccu8_slice_configa.getRegValue("srs","srs_cm2sr")
+appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_cm1sr")
+appIns.hwres_ccu8_slice_configb.getRegValue("srs","srs_cm2sr")
+appIns.hwres_ccu8_slice_configc.getRegValue("srs","srs_cm1sr")
+appIns.hwres_ccu8_slice_configc.getRegValue("srs","srs_cm2sr")
+
+appIns.hwres_port_pad_phuhigh.getRegValue("PDISC","pdisc_pdis")
+appIns.hwres_port_pad_phulow.getRegValue("PDISC","pdisc_pdis")
+appIns.hwres_port_pad_phvhigh.getRegValue("PDISC","pdisc_pdis")
+appIns.hwres_port_pad_phvlow.getRegValue("PDISC","pdisc_pdis")
+appIns.hwres_port_pad_phwhigh.getRegValue("PDISC","pdisc_pdis")
+appIns.hwres_port_pad_phwlow.getRegValue("PDISC","pdisc_pdis")
+appIns.hwres_port_pad_inverterenable.getRegValue("PDISC","pdisc_pdis")
+appIns.hwres_port_pad_phuhigh.getRegValue("IOCR","iocr_oe")
+appIns.hwres_port_pad_phulow.getRegValue("IOCR","iocr_oe")
+appIns.hwres_port_pad_phvhigh.getRegValue("IOCR","iocr_oe")
+appIns.hwres_port_pad_phvlow.getRegValue("IOCR","iocr_oe")
+appIns.hwres_port_pad_phwhigh.getRegValue("IOCR","iocr_oe")
+appIns.hwres_port_pad_phwlow.getRegValue("IOCR","iocr_oe")
+
+appIns.hwres_ccu8_slice_configb.getRegValue("ins","ins_ev0is")
+appIns.hwres_ccu8_slice_configc.getRegValue("ins","ins_ev0is")
+
+appIns.hwres_port_pad_phuhigh.getRegValue("","hwsel_hw")
+appIns.hwres_port_pad_phulow.getRegValue("","hwsel_hw")
+appIns.hwres_port_pad_phvhigh.getRegValue("","hwsel_hw")
+appIns.hwres_port_pad_phvlow.getRegValue("","hwsel_hw")
+appIns.hwres_port_pad_phwhigh.getRegValue("","hwsel_hw")
+appIns.hwres_port_pad_phwlow.getRegValue("","hwsel_hw")
+appIns.hwres_port_pad_inverterenable.getRegValue("","hwsel_hw")
+appIns.hwres_port_pad_inverterenable.getRegValue("IOCR","iocr_pcr")
+appIns.hwres_port_pad_inverterenable.getRegValue("IOCR","iocr_oe")
+
+appIns.hwres_ccu8_slice_configa.getRegValue("ins","ins_ev1is")
+appIns.hwres_ccu8_slice_configb.getRegValue("ins","ins_ev1is")
+appIns.hwres_ccu8_slice_configc.getRegValue("ins","ins_ev1is")
+
+appIns.hwres_posif_mcm.getRegValue("pflge","pflge_emst")
+appIns.hwres_posif_mcm.getRegValue("ins","pconf_msets")
+appIns.hwres_posif_mcm.getRegValue("ins","pflge_mstsel")
+
+appIns.hwres_ccu8_slice_configb.getRegValue("ins","ins_ev2is")
+appIns.hwres_ccu8_slice_configc.getRegValue("ins","ins_ev2is")
+appIns.hwres_port_pad_trap.getRegValue("","hwsel_hw")
+appIns.hwres_port_pad_trap.getRegValue("IOCR","iocr_pcr")
+
+
+List inputmodeArray = ['XMC_GPIO_MODE_INPUT',
+	'XMC_GPIO_MODE_INPUT_PULL_UP',
+	'XMC_GPIO_MODE_INPUT_PULL_DOWN'
+	]
+
+List outputstrengthArray = [
+	'XMC_GPIO_OUTPUT_STRENGTH_WEAK',
+	'XMC_GPIO_OUTPUT_STRENGTH_MEDIUM',
+	'XMC_GPIO_OUTPUT_STRENGTH_STRONG_SOFT_EDGE',
+	'XMC_GPIO_OUTPUT_STRENGTH_STRONG_SLOW_EDGE',
+	'XMC_GPIO_OUTPUT_STRENGTH_STRONG_SHARP_EDGE',
+	'XMC_GPIO_OUTPUT_STRENGTH_STRONG_MEDIUM_EDGE'	
+	]
+
+/*GPIO configuration for ouptput mode of pwm output pins*/
+if (appIns.gcombo_pwmout_opchar.value == "Push Pull")
+{
+  pwm_padmode = 8 //"XMC_GPIO_MODE_OUTPUT_PUSH_PULL"
+}
+else
+{
+  pwm_padmode = 16 //"XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN"
+}
+
+/*GPIO configuration for ouptput mode of inverter enable pins*/
+if (appIns.gcombo_invout_opchar.value == "Push Pull")
+{
+  inv_padmode = 8 //"XMC_GPIO_MODE_OUTPUT_PUSH_PULL"
+}
+else
+{
+  inv_padmode = 16 //"XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN"
+}
+
+
+/*GPIO configuration for pwm pin output strength */
+output_strength = outputstrengthArray[appIns.gcombo_pwmout_strength.options.indexOf(appIns.gcombo_pwmout_strength.value)]
+
+/*GPIO configuration for inerter pin output strength */
+output_strength_inv = outputstrengthArray[appIns.gcombo_invout_dstrength.options.indexOf(appIns.gcombo_invout_dstrength.value)]
+
+out.print("""
+/**********************************************************************************************************************
+* DATA STRUCTURES
+**********************************************************************************************************************/
+
+/********************************** PWM Output Pin Configurations **************************************************/
+/*pwm port & pin config*/
+const PWM_BC_GPIO_t ${app_inst}_PhUHighpin =
+{
+  .port = (XMC_GPIO_PORT_t *)PORT${port[0]}_BASE, 
+  .pin = ${pin[0]}U
+};
+/*pwm port & pin config*/
+const PWM_BC_GPIO_t ${app_inst}_PhULowpin =
+{
+  .port = (XMC_GPIO_PORT_t *)PORT${port[1]}_BASE, 
+  .pin = ${pin[1]}U
+};
+/*pwm port & pin config*/
+const PWM_BC_GPIO_t ${app_inst}_PhVHighpin =
+{
+  .port = (XMC_GPIO_PORT_t *)PORT${port[2]}_BASE, 
+  .pin = ${pin[2]}U
+};
+/*pwm port & pin config*/
+const PWM_BC_GPIO_t ${app_inst}_PhVLowpin =
+{
+  .port = (XMC_GPIO_PORT_t *)PORT${port[3]}_BASE, 
+  .pin = ${pin[3]}U
+};
+/*pwm port & pin config*/
+const PWM_BC_GPIO_t ${app_inst}_PhWHighpin =
+{
+  .port = (XMC_GPIO_PORT_t *)PORT${port[4]}_BASE, 
+  .pin = ${pin[4]}U
+};
+/*pwm port & pin config*/
+const PWM_BC_GPIO_t ${app_inst}_PhWLowpin =
+{
+  .port = (XMC_GPIO_PORT_t *)PORT${port[5]}_BASE, 
+  .pin = ${pin[5]}U
+};
+""");
+
+/* verify if any register bitfields are not returning null then read */
+if(appIns.hwres_port_pad_phuhigh.getRegValue("IOCR","iocr_pcr") != null)
+{
+  reg_read_phu_h = (int)(appIns.hwres_port_pad_phuhigh.getRegValue("IOCR","iocr_pcr"))
+}
+
+if(appIns.hwres_port_pad_phulow.getRegValue("IOCR","iocr_pcr") != null)
+{
+  reg_read_phu_l = (int)(appIns.hwres_port_pad_phulow.getRegValue("IOCR","iocr_pcr"))
+}
+
+if(appIns.hwres_port_pad_phvhigh.getRegValue("IOCR","iocr_pcr") != null)
+{
+  reg_read_phv_h = (int)(appIns.hwres_port_pad_phvhigh.getRegValue("IOCR","iocr_pcr"))
+}
+
+if(appIns.hwres_port_pad_phvlow.getRegValue("IOCR","iocr_pcr") != null)
+{
+  reg_read_phv_l = (int)(appIns.hwres_port_pad_phvlow.getRegValue("IOCR","iocr_pcr"))
+}
+
+if(appIns.hwres_port_pad_phwhigh.getRegValue("IOCR","iocr_pcr") != null)
+{
+  reg_read_phw_h = (int)(appIns.hwres_port_pad_phwhigh.getRegValue("IOCR","iocr_pcr"))
+}
+
+if(appIns.hwres_port_pad_phwlow.getRegValue("IOCR","iocr_pcr") != null)
+{
+  reg_read_phw_l = (int)(appIns.hwres_port_pad_phwlow.getRegValue("IOCR","iocr_pcr"))
+}
+
+if (daveEnv.project.selectedDevice.deviceId.family == "XMC4"){
+	out.print("""
+/* GPIO Init handle for Phase U High Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhUHighpin_Config= 
+{
+ .mode            = ${gpio_mode[pwm_padmode + reg_read_phu_h]},
+ .output_level    = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .output_strength = ${output_strength}
+};
+/* GPIO Init handle for Phase U Low Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhULowpin_Config = 
+{
+ .mode            = ${gpio_mode[pwm_padmode + reg_read_phu_l]},
+ .output_level    = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .output_strength = ${output_strength}
+};
+/* GPIO Init handle for Phase V High Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhVHighpin_Config = 
+{
+ .mode            = ${gpio_mode[pwm_padmode + reg_read_phv_h]},
+ .output_level    = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .output_strength = ${output_strength}
+};
+/* GPIO Init handle for Phase V Low Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhVLowpin_Config = 
+{
+ .mode            = ${gpio_mode[pwm_padmode + reg_read_phv_l]},
+ .output_level    = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .output_strength = ${output_strength}
+};
+/* GPIO Init handle for Phase W High Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhWHighpin_Config = 
+{
+ .mode            = ${gpio_mode[pwm_padmode + reg_read_phw_h]},
+ .output_level    = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .output_strength = ${output_strength}
+};
+/* GPIO Init handle for Phase U High Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhWLowpin_Config = 
+{
+ .mode            = ${gpio_mode[pwm_padmode + reg_read_phw_l]},
+ .output_level    = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .output_strength = ${output_strength}
+};
+""");
+}
+else
+{
+	out.print("""
+/* GPIO Init handle for Phase U High Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhUHighpin_Config = 
+{
+ .mode             = ${gpio_mode[pwm_padmode + reg_read_phu_h]},
+ .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .input_hysteresis = (XMC_GPIO_INPUT_HYSTERESIS_t)0
+};
+/* GPIO Init handle for Phase U Low Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhULowpin_Config = 
+{
+ .mode             = ${gpio_mode[pwm_padmode + reg_read_phu_l]},
+ .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .input_hysteresis = (XMC_GPIO_INPUT_HYSTERESIS_t)0
+};
+/* GPIO Init handle for Phase V High Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhVHighpin_Config = 
+{
+ .mode             = ${gpio_mode[pwm_padmode + reg_read_phv_h]},
+ .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .input_hysteresis = (XMC_GPIO_INPUT_HYSTERESIS_t)0
+};
+/* GPIO Init handle for Phase V Low Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhVLowpin_Config = 
+{
+ .mode             = ${gpio_mode[pwm_padmode + reg_read_phv_l]},
+ .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .input_hysteresis = (XMC_GPIO_INPUT_HYSTERESIS_t)0
+};
+/* GPIO Init handle for Phase W High Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhWHighpin_Config = 
+{
+ .mode             = ${gpio_mode[pwm_padmode + reg_read_phw_h]},
+ .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .input_hysteresis = (XMC_GPIO_INPUT_HYSTERESIS_t)0
+};
+/* GPIO Init handle for Phase U High Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_PhWLowpin_Config = 
+{
+ .mode             = ${gpio_mode[pwm_padmode + reg_read_phw_l]},
+ .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .input_hysteresis = (XMC_GPIO_INPUT_HYSTERESIS_t)0
+};
+""");
+}
+
+if(appIns.gcombo_traplevel.value != "Trap Disabled")
+{
+  enable_trap = "true"
+out.print("""
+/********************************** Trap Pin Configurations **************************************************/
+/*trap port & pin config*/
+const PWM_BC_GPIO_t ${app_inst}_Trappin =
+{
+  .port = (XMC_GPIO_PORT_t *)PORT${port_trap}_BASE,
+  .pin = ${pin_trap}U
+};
+""");
+if (daveEnv.project.selectedDevice.deviceId.family == "XMC1"){
+out.print("""
+/* GPIO Init handle for Trap Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_Trappin_Config = 
+{
+ .mode             = ${gpio_mode[(int)((appIns.hwres_port_pad_trap.getRegValue("IOCR","iocr_oe")) + appIns.gcombo_trap_opchar.options.indexOf(appIns.gcombo_trap_opchar.value))]},
+ .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .input_hysteresis = (XMC_GPIO_INPUT_HYSTERESIS_t)0
+};
+""");
+}
+else
+{
+	out.print("""
+/* GPIO Init handle for Trap Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_Trappin_Config = 
+{
+ .mode             = ${gpio_mode[(int)((appIns.hwres_port_pad_trap.getRegValue("IOCR","iocr_oe"))+ appIns.gcombo_trap_opchar.options.indexOf(appIns.gcombo_trap_opchar.value))]},
+ .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .output_strength  = (XMC_GPIO_OUTPUT_STRENGTH_t)0
+};
+""");
+}
+out.print("""
+/*trap event config*/
+const XMC_CCU8_SLICE_EVENT_CONFIG_t ${app_inst}_TrapConfig =
+{
+  .mapped_input = ${if((appIns.daveEnv.project.selectedDevice.deviceId.family == "XMC1") && (appIns.daveEnv.project.selectedDevice.deviceId.series == "4"))
+                    {
+                      Input_array_xmc1400[(int)(appIns.hwres_ccu8_slice_configa.getRegValue("ins","ins_ev2is"))]
+                    }
+                    else
+                    {
+                      input_array[(int)(appIns.hwres_ccu8_slice_configa.getRegValue("ins","ins_ev2is"))]
+                    }},
+  .level        = ${traplevelArray[appIns.gcombo_traplevel.options.indexOf(appIns.gcombo_traplevel.value)]},
+  .duration     = XMC_CCU8_SLICE_EVENT_FILTER_DISABLED
+};
+""");
+}
+else
+{
+  enable_trap = "false"
+}
+if(appIns.gcombo_inverterpin_level.value != "Inverter Pin Disabled")
+{
+out.print("""
+/********************************** Inverter Enable Pin Configurations **************************************************/
+const PWM_BC_GPIO_t ${app_inst}_Inverterpin =
+{
+  .port = (XMC_GPIO_PORT_t *)PORT${port_inverter}_BASE,
+  .pin = ${pin_inverter}U
+};
+""");
+
+if (daveEnv.project.selectedDevice.deviceId.family == "XMC1"){
+out.print("""
+/* GPIO Init handle for Inverter enable Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_Inverterpin_Config = 
+{
+ .mode             = ${gpio_mode[inv_padmode]},
+ .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .input_hysteresis = (XMC_GPIO_INPUT_HYSTERESIS_t)0,
+};
+""");
+}
+else
+{
+out.print("""
+/* GPIO Init handle for Inverter enable Pin */
+const XMC_GPIO_CONFIG_t ${app_inst}_Inverterpin_Config = 
+{
+ .mode             = ${gpio_mode[inv_padmode]},
+ .output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
+ .output_strength  = ${output_strength_inv},
+};
+""");
+}
+}
+String mcmswxfer = null;
+if(appIns.gcheck_mcmoption.value == true){mcmswxfer = "false"}
+else{mcmswxfer = "true"}
+
+out.print("""
+/**********************************POSIF Multi Channel Mode Configurations ***************************************/
+/*posif MCM configuration*/
+XMC_POSIF_MCM_CONFIG_t ${app_inst}_POSIF_MCM_Config = 
+{
+ .pattern_sw_update = (uint8_t)${mcmswxfer},
+ .pattern_update_trigger = ${[
+                              "XMC_POSIF_INPUT_PORT_A",
+                              "XMC_POSIF_INPUT_PORT_B",
+                              "XMC_POSIF_INPUT_PORT_C",
+                              "XMC_POSIF_INPUT_PORT_D",
+                              "XMC_POSIF_INPUT_PORT_E",
+                              "XMC_POSIF_INPUT_PORT_F",
+                              "XMC_POSIF_INPUT_PORT_G",
+                              "XMC_POSIF_INPUT_PORT_H"
+                            ][(int)(appIns.hwres_posif_mcm.getRegValue("pconf","pconf_msets"))]},
+ .pattern_trigger_edge   = XMC_POSIF_HSC_TRIGGER_EDGE_RISING,
+ .pwm_sync          = (uint8_t)${posifinputportarray[(int)(appIns.hwres_posif_mcm.getRegValue("pconf","pconf_msyns"))]}
+};
+
+/********************************** CCU8 PWM Configurations **************************************************/
+
+/*Slice U configuration*/
+const PWM_BC_SLICE_t ${app_inst}_SliceUConfig = 
+{
+ .slice_ptr     = (XMC_CCU8_SLICE_t *)(void *)CCU8${kernel_no}_CC8${phaseu},
+ .slice_number  = (uint8_t)${phaseu},
+};
+
+/*Slice V configuration*/
+const PWM_BC_SLICE_t ${app_inst}_SliceVConfig = 
+{
+ .slice_ptr     = (XMC_CCU8_SLICE_t *)(void *)CCU8${kernel_no}_CC8${phasev},
+ .slice_number  = (uint8_t)${phasev},
+};
+
+/*Slice W configuration*/
+const PWM_BC_SLICE_t ${app_inst}_SliceWConfig = 
+{
+ .slice_ptr     = (XMC_CCU8_SLICE_t *)(void *)CCU8${kernel_no}_CC8${phasew},
+ .slice_number  = (uint8_t)${phasew},
+};
+""");
+
+out.print("""
+/*External start event config*/
+const XMC_CCU8_SLICE_EVENT_CONFIG_t ${app_inst}_ExtStartConfig = 
+{
+  .mapped_input = ${if((appIns.daveEnv.project.selectedDevice.deviceId.family == "XMC1") && (appIns.daveEnv.project.selectedDevice.deviceId.series == "4"))
+                    {
+                      Input_array_xmc1400[(int)(appIns.hwres_ccu8_slice_configa.getRegValue("ins","ins_ev0is"))]
+                    }
+                    else
+                    {
+                      input_array[(int)(appIns.hwres_ccu8_slice_configa.getRegValue("ins","ins_ev0is"))]
+                    }},
+  .edge         = XMC_CCU8_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE,
+  .duration     = XMC_CCU8_SLICE_EVENT_FILTER_DISABLED
+};
+
+/*CCU8 deadtime configuration*/
+XMC_CCU8_SLICE_DEAD_TIME_CONFIG_t ${app_inst}_Phase_DeadTimeConfig =
+{
+ .enable_dead_time_channel1         = 1U,
+ .enable_dead_time_channel2         = 1U,
+ .channel1_st_path                  = (uint8_t)${dtenable_ch1},
+ .channel1_inv_st_path              = (uint8_t)${dtenable_ch1},
+ .channel2_st_path                  = (uint8_t)${dtenable_ch2},
+ .channel2_inv_st_path              = (uint8_t)${dtenable_ch2},  
+ .div                               = (uint8_t)${deadtimedivArray[(int)appIns.gint_deadtime_prescaler.value]},
+ .channel1_st_rising_edge_counter   = ${appIns.gint_deadtime_rising_edge_reg.value}U,
+ .channel1_st_falling_edge_counter  = ${appIns.gint_deadtime_falling_edge_reg.value}U,
+ .channel2_st_rising_edge_counter   = ${appIns.gint_deadtime_rising_edge_reg.value}U,
+ .channel2_st_falling_edge_counter  = ${appIns.gint_deadtime_falling_edge_reg.value}U,  
+};
+/* CC8 Slice timer Init handle */
+const XMC_CCU8_SLICE_COMPARE_CONFIG_t ${app_inst}_Timer_InitHandle =
+{
+  .timer_mode           = (uint8_t)XMC_CCU8_SLICE_TIMER_COUNT_MODE_CA,
+  .monoshot             = 0U,
+  .shadow_xfer_clear    = 0U,
+  .dither_timer_period  = 0U,
+  .dither_duty_cycle    = 0U,
+  .prescaler_mode       = (uint8_t)XMC_CCU8_SLICE_PRESCALER_MODE_NORMAL,
+  .mcm_ch1_enable       = 1U,
+  .mcm_ch2_enable       = 1U,
+  .slice_status         = (uint8_t)XMC_CCU8_SLICE_STATUS_CHANNEL_1,
+  .passive_level_out0   = ${appIns.gcombo_direct_output.options.indexOf(appIns.gcombo_direct_output.value)}U,
+  .passive_level_out1   = ${appIns.gcombo_indirect_output.options.indexOf(appIns.gcombo_indirect_output.value)}U,
+  .passive_level_out2   = ${appIns.gcombo_direct_output.options.indexOf(appIns.gcombo_direct_output.value)}U,
+  .passive_level_out3   = ${appIns.gcombo_indirect_output.options.indexOf(appIns.gcombo_indirect_output.value)}U,
+  .asymmetric_pwm       = 0U, 
+#if !defined(CCU8V3)    /* Defined for all devices except XMC1400 */                                         
+  .invert_out0          = 0U,
+  .invert_out1          = 1U,
+  .invert_out2          = 0U,
+  .invert_out3          = 1U,
+#else
+  .selector_out0        = XMC_CCU8_SOURCE_OUT0_ST1,
+  .selector_out1        = XMC_CCU8_SOURCE_OUT1_INV_ST1,
+  .selector_out2        = XMC_CCU8_SOURCE_OUT2_ST2,
+  .selector_out3        = XMC_CCU8_SOURCE_OUT2_INV_ST2,
+#endif
+  .prescaler_initval    = (uint8_t)${appIns.gint_prescaler.value},
+  .float_limit          = 0U,
+  .dither_limit         = 0U,
+  .timer_concatenation  = 0U
+};
+""");
+
+out.print("""
+/********************************** App Constant Config **************************************************/
+
+const PWM_BC_Config_t ${app_inst}_Config =
+{
+  .ph_mcpatt_compmask     = 
+                            {
+                             0x${Long.toHexString((1 << ((4 * phaseu_no) + phu_shift)))}U, 
+                             0x${Long.toHexString((1 << ((4 * phasev_no) + phv_shift)))}U,
+                             0x${Long.toHexString((1 << ((4 * phasew_no) + phw_shift)))}U,
+                            },
+  .ph_bothside_compmask   = 
+                            {
+                             0x${Long.toHexString((3 << ((4 * phaseu_no) + phu_shift)))}U, 
+                             0x${Long.toHexString((3 << ((4 * phasev_no) + phv_shift)))}U,
+                             0x${Long.toHexString((3 << ((4 * phasew_no) + phw_shift)))}U,
+                            },
+  .module_freq            = (uint32_t)${appIns.gint_frequency.value},
+  .syncstart_mask         = 0x${syncstart}U,
+  .event_sr_selector      =
+                            {
+                              0x${Long.toHexString(event_sr[0])}U, 0x${Long.toHexString(event_sr[1])}U, 
+                              0x${Long.toHexString(event_sr[2])}U
+                            },
+  .frequency_max          = (uint32_t)${appIns.gint_freq.maxValue},
+  .frequency_min          = (uint32_t)${appIns.gint_freq.minValue},
+  .inverter_pin           = (PWM_BC_INVERTERPINLEVEL_t)${inverterpin}, 
+  .phu_cmpch              = (XMC_CCU8_SLICE_COMPARE_CHANNEL_t)XMC_CCU8_SLICE_COMPARE_CHANNEL_${phaseu_ch}, 
+  .phv_cmpch              = (XMC_CCU8_SLICE_COMPARE_CHANNEL_t)XMC_CCU8_SLICE_COMPARE_CHANNEL_${phasev_ch},  
+  .phw_cmpch              = (XMC_CCU8_SLICE_COMPARE_CHANNEL_t)XMC_CCU8_SLICE_COMPARE_CHANNEL_${phasew_ch},
+  .trap_exit_mode         = (XMC_CCU8_SLICE_TRAP_EXIT_MODE_t)${trapexitArray[appIns.gcombo_trapexit.options.indexOf(appIns.gcombo_trapexit.value)]},
+  .openloop_mc_pattern    = { 
+                              0x${openloop_mcp[0]}U, 0x${openloop_mcp[1]}U, 0x${openloop_mcp[2]}U, 0x${openloop_mcp[3]}U, 
+                              0x${openloop_mcp[4]}U, 0x${openloop_mcp[5]}U, 0x${openloop_mcp[6]}U, 0x00U,
+                              0x${openloop_mcp[7]}U, 0x${openloop_mcp[6]}U, 0x${openloop_mcp[5]}U, 0x${openloop_mcp[4]}U, 
+                              0x${openloop_mcp[3]}U, 0x${openloop_mcp[2]}U, 0x${openloop_mcp[1]}U, 0x00U
+                            },
+  .shadowtransfer_mask    = 0x${shadowtransfer}U,
+  .trap_sync_pwm          = (uint8_t)${syncwithpwm}, 
+  .deadtime_control       = {0x${Long.toHexString(PhU_DeadTime)}U, 0x${Long.toHexString(PhV_DeadTime)}U, 0x${Long.toHexString(PhW_DeadTime)}U},  
+  .trap_enable            = (uint8_t)${enable_trap},
+  .syncstart_enable       = (uint8_t)${boolvalreturn(appIns.gcheck_syncstart.value)},
+""");
+if(appIns.gcombo_traplevel.value != "Trap Disabled")
+{
+out.println("""
+  .trap_hwsel             =  ${appIns.hwres_port_pad_trap.getRegValue("","hwsel_hw")}U,
+""");
+}
+else
+{
+out.println("""
+	.trap_hwsel           =  0U,
+""");
+}
+out.println("""
+  .phase_u_out0           = (uint8_t)${phaseu_out0},
+  .phase_v_out0           = (uint8_t)${phasev_out0},
+  .phase_w_out0           = (uint8_t)${phasew_out0},
+  .ext_trigger            = (uint8_t)${appIns.gcheck_enable_exttrig.value},  
+  .enable_permatchevent   = (uint8_t)${appIns.gcheck_permatch_interrupt.value},   
+  .enable_trapevent       = (uint8_t)${appIns.gcheck_trap_interrupt.value},   
+};
+
+/**********************************App Handle Configurations **************************************************/
+/* App Handle */
+PWM_BC_t ${app_inst} =
+{
+  .module_ptr             = (XMC_CCU8_MODULE_t *)(void*)CCU8${kernel_no}_BASE, 
+  .phase_ptr              = 
+                            {
+                              (PWM_BC_SLICE_t *)(void*)&${app_inst}_SliceUConfig,
+                              (PWM_BC_SLICE_t *)(void*)&${app_inst}_SliceVConfig,
+                              (PWM_BC_SLICE_t *)(void*)&${app_inst}_SliceWConfig
+                            },  
+  .posif_module_ptr       = (POSIF_GLOBAL_TypeDef *)(void*)POSIF${posif},
+  .posif_mcmconf_ptr      = &${app_inst}_POSIF_MCM_Config,
+  .global_posif_ptr       = (GLOBAL_POSIF_t*)(void*)&${appIns.appres_global_posif_app0.getInstanceLabel()},
+  .globalccu8_ptr         = (GLOBAL_CCU8_t*)(void*)&${appIns.appres_global_ccu8_app0.getInstanceLabel()}, 
+  .ph_timerinit_ptr       = (XMC_CCU8_SLICE_COMPARE_CONFIG_t* )(void*)&${app_inst}_Timer_InitHandle,
+  .startconfig_ptr        = (XMC_CCU8_SLICE_EVENT_CONFIG_t*)(void*)&${app_inst}_ExtStartConfig,
+  .pwmoutpin_ptr          =
+                            {
+                              &${app_inst}_PhUHighpin,
+                              &${app_inst}_PhULowpin,
+                              &${app_inst}_PhVHighpin,
+                              &${app_inst}_PhVLowpin,
+                              &${app_inst}_PhWHighpin,
+                              &${app_inst}_PhWLowpin,
+                            },
+  .pwmoutconfig_ptr        =
+                            {
+                              &${app_inst}_PhUHighpin_Config,
+                              &${app_inst}_PhULowpin_Config,
+                              &${app_inst}_PhVHighpin_Config,
+                              &${app_inst}_PhVLowpin_Config,
+                              &${app_inst}_PhWHighpin_Config,
+                              &${app_inst}_PhWLowpin_Config,
+                            },""")
+if(appIns.gcombo_traplevel.value != "Trap Disabled"){
+	out.print("""
+  .trapconfig_ptr         = (XMC_CCU8_SLICE_EVENT_CONFIG_t*)(void*)&${app_inst}_TrapConfig,
+  .trapinpin_ptr          = &${app_inst}_Trappin,
+  .trapinconfig_ptr       = &${app_inst}_Trappin_Config,
+""");
+	  }else{
+	out.print("""
+  .trapconfig_ptr         = NULL,
+  .trapinpin_ptr          = NULL,
+  .trapinconfig_ptr       = NULL,
+""");
+  }
+if(appIns.gcombo_inverterpin_level.value != "Inverter Pin Disabled")
+  {
+	out.print("""
+  .inverterpin_ptr        = &${app_inst}_Inverterpin,
+  .inverterpinconfig_ptr  = &${app_inst}_Inverterpin_Config,
+""");
+  } else {
+	out.print("""
+  .inverterpin_ptr        = NULL,
+  .inverterpinconfig_ptr  = NULL,
+""");
+	  }
+  out.print("""
+  .config_ptr             = &${app_inst}_Config,
+  .deadtimeconfig_ptr     = (XMC_CCU8_SLICE_DEAD_TIME_CONFIG_t*)(void*)&${app_inst}_Phase_DeadTimeConfig,
+  .state                  = PWM_BC_UNINITIALIZED,
+  .direction              = ${directionArray[appIns.gcombo_dir.options.indexOf(appIns.gcombo_dir.value)]},
+  .modulation_type        = ${modulation[appIns.gcombo_modtype.options.indexOf(appIns.gcombo_modtype.value)]}, 
+  .period                 = (uint16_t)${appIns.gint_periodreg.value},  
+  .mc_pattern             = {
+                              { 
+                                0x${mcp[0]}U, 0x${mcp[1]}U, 0x${mcp[2]}U, 0x${mcp[3]}U, 
+                                0x${mcp[4]}U, 0x${mcp[5]}U, 0x${mcp[6]}U, 0x00U,
+                                0x${mcp[7]}U, 0x${mcp[6]}U, 0x${mcp[5]}U, 0x${mcp[4]}U, 
+                                0x${mcp[3]}U, 0x${mcp[2]}U, 0x${mcp[1]}U, 0x00U
+                              }, 
+                              {
+                                0x${mcp[0]}U, 0x${mcp[1]}U, 0x${mcp[2]}U, 0x${mcp[3]}U, 
+                                0x${mcp[4]}U, 0x${mcp[5]}U, 0x${mcp[6]}U, 0x00U,
+                                0x${mcp[7]}U, 0x${mcp[6]}U, 0x${mcp[5]}U, 0x${mcp[4]}U, 
+                                0x${mcp[3]}U, 0x${mcp[2]}U, 0x${mcp[1]}U, 0x00U
+                              }, 
+                              {
+                                 0x${mcp_cmplmnt[0]}U, 0x${mcp_cmplmnt[1]}U, 0x${mcp_cmplmnt[2]}U, 0x${mcp_cmplmnt[3]}U, 
+                                 0x${mcp_cmplmnt[4]}U, 0x${mcp_cmplmnt[5]}U, 0x${mcp_cmplmnt[6]}U, 0x00U,
+                                 0x${mcp_cmplmnt[7]}U, 0x${mcp_cmplmnt[6]}U, 0x${mcp_cmplmnt[5]}U, 0x${mcp_cmplmnt[4]}U, 
+                                 0x${mcp_cmplmnt[3]}U, 0x${mcp_cmplmnt[2]}U, 0x${mcp_cmplmnt[1]}U, 0x00U
+                              },
+                              {
+                                 0x${mcp_cmplmnt_syncrecti[0]}U, 0x${mcp_cmplmnt_syncrecti[1]}U, 0x${mcp_cmplmnt_syncrecti[2]}U, 0x${mcp_cmplmnt_syncrecti[3]}U, 
+                                 0x${mcp_cmplmnt_syncrecti[4]}U, 0x${mcp_cmplmnt_syncrecti[5]}U, 0x${mcp_cmplmnt_syncrecti[6]}U, 0x00U,
+                                 0x${mcp_cmplmnt_syncrecti_r[4]}U, 0x${mcp_cmplmnt_syncrecti_r[1]}U, 0x${mcp_cmplmnt_syncrecti_r[2]}U, 0x${mcp_cmplmnt_syncrecti_r[3]}U, 
+                                 0x${mcp_cmplmnt_syncrecti_r[4]}U, 0x${mcp_cmplmnt_syncrecti_r[5]}U, 0x${mcp_cmplmnt_syncrecti_r[6]}U, 0x00U
+                              },
+                            } 
+};
+
+""");
+} else {
+out.print("""
+  /*CCU8 resource is not mapped for PWM_BC app instant: ${app_inst} */
+
+""");
+  }
+}
+/**
+ * @}
+ */
+ 
+
+

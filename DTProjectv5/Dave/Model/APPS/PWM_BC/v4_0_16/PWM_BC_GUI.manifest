@@ -1,0 +1,159 @@
+package Model.APPS.PWM_BC.v4_0_16;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class PWM_BC_GUI extends AppManifest {
+	/* Begin : UI variable section */
+	 public GTab gtab_waveform;
+	 public GImage gimage_hsm;
+	 public GInteger gint_freq;
+	 public GInteger gint_periodreg;
+	 public GCombo gcombo_modtype;
+	 public GCombo gcombo_dir;
+	 public GCombo gcombo_phw_1;
+	 public GCombo gcombo_phv_1;
+	 public GCombo gcombo_phu_1;
+	 public GCombo gcombo_phw_2;
+	 public GCombo gcombo_phv_2;
+	 public GCombo gcombo_phu_2;
+	 public GCombo gcombo_phw_3;
+	 public GCombo gcombo_phv_3;
+	 public GCombo gcombo_phu_3;
+	 public GCombo gcombo_phw_4;
+	 public GCombo gcombo_phv_4;
+	 public GCombo gcombo_phu_4;
+	 public GCombo gcombo_phw_5;
+	 public GCombo gcombo_phv_5;
+	 public GCombo gcombo_phu_5;
+	 public GCombo gcombo_phw_6;
+	 public GCombo gcombo_phv_6;
+	 public GCombo gcombo_phu_6;
+	 public GCombo gcombo_inverterpin_level;
+	 public GCombo gcombo_direct_output;
+	 public GCombo gcombo_indirect_output;
+	 public GCombo gcombo_traplevel;
+	 public GCombo gcombo_trapexit;
+	 public GCombo gcombo_trapsync;
+	 public GCombo gcombo_pwmout_opchar;
+	 public GCombo gcombo_pwmout_strength;
+	 public GCombo gcombo_trap_opchar;
+	 public GCombo gcombo_invout_opchar;
+	 public GCombo gcombo_invout_dstrength;
+	 public GFloat gfloat_resolution;
+	 public GFloat gfloat_act_resolution;
+	 public GFloat gfloat_deadtime_rising_edge;
+	 public GFloat gfloat_deadtime_falling_edge;
+	 public GCheck gcheck_enable_exttrig;
+	 public GCheck gcheck_sliceconsumption;
+	 public GCheck gcheck_mcmoption;
+	 public GCheck gcheck_permatch_interrupt;
+	 public GCheck gcheck_trap_interrupt;
+	 public GLabel glabel_mcmhallopt;
+	 public GLabel glabel_phw_1;
+	 public GLabel glabel_phv_1;
+	 public GLabel glabel_phu_1;
+	 public GLabel glabel_phw_2;
+	 public GLabel glabel_phv_2;
+	 public GLabel glabel_phu_2;
+	 public GLabel glabel_phw_3;
+	 public GLabel glabel_phv_3;
+	 public GLabel glabel_phu_3;
+	 public GLabel glabel_phw_4;
+	 public GLabel glabel_phv_4;
+	 public GLabel glabel_phu_4;
+	 public GLabel glabel_phw_5;
+	 public GLabel glabel_phv_5;
+	 public GLabel glabel_phu_5;
+	 public GLabel glabel_phw_6;
+	 public GLabel glabel_phv_6;
+	 public GLabel glabel_phu_6;
+	 public GLabel glabel_pwmout_strength;
+	 public GLabel glabel_invout_opchar;
+	 public GLabel glabel_invout_dstrength;
+	 public GGroup ggroup_deadtime;
+	 public GGroup ggroup_mcpattern;
+	 public GGroup ggroup_1;
+	 public GGroup ggroup_trap;
+	 public GGroup ggroup_pwmout_config;
+	 public GGroup ggroup_inverter_pin_config;
+
+	 public PWM_BC_GUI(DaveEnv daveEnv){
+
+	 gtab_waveform = GTab(widgetName:"gtab_waveform", text:"Modulation", enabled:true, visible:true)
+	 gimage_hsm = GImage(widgetName:"gimage_hsm", path: "Uimodel/HS_Modulation.png", enabled:true, visible:true)
+	 gint_freq = GInteger(widgetName:"gint_freq", value:20000, minValue:100, maxValue:250000, enabled:true, visible:true, isMandatoryValue:false)
+	 gint_periodreg = GInteger(widgetName:"gint_periodreg", value:1, minValue:1, maxValue:65535, enabled:false, visible:true, isMandatoryValue:false)
+	 gcombo_modtype = GCombo(widgetName:"gcombo_modtype", options:["High Side","Low Side","Synchronous Rectification","Synchronous Rectification (Balanced)"], value:"High Side", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_dir = GCombo(widgetName:"gcombo_dir", options:["Clockwise","Anticlockwise"], value:"Clockwise", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phw_1 = GCombo(widgetName:"gcombo_phw_1", options:["Off","High Side On","Low Side On"], value:"High Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phv_1 = GCombo(widgetName:"gcombo_phv_1", options:["Off","High Side On","Low Side On"], value:"Low Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phu_1 = GCombo(widgetName:"gcombo_phu_1", options:["Off","High Side On","Low Side On"], value:"Off", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phw_2 = GCombo(widgetName:"gcombo_phw_2", options:["Off","High Side On","Low Side On"], value:"Off", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phv_2 = GCombo(widgetName:"gcombo_phv_2", options:["Off","High Side On","Low Side On"], value:"Low Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phu_2 = GCombo(widgetName:"gcombo_phu_2", options:["Off","High Side On","Low Side On"], value:"High Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phw_3 = GCombo(widgetName:"gcombo_phw_3", options:["Off","High Side On","Low Side On"], value:"Low Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phv_3 = GCombo(widgetName:"gcombo_phv_3", options:["Off","High Side On","Low Side On"], value:"Off", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phu_3 = GCombo(widgetName:"gcombo_phu_3", options:["Off","High Side On","Low Side On"], value:"High Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phw_4 = GCombo(widgetName:"gcombo_phw_4", options:["Off","High Side On","Low Side On"], value:"Low Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phv_4 = GCombo(widgetName:"gcombo_phv_4", options:["Off","High Side On","Low Side On"], value:"High Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phu_4 = GCombo(widgetName:"gcombo_phu_4", options:["Off","High Side On","Low Side On"], value:"Off", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phw_5 = GCombo(widgetName:"gcombo_phw_5", options:["Off","High Side On","Low Side On"], value:"Off", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phv_5 = GCombo(widgetName:"gcombo_phv_5", options:["Off","High Side On","Low Side On"], value:"High Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phu_5 = GCombo(widgetName:"gcombo_phu_5", options:["Off","High Side On","Low Side On"], value:"Low Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phw_6 = GCombo(widgetName:"gcombo_phw_6", options:["Off","High Side On","Low Side On"], value:"High Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phv_6 = GCombo(widgetName:"gcombo_phv_6", options:["Off","High Side On","Low Side On"], value:"Off", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_phu_6 = GCombo(widgetName:"gcombo_phu_6", options:["Off","High Side On","Low Side On"], value:"Low Side On", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_inverterpin_level = GCombo(widgetName:"gcombo_inverterpin_level", options:["Inverter Pin Disabled","Active Low","Active High"], value:"Active High", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_direct_output = GCombo(widgetName:"gcombo_direct_output", options:["Active High","Active Low"], value:"Active High", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_indirect_output = GCombo(widgetName:"gcombo_indirect_output", options:["Active High","Active Low"], value:"Active High", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_traplevel = GCombo(widgetName:"gcombo_traplevel", options:["Trap Disabled","Active Low","Active High"], value:"Active Low", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_trapexit = GCombo(widgetName:"gcombo_trapexit", options:["Auto Exit","SW Exit"], value:"Auto Exit", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_trapsync = GCombo(widgetName:"gcombo_trapsync", options:["Exit without synchronisation","Exit with synchronisation"], value:"Exit without synchronisation", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_pwmout_opchar = GCombo(widgetName:"gcombo_pwmout_opchar", options:["Push Pull","Open Drain"], value:"Push Pull", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_pwmout_strength = GCombo(widgetName:"gcombo_pwmout_strength", options:["Weak Driver","Medium Driver","Strong Driver Soft Edge","Strong Driver Slow Edge","Strong Driver Sharp Edge","Strong Driver Medium Edge"], value:"Strong Driver Sharp Edge", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_trap_opchar = GCombo(widgetName:"gcombo_trap_opchar", options:["None","Pull Down","Pull Up"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_invout_opchar = GCombo(widgetName:"gcombo_invout_opchar", options:["Push Pull","Open Drain"], value:"Push Pull", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_invout_dstrength = GCombo(widgetName:"gcombo_invout_dstrength", options:["Weak Driver","Medium Driver","Strong Driver Soft Edge","Strong Driver Slow Edge","Strong Driver Sharp Edge","Strong Driver Medium Edge"], value:"Strong Driver Sharp Edge", enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_resolution = GFloat(widgetName:"gfloat_resolution", value:9, minValue:8.3, maxValue:273066.66, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_act_resolution = GFloat(widgetName:"gfloat_act_resolution", value:8.3333, minValue:8.3, maxValue:273066.66, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_deadtime_rising_edge = GFloat(widgetName:"gfloat_deadtime_rising_edge", value:500, minValue:0, maxValue:10000, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_deadtime_falling_edge = GFloat(widgetName:"gfloat_deadtime_falling_edge", value:500, minValue:0, maxValue:10000, enabled:true, visible:true, isMandatoryValue:false)
+	 gcheck_enable_exttrig = GCheck(widgetName:"gcheck_enable_exttrig", value:false, enabled:true, visible:true)
+	 gcheck_sliceconsumption = GCheck(widgetName:"gcheck_sliceconsumption", value:false, enabled:true, visible:true)
+	 gcheck_mcmoption = GCheck(widgetName:"gcheck_mcmoption", value:false, enabled:true, visible:true)
+	 gcheck_permatch_interrupt = GCheck(widgetName:"gcheck_permatch_interrupt", value:false, enabled:true, visible:true)
+	 gcheck_trap_interrupt = GCheck(widgetName:"gcheck_trap_interrupt", value:false, enabled:true, visible:true)
+	 glabel_mcmhallopt = GLabel(widgetName:"glabel_mcmhallopt", text:"", enabled:true, visible:true)
+	 glabel_phw_1 = GLabel(widgetName:"glabel_phw_1", text:"Phase W Pattern_1", enabled:true, visible:true)
+	 glabel_phv_1 = GLabel(widgetName:"glabel_phv_1", text:"Phase V Pattern_1", enabled:true, visible:true)
+	 glabel_phu_1 = GLabel(widgetName:"glabel_phu_1", text:"Phase U Pattern_1", enabled:true, visible:true)
+	 glabel_phw_2 = GLabel(widgetName:"glabel_phw_2", text:"Phase W Pattern_2", enabled:true, visible:true)
+	 glabel_phv_2 = GLabel(widgetName:"glabel_phv_2", text:"Phase V Pattern_2", enabled:true, visible:true)
+	 glabel_phu_2 = GLabel(widgetName:"glabel_phu_2", text:"Phase U Pattern_2", enabled:true, visible:true)
+	 glabel_phw_3 = GLabel(widgetName:"glabel_phw_3", text:"Phase W Pattern_3", enabled:true, visible:true)
+	 glabel_phv_3 = GLabel(widgetName:"glabel_phv_3", text:"Phase V Pattern_3", enabled:true, visible:true)
+	 glabel_phu_3 = GLabel(widgetName:"glabel_phu_3", text:"Phase U Pattern_3", enabled:true, visible:true)
+	 glabel_phw_4 = GLabel(widgetName:"glabel_phw_4", text:"Phase W Pattern_4", enabled:true, visible:true)
+	 glabel_phv_4 = GLabel(widgetName:"glabel_phv_4", text:"Phase V Pattern_4", enabled:true, visible:true)
+	 glabel_phu_4 = GLabel(widgetName:"glabel_phu_4", text:"Phase U Pattern_4", enabled:true, visible:true)
+	 glabel_phw_5 = GLabel(widgetName:"glabel_phw_5", text:"Phase W Pattern_5", enabled:true, visible:true)
+	 glabel_phv_5 = GLabel(widgetName:"glabel_phv_5", text:"Phase V Pattern_5", enabled:true, visible:true)
+	 glabel_phu_5 = GLabel(widgetName:"glabel_phu_5", text:"Phase U Pattern_5", enabled:true, visible:true)
+	 glabel_phw_6 = GLabel(widgetName:"glabel_phw_6", text:"Phase W Pattern_6", enabled:true, visible:true)
+	 glabel_phv_6 = GLabel(widgetName:"glabel_phv_6", text:"Phase V Pattern_6", enabled:true, visible:true)
+	 glabel_phu_6 = GLabel(widgetName:"glabel_phu_6", text:"Phase U Pattern_6", enabled:true, visible:true)
+	 glabel_pwmout_strength = GLabel(widgetName:"glabel_pwmout_strength", text:"Driver strength:", enabled:true, visible:true)
+	 glabel_invout_opchar = GLabel(widgetName:"glabel_invout_opchar", text:"Mode:", enabled:true, visible:true)
+	 glabel_invout_dstrength = GLabel(widgetName:"glabel_invout_dstrength", text:"Driver strength:", enabled:true, visible:true)
+	 ggroup_deadtime = GGroup(widgetName:"ggroup_deadtime", text:"", enabled:true, visible:true)
+	 ggroup_mcpattern = GGroup(widgetName:"ggroup_mcpattern", text:"MultiChannel Pattern", enabled:true, visible:true)
+	 ggroup_1 = GGroup(widgetName:"ggroup_1", text:"New Group", enabled:true, visible:false)
+	 ggroup_trap = GGroup(widgetName:"ggroup_trap", text:"Trap Configurations", enabled:true, visible:true)
+	 ggroup_pwmout_config = GGroup(widgetName:"ggroup_pwmout_config", text:"Phase Pin Configuration", enabled:true, visible:true)
+	 ggroup_inverter_pin_config = GGroup(widgetName:"ggroup_inverter_pin_config", text:"Inverter Pin Configuration", enabled:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

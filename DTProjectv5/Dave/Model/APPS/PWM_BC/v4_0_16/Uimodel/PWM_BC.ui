@@ -1,0 +1,472 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" layout="{x:Null}">
+	<p1:TabFolder bounds="1, 6, 665, 590">
+		<p1:GTab text="General Settings" widgetName="gtab_tmrconf" visible="true" enabled="true">
+			<p1:GTab.control>
+				<p1:Tab>
+					<p1:Tab.layout>
+						<GridLayout horizontalSpacing="10" verticalSpacing="10" marginWidth="10" marginHeight="10"/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Timer" widgetName="ggroup_timer" toolTipText="CCU8 Timer Configurations">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL" widthHint="435"/>
+						</p1:GGroup.layoutData>
+						<p1:GLabel text="Resolution [ns]:" visible="true" widgetName="glabel_resolution">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GFloat x:Style="BORDER" minValue="8.3" maxValue="273066.66" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_resolution" value="9" toolTipText="Required resolution of the timer which decides the prescaler value of the CCU8 clock" description="It is user desired timer resolution  based on which actual resolution is calculated to decide the prescaler value of the CCU8 clock">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GLabel text="Actual resolution [ns]:" visible="true" widgetName="glabel_act_resolution" toolTipText="Calculated CCU8 resolution" description="Calculated CCU8 resolution">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GFloat x:Style="BORDER" minValue="8.3" maxValue="273066.66" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_act_resolution" value="8.3333" enabled="false" description="It is calculated actual resolution based on user desired resolution.&#13;&#10;prescaler values are decided based on this actual resolution">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GLabel text="PWM frequency [Hz]:   " visible="true" widgetName="glabel_freq">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GInteger x:Style="NONE" minValue="100" maxValue="250000" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="(com.ifx.davex.ui.controls.util.AppUiConstants).DEC" manifestObj="true" widgetName="gint_freq" toolTipText="Required PWM frequency" value="20000" description="It is required PWM frequency&#13;&#10;min &amp; max values are calculated dynamically based on actual resolution">
+							<p1:GInteger.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GInteger.layoutData>
+						</p1:GInteger>
+						<p1:GLabel text="Period register:" visible="true" widgetName="glabel_periodreg" toolTipText="CCU8 period register value as per resolution and PWM frequency" description="CCU8 period register value as per resolution and PWM frequency">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GInteger x:Style="NONE" minValue="1" maxValue="65535" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="(com.ifx.davex.ui.controls.util.AppUiConstants).DEC" manifestObj="true" widgetName="gint_periodreg" formatVisible="true" enabled="false" description="Calculated period value based on pwm frequency and actual resolution" value="1">
+							<p1:GInteger.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GInteger.layoutData>
+						</p1:GInteger>
+						<p1:GLabel text="Dead time rising edge [ns]:" visible="true" widgetName="glabel_deadtime_rising_edge" toolTipText="Dead time is enabled for Complementary Modulation and Synchronous Rectification Modulation." description="Dead time is enabled for Complementary Modulation and Synchronous Rectification Modulation.">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GFloat format="*,6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="10000" minValue="0" toolTipText="Rising edge dead time to avoid current shoot through. This should consider the switching time." value="500" widgetName="gfloat_deadtime_rising_edge" x:Style="BORDER" description="Dead time to avoid current shoot through.&lt;br&gt; &#13;&#10;It will be configure for all the phase.">
+							<p1:GFloat.layoutData>
+								<GridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GLabel description="Dead time is enabled for Complementary Modulation and Synchronous Rectification Modulation." text="Dead time falling edge [ns]:" toolTipText="Dead time is enabled for Complementary Modulation and Synchronous Rectification Modulation." widgetName="glabel_deadtime_falling_edge">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GFloat description="Dead time to avoid current shoot through. &lt;br&gt;&#13;&#10;It will be configure for all the phase." format="*,6" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="10000" minValue="0" toolTipText="Falling edge dead time to avoid current shoot through. This should consider the switching time." value="500" widgetName="gfloat_deadtime_falling_edge" x:Style="BORDER">
+							<p1:GFloat.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GFloat.layoutData>
+						</p1:GFloat>
+						<p1:GCheck text="Enable trigger for current measurement" manifestObj="true" widgetName="gcheck_enable_exttrig" toolTipText="Whether external trigger is required for ADC current measurement.&#13;&#10;Compare match interrupt is used as the trigger for ADC channel conversion." description="It is APP inbuilt trigger configuration for current measurement, when selected it is required to connect the phase W period match signal to ADC trigger input signal "/>
+						<Label/>
+						<p1:GCheck text="Enable optimized CCU8 slice consumption" manifestObj="true" widgetName="gcheck_sliceconsumption" toolTipText="Only 2 CCU8 slices are consumed to generate three phase outputs (six output signals). &#13;&#10;Compare channel 1 or 2 is consumed based upon the pin constraints." description="when enabled APP consumes only two slices for three phases, phase U &amp; phase V shares one slice, phase W is accommodated in separate slice . otherwise three different slices are consumed for three phases"/>
+						<Label/>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Modulation" visible="true" enabled="true" manifestObj="true" widgetName="gtab_waveform">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite10">
+					<p1:GGroup widgetName="ggroup_deadtime" manifestObj="true" bounds="0, 0, 452, 61">
+						<p1:GGroup.layout>
+							<GridLayout horizontalSpacing="10" marginBottom="10" marginHeight="0" marginTop="10" marginWidth="10" verticalSpacing="10" numColumns="2"/>
+						</p1:GGroup.layout>
+						<p1:GLabel text="Modulation type:" visible="true" widgetName="glabel_modtype">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="RIGHT"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo description="High Side: modulated output applied to high side switches;&lt;br&gt;&#13;&#10;Low Side:  modulated output applied to low side switches;&lt;br&gt;&#13;&#10;Synchronous rectification: Active freewheeling is performed to increase efficiency&lt;br&gt;&#13;&#10;Synchronous Rectification (Balanced): Active freewheeling is performed to increase efficiency;&lt;br&gt;" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="High Side&#13;&#10;Low Side&#13;&#10;Synchronous Rectification&#13;&#10;Synchronous Rectification (Balanced)" toolTipText="High Side: modulated output applied to high side switches&#13;&#10;Low Side:  modulated output applied to low side switches&#13;&#10;Complementary: High side modulation with complementary outputs enabled&#13;&#10;Complementary with Synchronous Rectification: Complmentary outputs enabled with synchronous rectification" value="High Side" widgetName="gcombo_modtype">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+					<p1:GImage visible="true" manifestObj="true" widgetName="gimage_hsm" path="Uimodel/HS_Modulation.png" toolTipText="Waveform for high side modulation" description="Waveform for high side modulation" x:Style="BORDER" bounds="1, 70, 450, 350"/>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Commutation Pattern" visible="true" enabled="true" widgetName="gtab_commpatt">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite11">
+					<p1:Tab.layout>
+						<GridLayout verticalSpacing="10" horizontalSpacing="10" marginWidth="10" marginHeight="10"/>
+					</p1:Tab.layout>
+					<p1:GGroup widgetName="group_13">
+						<p1:GGroup.layoutData>
+							<GridData widthHint="450" heightHint="66" horizontalAlignment="FILL"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2" horizontalSpacing="10" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<p1:GCheck manifestObj="true" widgetName="gcheck_mcmoption" text="Multichannel Mode With Hall Sensors" toolTipText="Hall sensors are used for position feedback and for multichannel mode synchronization" description="It configures POSIF for multichannel mode with hall sensor when selected otherwise APP configures POSIF for standalone multichannel mode"/>
+						<Label/>
+						<p1:GLabel text="Direction:" visible="true" widgetName="glabel_dir"/>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_dir" options="Clockwise&#13;&#10;Anticlockwise" value="Clockwise" toolTipText="Direction of rotation" description="It selects direction of multichannel pattern to control the direction of motor">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel visible="true" manifestObj="true" widgetName="glabel_mcmhallopt"/>
+						<Label/>
+					</p1:GGroup>
+					<p1:GGroup text="MultiChannel Pattern" widgetName="ggroup_mcpattern" manifestObj="true" toolTipText="" description="Multichannel pattern:&#13;&#10;0: Not conducting&#13;&#10;1: High side conducting&#13;&#10;2: Low side conducting">
+						<p1:GGroup.layoutData>
+							<GridData widthHint="455"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="4" horizontalSpacing="10" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<Label/>
+						<p1:GLabel text="Phase W" visible="true" widgetName="glabel_phw">
+							<p1:GLabel.layoutData>
+								<GridData grabExcessHorizontalSpace="true"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GLabel text="Phase V" visible="true" widgetName="glabel_phv">
+							<p1:GLabel.layoutData>
+								<GridData grabExcessHorizontalSpace="true"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GLabel text="Phase U" visible="true" widgetName="glabel_phu">
+							<p1:GLabel.layoutData>
+								<GridData grabExcessHorizontalSpace="true"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GLabel text="1:" visible="true" widgetName="glabel_1">
+							<p1:GLabel.layoutData>
+								<GridData verticalAlignment="FILL" horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_phw_1" description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="High Side On">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Low Side On" widgetName="gcombo_phv_1">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Off" widgetName="gcombo_phu_1">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="2:" visible="true" widgetName="glabel_2">
+							<p1:GLabel.layoutData>
+								<GridData widthHint="18" horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Off" widgetName="gcombo_phw_2" toolTipText="">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Low Side On" widgetName="gcombo_phv_2">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="High Side On" widgetName="gcombo_phu_2">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="3:" visible="true" widgetName="glabel_3">
+							<p1:GLabel.layoutData>
+								<GridData widthHint="27" horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Low Side On" widgetName="gcombo_phw_3">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Off" widgetName="gcombo_phv_3">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="High Side On" widgetName="gcombo_phu_3">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="4:" visible="true" widgetName="glabel_4">
+							<p1:GLabel.layoutData>
+								<GridData widthHint="22" horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Low Side On" widgetName="gcombo_phw_4">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="High Side On" widgetName="gcombo_phv_4">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Off" widgetName="gcombo_phu_4">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="5:" visible="true" widgetName="glabel_5">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Off" widgetName="gcombo_phw_5">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="High Side On" widgetName="gcombo_phv_5">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Low Side On" widgetName="gcombo_phu_5">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="6:" visible="true" widgetName="glabel_6">
+							<p1:GLabel.layoutData>
+								<GridData horizontalAlignment="FILL"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="High Side On" widgetName="gcombo_phw_6">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Off" widgetName="gcombo_phv_6">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GCombo description="It selects required switching option for phase &#13;&#10;Internally the selection is mapped into appropriate MCM register value" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Off&#13;&#10;High Side On&#13;&#10;Low Side On" value="Low Side On" widgetName="gcombo_phu_6">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+					<p1:GGroup text="New Group" manifestObj="true" visible="false" widgetName="ggroup_1">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="3"/>
+						</p1:GGroup.layout>
+						<p1:GGroup.layoutData>
+							<GridData heightHint="178" widthHint="456"/>
+						</p1:GGroup.layoutData>
+						<p1:GLabel text="Phase W Pattern_1" visible="true" manifestObj="true" widgetName="glabel_phw_1"/>
+						<p1:GLabel text="Phase V Pattern_1" visible="true" manifestObj="true" widgetName="glabel_phv_1"/>
+						<p1:GLabel text="Phase U Pattern_1" visible="true" manifestObj="true" widgetName="glabel_phu_1"/>
+						<p1:GLabel text="Phase W Pattern_2" visible="true" manifestObj="true" widgetName="glabel_phw_2"/>
+						<p1:GLabel text="Phase V Pattern_2" visible="true" manifestObj="true" widgetName="glabel_phv_2"/>
+						<p1:GLabel text="Phase U Pattern_2" visible="true" manifestObj="true" widgetName="glabel_phu_2"/>
+						<p1:GLabel text="Phase W Pattern_3" visible="true" manifestObj="true" widgetName="glabel_phw_3"/>
+						<p1:GLabel text="Phase V Pattern_3" visible="true" manifestObj="true" widgetName="glabel_phv_3"/>
+						<p1:GLabel text="Phase U Pattern_3" visible="true" manifestObj="true" widgetName="glabel_phu_3"/>
+						<p1:GLabel text="Phase W Pattern_4" visible="true" manifestObj="true" widgetName="glabel_phw_4"/>
+						<p1:GLabel text="Phase V Pattern_4" visible="true" manifestObj="true" widgetName="glabel_phv_4"/>
+						<p1:GLabel text="Phase U Pattern_4" visible="true" manifestObj="true" widgetName="glabel_phu_4"/>
+						<p1:GLabel text="Phase W Pattern_5" visible="true" manifestObj="true" widgetName="glabel_phw_5"/>
+						<p1:GLabel text="Phase V Pattern_5" visible="true" manifestObj="true" widgetName="glabel_phv_5"/>
+						<p1:GLabel text="Phase U Pattern_5" visible="true" manifestObj="true" widgetName="glabel_phu_5"/>
+						<p1:GLabel text="Phase W Pattern_6" visible="true" manifestObj="true" widgetName="glabel_phw_6"/>
+						<p1:GLabel text="Phase V Pattern_6" visible="true" manifestObj="true" widgetName="glabel_phv_6"/>
+						<p1:GLabel text="Phase U Pattern_6" visible="true" manifestObj="true" widgetName="glabel_phu_6"/>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Power Board Configurations" visible="true" enabled="true" widgetName="gtab_powerboard">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite24" layout="{x:Null}">
+					<p1:GLabel text="Inverter enable pin configuration:                    " visible="true" widgetName="glabel_inverterpin_level" bounds="17, 24, 188, 15"/>
+					<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_inverterpin_level" options="Inverter Pin Disabled&#13;&#10;Active Low&#13;&#10;Active High" value="Active High" toolTipText="Enable and select active level of the inverter enable pin" description="This allows user to enable and select active level of &#13;&#10;inverter pin" bounds="214, 21, 231, 21"/>
+		<p1:GGroup text="Output Polarity" widgetName="ggroup_passive_state" toolTipText="PWM output levels" bounds="10, 52, 444, 80">
+		                   <p1:GGroup.layout>
+		                       <GridLayout numColumns="2" horizontalSpacing="10" verticalSpacing="10"/>
+		                   </p1:GGroup.layout>
+		                   <p1:GLabel text="High side switches:" visible="true" widgetName="glabel_direct_output">
+		                       <p1:GLabel.layoutData>
+		                           <GridData horizontalAlignment="FILL" widthHint="186"/>
+		                       </p1:GLabel.layoutData>
+		                   </p1:GLabel>
+		                   <p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_direct_output" options="Active High&#13;&#10;Active Low&#13;&#10;" value="Active High" toolTipText="passive level for high side switch" description="It selects passive level for high side switch">
+		                       <p1:GCombo.layoutData>
+		                           <GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+		                       </p1:GCombo.layoutData>
+		                   </p1:GCombo>
+		                   <p1:GLabel text="Low side switches:" visible="true" widgetName="glabel_indirect_output">
+		                   	<p1:GLabel.layoutData>
+		                   		<GridData horizontalAlignment="FILL"/>
+		                   	</p1:GLabel.layoutData>
+		                   </p1:GLabel>
+		                   <p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_indirect_output" options="Active High&#13;&#10;Active Low" value="Active High" toolTipText="passive level for low side switch" description="It selects passive level for low side switch">
+		                       <p1:GCombo.layoutData>
+		                           <GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+		                       </p1:GCombo.layoutData>
+		                   </p1:GCombo>
+		               </p1:GGroup>
+					<p1:GGroup text="Trap Configurations" widgetName="ggroup_trap" manifestObj="true" toolTipText="Trap mode settings" bounds="10, 142, 444, 111">
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2" horizontalSpacing="10" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<p1:GLabel text="Trap enable:" visible="true" widgetName="glabel_traplevel">
+							<p1:GLabel.layoutData>
+								<GridData grabExcessVerticalSpace="true"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_traplevel" options="Trap Disabled&#13;&#10;Active Low&#13;&#10;Active High" value="Active Low" toolTipText="Enable and Select active level of the input trap pin" description="This allows user to enable and select the &#13;&#10;active level">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" verticalAlignment="TOP" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="Exit control:" visible="true" widgetName="glabel_trapexit"/>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_trapexit" options="Auto Exit&#13;&#10;SW Exit" value="Auto Exit" toolTipText="Configuration of trap exit - automatic exit when trap condition becomes inactive or exit by clearing the bit via software" description="Configuration of trap exit - automatic exit when trap condition becomes inactive or exit by clearing the bit via software">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+						<p1:GLabel text="Synchronisation enable:" visible="true" widgetName="glabel_trapsync">
+							<p1:GLabel.layoutData>
+								<GridData widthHint="185"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_trapsync" options="Exit without synchronisation&#13;&#10;Exit with synchronisation" value="Exit without synchronisation" toolTipText="exit from the trap state with or without PWM synchronization" description="Exit from the trap state with or without PWM synchronization">
+							<p1:GCombo.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+					
+
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Event Settings" enabled="true" widgetName="gtab_interrupt" visible="true">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite26">
+					<p1:Tab.layout>
+						<GridLayout horizontalSpacing="10" marginHeight="10" marginWidth="10" verticalSpacing="10"/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Enable at Initialisation" widgetName="ggroup_interrupt_enable">
+						<p1:GGroup.layoutData>
+							<GridData widthHint="429" horizontalAlignment="FILL"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout horizontalSpacing="10" verticalSpacing="10"/>
+						</p1:GGroup.layout>
+						<p1:GCheck text="One match interrupt - Phase U" widgetName="gcheck_permatch_interrupt" manifestObj="true" toolTipText="Enable one match interrupt - this occurs when timer matches the zero value" description="Enable period match interrupt - this occurs when timer matches the period register value"/>
+						<p1:GCheck text="Trap interrupt - Phase U" widgetName="gcheck_trap_interrupt" manifestObj="true" toolTipText="Enable trap interrupt - this occurs when fault condition is detected by change in the input trap pin level" description="Enable trap interrupt - this occurs when fault condition is detected by change in the input trap pin level"/>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Pin Settings" visible="true" enabled="true" widgetName="gtab_pin">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite27">
+					<p1:Tab.layout>
+						<GridLayout horizontalSpacing="10" marginHeight="10" marginWidth="10" verticalSpacing="10"/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Phase Pin Configuration" manifestObj="true" widgetName="ggroup_pwmout_config">
+						<p1:GGroup.layoutData>
+							<GridData widthHint="379"/>
+						</p1:GGroup.layoutData>
+							<p1:GGroup.layout>
+								<GridLayout numColumns="2" horizontalSpacing="10" verticalSpacing="10" marginBottom="5"/>
+							</p1:GGroup.layout>
+							<p1:GLabel text="Mode:                                 " visible="true" widgetName="glabel_pwmout_opchar">
+								<p1:GLabel.layoutData>
+									<GridData widthHint="131"/>
+								</p1:GLabel.layoutData>
+							</p1:GLabel>
+							<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_pwmout_opchar" options="Push Pull&#13;&#10;Open Drain" value="Push Pull" toolTipText="output pin mode" description="output pin mode">
+								<p1:GCombo.layoutData>
+									<GridData horizontalAlignment="FILL" grabExcessHorizontalSpace="true"/>
+								</p1:GCombo.layoutData>
+							</p1:GCombo>
+							<p1:GLabel text="Driver strength:" visible="true" manifestObj="true" widgetName="glabel_pwmout_strength">
+								<p1:GLabel.layoutData>
+									<GridData horizontalAlignment="FILL"/>
+								</p1:GLabel.layoutData>
+							</p1:GLabel>
+							<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_pwmout_strength" options="Weak Driver&#13;&#10;Medium Driver&#13;&#10;Strong Driver Soft Edge&#13;&#10;Strong Driver Slow Edge&#13;&#10;Strong Driver Sharp Edge&#13;&#10;Strong Driver Medium Edge" value="Strong Driver Sharp Edge" toolTipText="output pin driver strength" description="output pin driver strength">
+								<p1:GCombo.layoutData>
+									<GridData horizontalAlignment="FILL"/>
+								</p1:GCombo.layoutData>
+							</p1:GCombo>
+						</p1:GGroup>
+					<p1:GGroup text="Trap Pin Configuration" widgetName="ggroup_inverterpinconf">
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="2" horizontalSpacing="10" verticalSpacing="10" marginBottom="5"/>
+						</p1:GGroup.layout>
+						<p1:GLabel text="Pull device:" visible="true" widgetName="glabel_trap_opchar">
+							<p1:GLabel.layoutData>
+								<GridData widthHint="132"/>
+							</p1:GLabel.layoutData>
+						</p1:GLabel>
+						<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="None&#13;&#10;Pull Down&#13;&#10;Pull Up&#13;&#10;" value="None" widgetName="gcombo_trap_opchar" toolTipText="trap input pin configuration" description="trap input pin configuration">
+							<p1:GCombo.layoutData>
+								<GridData horizontalAlignment="FILL" widthHint="140" grabExcessHorizontalSpace="true"/>
+							</p1:GCombo.layoutData>
+						</p1:GCombo>
+					</p1:GGroup>
+					<p1:GGroup text="Inverter Pin Configuration" manifestObj="true" widgetName="ggroup_inverter_pin_config">
+						<p1:GGroup.layoutData>
+							<GridData horizontalAlignment="FILL"/>
+						</p1:GGroup.layoutData>
+							<p1:GGroup.layout>
+								<GridLayout numColumns="2" horizontalSpacing="10" verticalSpacing="10" marginBottom="5"/>
+							</p1:GGroup.layout>
+							<p1:GLabel text="Mode:" visible="true" manifestObj="true" widgetName="glabel_invout_opchar">
+								<p1:GLabel.layoutData>
+									<GridData widthHint="131"/>
+								</p1:GLabel.layoutData>
+							</p1:GLabel>
+							<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_invout_opchar" options="Push Pull&#13;&#10;Open Drain" value="Push Pull" toolTipText="inverter enable pin output mode" description="inverter enable pin output mode">
+								<p1:GCombo.layoutData>
+									<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+								</p1:GCombo.layoutData>
+							</p1:GCombo>
+							<p1:GLabel text="Driver strength:" visible="true" manifestObj="true" widgetName="glabel_invout_dstrength">
+								<p1:GLabel.layoutData>
+									<GridData horizontalAlignment="FILL"/>
+								</p1:GLabel.layoutData>
+							</p1:GLabel>
+							<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_invout_dstrength" options="Weak Driver&#13;&#10;Medium Driver&#13;&#10;Strong Driver Soft Edge&#13;&#10;Strong Driver Slow Edge&#13;&#10;Strong Driver Sharp Edge&#13;&#10;Strong Driver Medium Edge" value="Strong Driver Sharp Edge" toolTipText="inverter enable pin output driver strength" description="inverter enable pin output driver strength">
+								<p1:GCombo.layoutData>
+									<GridData horizontalAlignment="FILL"/>
+								</p1:GCombo.layoutData>
+							</p1:GCombo>
+						</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+	</p1:TabFolder>
+</p1:Tab>

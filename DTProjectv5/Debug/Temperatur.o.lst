@@ -1,0 +1,260 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "Temperatur.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .comm rtU_temp,16,8
+  20              	 .comm rtY_temp,8,8
+  21              	 .comm rtM_temp_,4,4
+  22              	 .global rtM_temp
+  23              	 .section .rodata.rtM_temp,"a",%progbits
+  24              	 .align 2
+  27              	rtM_temp:
+  28 0000 00000000 	 .word rtM_temp_
+  29              	 .global __aeabi_dmul
+  30              	 .global __aeabi_dsub
+  31              	 .global __aeabi_ddiv
+  32              	 .section .text.Temperatur_step,"ax",%progbits
+  33              	 .align 2
+  34              	 .global Temperatur_step
+  35              	 .thumb
+  36              	 .thumb_func
+  38              	Temperatur_step:
+  39              	.LFB169:
+  40              	 .file 1 "../Temperatur.c"
+   1:../Temperatur.c **** /*
+   2:../Temperatur.c ****  * Academic License - for use in teaching, academic research, and meeting
+   3:../Temperatur.c ****  * course requirements at degree granting institutions only.  Not for
+   4:../Temperatur.c ****  * government, commercial, or other organizational use.
+   5:../Temperatur.c ****  *
+   6:../Temperatur.c ****  * File: Temperatur.c
+   7:../Temperatur.c ****  *
+   8:../Temperatur.c ****  * Code generated for Simulink model : Temperatur.
+   9:../Temperatur.c ****  * Model version      : 1.5
+  10:../Temperatur.c ****  * Simulink Coder version    : 8.12 (R2017a) 16-Feb-2017
+  11:../Temperatur.c ****  * TLC version       : 8.12 (Feb 10 2017)
+  12:../Temperatur.c ****  * C/C++ source code generated on  : Mon Jun 17 09:41:31 2019
+  13:../Temperatur.c ****  *
+  14:../Temperatur.c ****  * Target selection: Infineon_XMC_Family.tlc
+  15:../Temperatur.c ****  * Embedded hardware selection: ARM Compatible->ARM Cortex
+  16:../Temperatur.c ****  * Code generation objectives: Unspecified
+  17:../Temperatur.c ****  * Validation result: Not run
+  18:../Temperatur.c ****  */
+  19:../Temperatur.c **** 
+  20:../Temperatur.c **** #include "Temperatur.h"
+  21:../Temperatur.c **** 
+  22:../Temperatur.c **** /* External inputs (root inport signals with auto storage) */
+  23:../Temperatur.c **** ExtU_temp rtU_temp;
+  24:../Temperatur.c **** 
+  25:../Temperatur.c **** /* External outputs (root outports fed by signals with auto storage) */
+  26:../Temperatur.c **** ExtY_temp rtY_temp;
+  27:../Temperatur.c **** 
+  28:../Temperatur.c **** /* Real-time model */
+  29:../Temperatur.c **** RT_MODEL_temp rtM_temp_;
+  30:../Temperatur.c **** RT_MODEL_temp *const rtM_temp = &rtM_temp_;
+  31:../Temperatur.c **** 
+  32:../Temperatur.c **** /* Model step function */
+  33:../Temperatur.c **** void Temperatur_step(void)
+  34:../Temperatur.c **** {
+  41              	 .loc 1 34 0
+  42              	 .cfi_startproc
+  43              	 
+  44              	 
+  45 0000 B0B5     	 push {r4,r5,r7,lr}
+  46              	.LCFI0:
+  47              	 .cfi_def_cfa_offset 16
+  48              	 .cfi_offset 4,-16
+  49              	 .cfi_offset 5,-12
+  50              	 .cfi_offset 7,-8
+  51              	 .cfi_offset 14,-4
+  52 0002 00AF     	 add r7,sp,#0
+  53              	.LCFI1:
+  54              	 .cfi_def_cfa_register 7
+  35:../Temperatur.c ****   /* Outputs for Atomic SubSystem: '<Root>/NTC-Widerstand in Temperatur umrechnen' */
+  36:../Temperatur.c ****   /* Outputs for Atomic SubSystem: '<Root>/gemessene Spannung umrechnen zu Widerstand' */
+  37:../Temperatur.c ****   /* Outport: '<Root>/TEMP_CELSIUS' incorporates:
+  38:../Temperatur.c ****    *  Constant: '<Root>/Umrechnung Kelvin//Celsius'
+  39:../Temperatur.c ****    *  Constant: '<S1>/B'
+  40:../Temperatur.c ****    *  Constant: '<S2>/Constant1'
+  41:../Temperatur.c ****    *  Constant: '<S2>/Constant3'
+  42:../Temperatur.c ****    *  Inport: '<Root>/Spannung am NTC'
+  43:../Temperatur.c ****    *  Inport: '<Root>/Versorgungsspannung'
+  44:../Temperatur.c ****    *  Math: '<S1>/Math Function'
+  45:../Temperatur.c ****    *  Product: '<S1>/Divide'
+  46:../Temperatur.c ****    *  Product: '<S1>/Divide2'
+  47:../Temperatur.c ****    *  Product: '<S2>/Divide'
+  48:../Temperatur.c ****    *  Product: '<S2>/Product'
+  49:../Temperatur.c ****    *  Sum: '<Root>/Subtract'
+  50:../Temperatur.c ****    *  Sum: '<S2>/Subtract'
+  51:../Temperatur.c ****    *  Sum: '<S2>/Subtract1'
+  52:../Temperatur.c ****    *
+  53:../Temperatur.c ****    * About '<S1>/Math Function':
+  54:../Temperatur.c ****    *  Operator: log
+  55:../Temperatur.c ****    */
+  56:../Temperatur.c ****   rtY_temp.TEMP_CELSIUS = 3470.0 / log((10000.0 * rtU_temp.Versorgungsspannung /
+  55              	 .loc 1 56 0
+  56 0004 2C4B     	 ldr r3,.L2+32
+  57 0006 D3E90223 	 ldrd r2,[r3,#8]
+  58 000a 1046     	 mov r0,r2
+  59 000c 1946     	 mov r1,r3
+  60 000e 22A3     	 adr r3,.L2
+  61 0010 D3E90023 	 ldrd r2,[r3]
+  62 0014 FFF7FEFF 	 bl __aeabi_dmul
+  63 0018 0246     	 mov r2,r0
+  64 001a 0B46     	 mov r3,r1
+  65 001c 1446     	 mov r4,r2
+  66 001e 1D46     	 mov r5,r3
+  57:../Temperatur.c ****     (rtU_temp.Versorgungsspannung - rtU_temp.SpannungamNTC) - 10000.0) /
+  67              	 .loc 1 57 0
+  68 0020 254B     	 ldr r3,.L2+32
+  69 0022 D3E90201 	 ldrd r0,[r3,#8]
+  70 0026 244B     	 ldr r3,.L2+32
+  71 0028 D3E90023 	 ldrd r2,[r3]
+  72 002c FFF7FEFF 	 bl __aeabi_dsub
+  73 0030 0246     	 mov r2,r0
+  74 0032 0B46     	 mov r3,r1
+  56:../Temperatur.c ****     (rtU_temp.Versorgungsspannung - rtU_temp.SpannungamNTC) - 10000.0) /
+  75              	 .loc 1 56 0
+  76 0034 2046     	 mov r0,r4
+  77 0036 2946     	 mov r1,r5
+  78 0038 FFF7FEFF 	 bl __aeabi_ddiv
+  79 003c 0246     	 mov r2,r0
+  80 003e 0B46     	 mov r3,r1
+  81              	 .loc 1 57 0
+  82 0040 1046     	 mov r0,r2
+  83 0042 1946     	 mov r1,r3
+  84 0044 14A3     	 adr r3,.L2
+  85 0046 D3E90023 	 ldrd r2,[r3]
+  86 004a FFF7FEFF 	 bl __aeabi_dsub
+  87 004e 0246     	 mov r2,r0
+  88 0050 0B46     	 mov r3,r1
+  56:../Temperatur.c ****     (rtU_temp.Versorgungsspannung - rtU_temp.SpannungamNTC) - 10000.0) /
+  89              	 .loc 1 56 0
+  90 0052 1046     	 mov r0,r2
+  91 0054 1946     	 mov r1,r3
+  92 0056 12A3     	 adr r3,.L2+8
+  93 0058 D3E90023 	 ldrd r2,[r3]
+  94 005c FFF7FEFF 	 bl __aeabi_ddiv
+  95 0060 0246     	 mov r2,r0
+  96 0062 0B46     	 mov r3,r1
+  97 0064 1046     	 mov r0,r2
+  98 0066 1946     	 mov r1,r3
+  99 0068 FFF7FEFF 	 bl log
+ 100 006c 0246     	 mov r2,r0
+ 101 006e 0B46     	 mov r3,r1
+ 102 0070 0DA1     	 adr r1,.L2+16
+ 103 0072 D1E90001 	 ldrd r0,[r1]
+ 104 0076 FFF7FEFF 	 bl __aeabi_ddiv
+ 105 007a 0246     	 mov r2,r0
+ 106 007c 0B46     	 mov r3,r1
+  58:../Temperatur.c ****     0.088204556494777056) - 273.15;
+ 107              	 .loc 1 58 0
+ 108 007e 1046     	 mov r0,r2
+ 109 0080 1946     	 mov r1,r3
+ 110 0082 0BA3     	 adr r3,.L2+24
+ 111 0084 D3E90023 	 ldrd r2,[r3]
+ 112 0088 FFF7FEFF 	 bl __aeabi_dsub
+ 113 008c 0246     	 mov r2,r0
+ 114 008e 0B46     	 mov r3,r1
+  56:../Temperatur.c ****     (rtU_temp.Versorgungsspannung - rtU_temp.SpannungamNTC) - 10000.0) /
+ 115              	 .loc 1 56 0
+ 116 0090 0A49     	 ldr r1,.L2+36
+ 117 0092 C1E90023 	 strd r2,[r1]
+  59:../Temperatur.c **** 
+  60:../Temperatur.c ****   /* End of Outputs for SubSystem: '<Root>/gemessene Spannung umrechnen zu Widerstand' */
+  61:../Temperatur.c ****   /* End of Outputs for SubSystem: '<Root>/NTC-Widerstand in Temperatur umrechnen' */
+  62:../Temperatur.c **** }
+ 118              	 .loc 1 62 0
+ 119 0096 B0BD     	 pop {r4,r5,r7,pc}
+ 120              	.L3:
+ 121              	 .align 3
+ 122              	.L2:
+ 123 0098 00000000 	 .word 0
+ 124 009c 0088C340 	 .word 1086556160
+ 125 00a0 1DD580E5 	 .word -444541667
+ 126 00a4 9294B63F 	 .word 1068930194
+ 127 00a8 00000000 	 .word 0
+ 128 00ac 001CAB40 	 .word 1084955648
+ 129 00b0 66666666 	 .word 1717986918
+ 130 00b4 66127140 	 .word 1081152102
+ 131 00b8 00000000 	 .word rtU_temp
+ 132 00bc 00000000 	 .word rtY_temp
+ 133              	 .cfi_endproc
+ 134              	.LFE169:
+ 136              	 .section .text.Temperatur_initialize,"ax",%progbits
+ 137              	 .align 2
+ 138              	 .global Temperatur_initialize
+ 139              	 .thumb
+ 140              	 .thumb_func
+ 142              	Temperatur_initialize:
+ 143              	.LFB170:
+  63:../Temperatur.c **** 
+  64:../Temperatur.c **** /* Model initialize function */
+  65:../Temperatur.c **** void Temperatur_initialize(void)
+  66:../Temperatur.c **** {
+ 144              	 .loc 1 66 0
+ 145              	 .cfi_startproc
+ 146              	 
+ 147              	 
+ 148              	 
+ 149 0000 80B4     	 push {r7}
+ 150              	.LCFI2:
+ 151              	 .cfi_def_cfa_offset 4
+ 152              	 .cfi_offset 7,-4
+ 153 0002 00AF     	 add r7,sp,#0
+ 154              	.LCFI3:
+ 155              	 .cfi_def_cfa_register 7
+  67:../Temperatur.c ****   /* (no initialization code required) */
+  68:../Temperatur.c **** }
+ 156              	 .loc 1 68 0
+ 157 0004 BD46     	 mov sp,r7
+ 158              	.LCFI4:
+ 159              	 .cfi_def_cfa_register 13
+ 160              	 
+ 161 0006 5DF8047B 	 ldr r7,[sp],#4
+ 162              	.LCFI5:
+ 163              	 .cfi_restore 7
+ 164              	 .cfi_def_cfa_offset 0
+ 165 000a 7047     	 bx lr
+ 166              	 .cfi_endproc
+ 167              	.LFE170:
+ 169              	 .text
+ 170              	.Letext0:
+ 171              	 .file 2 "c:\\users\\administrator\\documents\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 172              	 .file 3 "c:\\users\\administrator\\documents\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 173              	 .file 4 "../rtwtypes.h"
+ 174              	 .file 5 "../Temperatur.h"
+ 175              	 .file 6 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Include/core_cm4.h"
+ 176              	 .file 7 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Infineon/XMC4500_series/Include/system_XMC4500.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Temperatur.c
+                            *COM*:00000010 rtU_temp
+                            *COM*:00000008 rtY_temp
+                            *COM*:00000004 rtM_temp_
+    {standard input}:27     .rodata.rtM_temp:00000000 rtM_temp
+    {standard input}:24     .rodata.rtM_temp:00000000 $d
+    {standard input}:33     .text.Temperatur_step:00000000 $t
+    {standard input}:38     .text.Temperatur_step:00000000 Temperatur_step
+    {standard input}:123    .text.Temperatur_step:00000098 $d
+    {standard input}:137    .text.Temperatur_initialize:00000000 $t
+    {standard input}:142    .text.Temperatur_initialize:00000000 Temperatur_initialize
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_dmul
+__aeabi_dsub
+__aeabi_ddiv
+log

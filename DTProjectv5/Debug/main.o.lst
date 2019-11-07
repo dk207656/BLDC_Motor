@@ -1,0 +1,177 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "main.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .comm BTN,7,4
+  20              	 .comm Posifval,12,4
+  21              	 .comm speedindex,2,2
+  22              	 .comm Hall1_status,1,1
+  23              	 .comm hallint_count,2,2
+  24              	 .comm lasthallint_count,2,2
+  25              	 .comm revolves_counter,4,4
+  26              	 .comm LCD,16,4
+  27              	 .comm ADC,4,4
+  28              	 .section .text.main,"ax",%progbits
+  29              	 .align 2
+  30              	 .global main
+  31              	 .thumb
+  32              	 .thumb_func
+  34              	main:
+  35              	.LFB399:
+  36              	 .file 1 "../main.c"
+   1:../main.c     **** 
+   2:../main.c     **** 
+   3:../main.c     **** #include <XMC4500.h>
+   4:../main.c     **** #include <DAVE.h> //Declarations from DAVE Code Generation (includes SFR declaration)
+   5:../main.c     **** #include <LCD.h>
+   6:../main.c     **** #include <Temperatur.h>
+   7:../main.c     **** #include <Buttons.h>
+   8:../main.c     **** #include <ADC.h>
+   9:../main.c     **** #include <Posif_BLDC.h>
+  10:../main.c     **** #include <Speed.h>
+  11:../main.c     **** #include <Interupts.h>
+  12:../main.c     **** 
+  13:../main.c     **** 
+  14:../main.c     **** 
+  15:../main.c     **** 
+  16:../main.c     **** int main(void)
+  17:../main.c     **** 
+  18:../main.c     **** {
+  37              	 .loc 1 18 0
+  38              	 .cfi_startproc
+  39              	 
+  40              	 
+  41 0000 80B5     	 push {r7,lr}
+  42              	.LCFI0:
+  43              	 .cfi_def_cfa_offset 8
+  44              	 .cfi_offset 7,-8
+  45              	 .cfi_offset 14,-4
+  46 0002 82B0     	 sub sp,sp,#8
+  47              	.LCFI1:
+  48              	 .cfi_def_cfa_offset 16
+  49 0004 00AF     	 add r7,sp,#0
+  50              	.LCFI2:
+  51              	 .cfi_def_cfa_register 7
+  19:../main.c     **** 
+  20:../main.c     **** DAVE_STATUS_t status;
+  21:../main.c     **** status = DAVE_Init(); /* Initialization of DAVE Apps */
+  52              	 .loc 1 21 0
+  53 0006 FFF7FEFF 	 bl DAVE_Init
+  54 000a 0346     	 mov r3,r0
+  55 000c FB71     	 strb r3,[r7,#7]
+  22:../main.c     **** 
+  23:../main.c     **** DisplayTask();// Init Display and start Interrupts
+  56              	 .loc 1 23 0
+  57 000e FFF7FEFF 	 bl DisplayTask
+  24:../main.c     **** 
+  25:../main.c     **** if(status == DAVE_STATUS_FAILURE)
+  58              	 .loc 1 25 0
+  59 0012 FB79     	 ldrb r3,[r7,#7]
+  60 0014 012B     	 cmp r3,#1
+  61 0016 00D1     	 bne .L2
+  62              	.L3:
+  26:../main.c     **** 
+  27:../main.c     **** {
+  28:../main.c     **** 
+  29:../main.c     **** /* Placeholder for error handler code. The while loop below can be replaced with an user error hand
+  30:../main.c     **** 
+  31:../main.c     **** XMC_DEBUG(("DAVE Apps initialization failed with status %d\n", status));
+  32:../main.c     **** 
+  33:../main.c     **** while(1U)
+  34:../main.c     **** 
+  35:../main.c     **** {
+  36:../main.c     **** 
+  37:../main.c     **** }
+  63              	 .loc 1 37 0 discriminator 1
+  64 0018 FEE7     	 b .L3
+  65              	.L2:
+  38:../main.c     **** 
+  39:../main.c     **** }
+  40:../main.c     **** 
+  41:../main.c     **** 
+  42:../main.c     **** /* Placeholder for user application code. The while loop below can be replaced with user applicatio
+  43:../main.c     **** LCD.SollVolt=1;
+  66              	 .loc 1 43 0
+  67 001a 074B     	 ldr r3,.L5
+  68 001c 4FF07E52 	 mov r2,#1065353216
+  69 0020 DA60     	 str r2,[r3,#12]
+  70              	.L4:
+  44:../main.c     **** while(1U)
+  45:../main.c     **** 
+  46:../main.c     **** {
+  47:../main.c     **** 	ResetGateDriver();
+  71              	 .loc 1 47 0 discriminator 1
+  72 0022 FFF7FEFF 	 bl ResetGateDriver
+  48:../main.c     **** 	HallEvent();
+  73              	 .loc 1 48 0 discriminator 1
+  74 0026 FFF7FEFF 	 bl HallEvent
+  49:../main.c     **** 	Speedhandler();
+  75              	 .loc 1 49 0 discriminator 1
+  76 002a FFF7FEFF 	 bl Speedhandler
+  50:../main.c     **** 	Buttonhandler();
+  77              	 .loc 1 50 0 discriminator 1
+  78 002e FFF7FEFF 	 bl Buttonhandler
+  51:../main.c     **** 	ADChandler();
+  79              	 .loc 1 51 0 discriminator 1
+  80 0032 FFF7FEFF 	 bl ADChandler
+  52:../main.c     **** 
+  53:../main.c     **** }
+  81              	 .loc 1 53 0 discriminator 1
+  82 0036 F4E7     	 b .L4
+  83              	.L6:
+  84              	 .align 2
+  85              	.L5:
+  86 0038 00000000 	 .word LCD
+  87              	 .cfi_endproc
+  88              	.LFE399:
+  90              	 .text
+  91              	.Letext0:
+  92              	 .file 2 "c:\\users\\administrator\\documents\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+  93              	 .file 3 "c:\\users\\administrator\\documents\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+  94              	 .file 4 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc/xmc_vadc.h"
+  95              	 .file 5 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/DAVE.h"
+  96              	 .file 6 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Buttons.h"
+  97              	 .file 7 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Posif_BLDC.h"
+  98              	 .file 8 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/LCD.h"
+  99              	 .file 9 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/ADC.h"
+ 100              	 .file 10 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Include/core_cm4.h"
+ 101              	 .file 11 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Infineon/XMC4500_series/Include/system_XMC4500.h"
+ 102              	 .file 12 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Speed.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+                            *COM*:00000007 BTN
+                            *COM*:0000000c Posifval
+                            *COM*:00000002 speedindex
+                            *COM*:00000001 Hall1_status
+                            *COM*:00000002 hallint_count
+                            *COM*:00000002 lasthallint_count
+                            *COM*:00000004 revolves_counter
+                            *COM*:00000010 LCD
+                            *COM*:00000004 ADC
+    {standard input}:29     .text.main:00000000 $t
+    {standard input}:34     .text.main:00000000 main
+    {standard input}:86     .text.main:00000038 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+DAVE_Init
+DisplayTask
+ResetGateDriver
+HallEvent
+Speedhandler
+Buttonhandler
+ADChandler

@@ -1,0 +1,198 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "ADC.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .comm BTN,7,4
+  20              	 .comm Posifval,12,4
+  21              	 .comm speedindex,2,2
+  22              	 .comm Hall1_status,1,1
+  23              	 .comm hallint_count,2,2
+  24              	 .comm lasthallint_count,2,2
+  25              	 .comm revolves_counter,4,4
+  26              	 .comm LCD,16,4
+  27              	 .comm ADC,4,4
+  28              	 .global __aeabi_i2d
+  29              	 .global __aeabi_ddiv
+  30              	 .global __aeabi_d2uiz
+  31              	 .global __aeabi_ui2d
+  32              	 .global __aeabi_d2f
+  33              	 .section .text.ADChandler,"ax",%progbits
+  34              	 .align 2
+  35              	 .global ADChandler
+  36              	 .thumb
+  37              	 .thumb_func
+  39              	ADChandler:
+  40              	.LFB399:
+  41              	 .file 1 "../ADC.c"
+   1:../ADC.c      **** /*
+   2:../ADC.c      ****  * ADC.c
+   3:../ADC.c      ****  *
+   4:../ADC.c      ****  *  Created on: 10 Jun 2019
+   5:../ADC.c      ****  *      Author: Administrator
+   6:../ADC.c      ****  */
+   7:../ADC.c      **** #include <ADC.h>
+   8:../ADC.c      ****  void ADChandler(void){
+  42              	 .loc 1 8 0
+  43              	 .cfi_startproc
+  44              	 
+  45              	 
+  46 0000 80B5     	 push {r7,lr}
+  47              	.LCFI0:
+  48              	 .cfi_def_cfa_offset 8
+  49              	 .cfi_offset 7,-8
+  50              	 .cfi_offset 14,-4
+  51 0002 00AF     	 add r7,sp,#0
+  52              	.LCFI1:
+  53              	 .cfi_def_cfa_register 7
+   9:../ADC.c      **** 	ADC.ADCVolt=ADC_MEASUREMENT_GetResult(&ADC_MEASUREMENT_Channel_A)/1.26;
+  54              	 .loc 1 9 0
+  55 0004 2E48     	 ldr r0,.L2+24
+  56 0006 FFF7FEFF 	 bl ADC_MEASUREMENT_GetResult
+  57 000a 0346     	 mov r3,r0
+  58 000c 1846     	 mov r0,r3
+  59 000e FFF7FEFF 	 bl __aeabi_i2d
+  60 0012 0246     	 mov r2,r0
+  61 0014 0B46     	 mov r3,r1
+  62 0016 1046     	 mov r0,r2
+  63 0018 1946     	 mov r1,r3
+  64 001a 23A3     	 adr r3,.L2
+  65 001c D3E90023 	 ldrd r2,[r3]
+  66 0020 FFF7FEFF 	 bl __aeabi_ddiv
+  67 0024 0246     	 mov r2,r0
+  68 0026 0B46     	 mov r3,r1
+  69 0028 1046     	 mov r0,r2
+  70 002a 1946     	 mov r1,r3
+  71 002c FFF7FEFF 	 bl __aeabi_d2uiz
+  72 0030 0346     	 mov r3,r0
+  73 0032 9AB2     	 uxth r2,r3
+  74 0034 234B     	 ldr r3,.L2+28
+  75 0036 5A80     	 strh r2,[r3,#2]
+  10:../ADC.c      **** 	rtU_temp.SpannungamNTC=(real_T)ADC_MEASUREMENT_GetResult(&ADC_MEASUREMENT_Channel_B)/1260;
+  76              	 .loc 1 10 0
+  77 0038 2348     	 ldr r0,.L2+32
+  78 003a FFF7FEFF 	 bl ADC_MEASUREMENT_GetResult
+  79 003e 0346     	 mov r3,r0
+  80 0040 1846     	 mov r0,r3
+  81 0042 FFF7FEFF 	 bl __aeabi_ui2d
+  82 0046 0246     	 mov r2,r0
+  83 0048 0B46     	 mov r3,r1
+  84 004a 1046     	 mov r0,r2
+  85 004c 1946     	 mov r1,r3
+  86 004e 18A3     	 adr r3,.L2+8
+  87 0050 D3E90023 	 ldrd r2,[r3]
+  88 0054 FFF7FEFF 	 bl __aeabi_ddiv
+  89 0058 0246     	 mov r2,r0
+  90 005a 0B46     	 mov r3,r1
+  91 005c 1B49     	 ldr r1,.L2+36
+  92 005e C1E90023 	 strd r2,[r1]
+  11:../ADC.c      **** 	rtU_temp.Versorgungsspannung=3.3;
+  93              	 .loc 1 11 0
+  94 0062 1A49     	 ldr r1,.L2+36
+  95 0064 14A3     	 adr r3,.L2+16
+  96 0066 D3E90023 	 ldrd r2,[r3]
+  97 006a C1E90223 	 strd r2,[r1,#8]
+  12:../ADC.c      **** 	LCD.IstVolt=(float)ADC.ADCVolt/1000;
+  98              	 .loc 1 12 0
+  99 006e 154B     	 ldr r3,.L2+28
+ 100 0070 5B88     	 ldrh r3,[r3,#2]
+ 101 0072 07EE903A 	 fmsr s15,r3
+ 102 0076 F8EE677A 	 fuitos s15,s15
+ 103 007a 9FED157A 	 flds s14,.L2+40
+ 104 007e C7EE877A 	 fdivs s15,s15,s14
+ 105 0082 144B     	 ldr r3,.L2+44
+ 106 0084 C3ED017A 	 fsts s15,[r3,#4]
+  13:../ADC.c      **** 	Temperatur_step();
+ 107              	 .loc 1 13 0
+ 108 0088 FFF7FEFF 	 bl Temperatur_step
+  14:../ADC.c      **** 	LCD.IstTemp=(float)rtY_temp.TEMP_CELSIUS;
+ 109              	 .loc 1 14 0
+ 110 008c 124B     	 ldr r3,.L2+48
+ 111 008e D3E90023 	 ldrd r2,[r3]
+ 112 0092 1046     	 mov r0,r2
+ 113 0094 1946     	 mov r1,r3
+ 114 0096 FFF7FEFF 	 bl __aeabi_d2f
+ 115 009a 0246     	 mov r2,r0
+ 116 009c 0D4B     	 ldr r3,.L2+44
+ 117 009e 9A60     	 str r2,[r3,#8]
+  15:../ADC.c      **** }
+ 118              	 .loc 1 15 0
+ 119 00a0 80BD     	 pop {r7,pc}
+ 120              	.L3:
+ 121 00a2 00BFAFF3 	 .align 3
+ 121      0080
+ 122              	.L2:
+ 123 00a8 295C8FC2 	 .word -1030792151
+ 124 00ac F528F43F 	 .word 1072965877
+ 125 00b0 00000000 	 .word 0
+ 126 00b4 00B09340 	 .word 1083420672
+ 127 00b8 66666666 	 .word 1717986918
+ 128 00bc 66660A40 	 .word 1074423398
+ 129 00c0 00000000 	 .word ADC_MEASUREMENT_Channel_A_handle
+ 130 00c4 00000000 	 .word ADC
+ 131 00c8 00000000 	 .word ADC_MEASUREMENT_Channel_B_handle
+ 132 00cc 00000000 	 .word rtU_temp
+ 133 00d0 00007A44 	 .word 1148846080
+ 134 00d4 00000000 	 .word LCD
+ 135 00d8 00000000 	 .word rtY_temp
+ 136              	 .cfi_endproc
+ 137              	.LFE399:
+ 139 00dc AFF30080 	 .text
+ 140              	.Letext0:
+ 141              	 .file 2 "c:\\users\\administrator\\documents\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 142              	 .file 3 "c:\\users\\administrator\\documents\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 143              	 .file 4 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Infineon/XMC4500_series/Include/XMC4500.h"
+ 144              	 .file 5 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/XMCLib/inc/xmc_vadc.h"
+ 145              	 .file 6 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/ADC_MEASUREMENT/adc_measurement.h"
+ 146              	 .file 7 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Buttons.h"
+ 147              	 .file 8 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Posif_BLDC.h"
+ 148              	 .file 9 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/LCD.h"
+ 149              	 .file 10 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/rtwtypes.h"
+ 150              	 .file 11 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Temperatur.h"
+ 151              	 .file 12 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/ADC.h"
+ 152              	 .file 13 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Include/core_cm4.h"
+ 153              	 .file 14 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Libraries/CMSIS/Infineon/XMC4500_series/Include/system_XMC4500.h"
+ 154              	 .file 15 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Dave/Generated/ADC_MEASUREMENT/ADC_MEASUREMENT_Extern.h"
+ 155              	 .file 16 "C:/Users/Administrator/Documents/DAVE-IDE-4.4.2-64Bit/eclipse/workspace/DTProjectv5/Speed.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 ADC.c
+                            *COM*:00000007 BTN
+                            *COM*:0000000c Posifval
+                            *COM*:00000002 speedindex
+                            *COM*:00000001 Hall1_status
+                            *COM*:00000002 hallint_count
+                            *COM*:00000002 lasthallint_count
+                            *COM*:00000004 revolves_counter
+                            *COM*:00000010 LCD
+                            *COM*:00000004 ADC
+    {standard input}:34     .text.ADChandler:00000000 $t
+    {standard input}:39     .text.ADChandler:00000000 ADChandler
+    {standard input}:123    .text.ADChandler:000000a8 $d
+                     .debug_frame:00000010 $d
+    {standard input}:139    .text.ADChandler:000000dc $t
+
+UNDEFINED SYMBOLS
+__aeabi_i2d
+__aeabi_ddiv
+__aeabi_d2uiz
+__aeabi_ui2d
+__aeabi_d2f
+ADC_MEASUREMENT_GetResult
+Temperatur_step
+ADC_MEASUREMENT_Channel_A_handle
+ADC_MEASUREMENT_Channel_B_handle
+rtU_temp
+rtY_temp
